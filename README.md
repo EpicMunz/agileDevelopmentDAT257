@@ -1,4 +1,4 @@
-# agileDevelopmentDAT257
+# Booking system for MK
 Swatch Pager-gruppens repo
 
 Background:
