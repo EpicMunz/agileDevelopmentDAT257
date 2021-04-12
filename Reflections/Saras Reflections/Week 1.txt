@@ -1,0 +1,54 @@
+... the current situation or "what is" (A),
+... what you want the situation to be or "what might or should be" (B), and
+... a plan for getting from where you are to where you want to be or "feedback designed to reduce the gap" (A -> B).
+
+
+What do I want to learn or understand better?
+A. 
+I'm still not that good at programming, which is what I want to improve, especially in a larger project. 
+The whole process of software development with Scrum is something I want to understand better this week. 
+
+B.
+I want to be secure in the Scrum process and what we're actually gonna do in the project. Refresh other courses 
+that will be of help in this project. 
+
+C.
+Programming on my spare time and look back at relevant courses to refresh. Reading a bit more about how
+Scrum works. 
+
+
+How can I help someone else, or the entire team, to learn something new?
+A.
+Firstly making sure that the "new something" is relevant and then provide with links/information that 
+could be useful for learning it. 
+
+B.
+Ideal would be if everyone feels sure about the programs that will be used.
+
+C.
+If having an idea, speak up about it. Doing things together in the programs to teach and learn from each other.
+
+
+What is my contribution towards the team’s use of Scrum?
+A.
+First I have to understand it to actually be of any use. 
+
+B.
+Being able to implement it completely in our work.
+
+C.
+Read about how it works, connecting it to our project. 
+
+
+What is my contribution towards the team’s deliveries?
+A.
+Doing my part efficiently and check if the whole team is somewhat on track on our timeline plan. 
+
+B.
+Being more independant in my role and being of help for the others if they need it. Being honest when 
+I'm having a hard time or won't be done in time. 
+
+C.
+Understanding completely what we are supposed to do as a group and what I need to do as an individual. 
+Being verbal if I do have time to help others that particular time. Getting comfortable speaking up if 
+knowledge or time is lacking. 
