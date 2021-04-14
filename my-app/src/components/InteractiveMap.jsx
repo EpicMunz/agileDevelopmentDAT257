@@ -5,9 +5,9 @@ export default class InteractiveMap extends Component {
 
   render() {
     return (
-      <React.Fragment>
-        <h1 className="badge badge-primary">This is a map</h1>
-      </React.Fragment>
+      <div className="text-center">
+        <h1 className="badge badge-primary my-5" >This is a map</h1>
+      </div>
     );
   }
 }

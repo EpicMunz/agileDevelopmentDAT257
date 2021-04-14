@@ -6,7 +6,10 @@ import reportWebVitals from './reportWebVitals';
 import InteractiveMap from './components/InteractiveMap'
 
 ReactDOM.render(
-  <InteractiveMap/>,
+  <div>
+    <App/>
+    <InteractiveMap/>
+  </div>,
   document.getElementById('root')
 );
 
