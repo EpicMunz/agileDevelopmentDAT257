@@ -9,19 +9,23 @@ export default class InteractiveMap extends Component {
 //This makes it so that the map is created with a focus over Chalmers university
     constructor(props) {
         super(props);
-        this.state = { viewport: {
+        this.state = {
+        viewport: {
             latitude: 57.688610,
             longitude: 11.978938,
             width: "100vw",
             height: "100vh",
             zoom: 16
-            }
+            },
+         selectedPremise: null
         };
+
     }
 
 
     render() {
         return (
+
         <div>
             <ReactMapGl {...this.state.viewport}
             //Restyles the map, this one is called satellite but there are many styles to chose from
@@ -40,6 +44,7 @@ export default class InteractiveMap extends Component {
             >
                 <button className="marker-btn" onClick={(e) => {
                 e.preventDefault();
+                this.state.selectedPremise = premises;
 
                 }}>
                     <img src="redButton.png" alt="Premise button" />
@@ -49,24 +54,19 @@ export default class InteractiveMap extends Component {
 
 
 
-{/*
-           {selectedPremise ? (
-            <Popup
-            latitude={selectedPremise.geometry.coordinates[0]}
-            longitude={selectedPremise.geometry.coordinates[1]}
 
+           {this.state.selectedPremise ? (
+            <Popup
+            latitude={this.state.selectedPremise.geometry.coordinates[0]}
+            longitude={this.state.selectedPremise.geometry.coordinates[1]}
             >
                 <div>
-                    WA
+                    <h2>{this.state.selectedPremise.properties.NAME}</h2>
+                    <p>{this.state.selectedPremise.properties.NOTES} </p>
+                    <p>{this.state.selectedPremise.properties.FACILITY}</p>
                 </div>
             </Popup>
             ) : null}
-            */}
-
-
-
-
-
             </ReactMapGl>
         </div>
         );
