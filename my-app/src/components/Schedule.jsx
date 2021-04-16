@@ -11,7 +11,7 @@ import { extend, createElement , isNullOrUndefined} from '@syncfusion/ej2-base';
 import { DateTimePickerComponent } from '@syncfusion/ej2-react-calendars';
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 
-export default class App extends React.Component<{}, {}> {
+export default class App extends React.Component {
 
         //Is called when cell with appointment is being rendered
         onEventRendered(args) {
