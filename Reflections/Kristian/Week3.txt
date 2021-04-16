@@ -1,0 +1,42 @@
+... the current situation or "what is" (A),
+... what you want the situation to be or "what might or should be" (B), and
+... a plan for getting from where you are to where you want to be or "feedback designed to reduce the gap" (A -> B).
+
+
+What do I want to learn or understand better?
+A. 
+I am starting to grasp the fundamentals of React.js
+
+B.
+I want to be able to develop simple applications independently.
+C.
+Use available resources to keep learning.
+
+
+How can I help someone else, or the entire team, to learn something new?
+A.
+Telling them if I found something useful!
+B.
+
+C.
+
+
+What is my contribution towards the team’s use of Scrum?
+A.
+Doing my assigned tasks, and making sure everything is commented alright.
+
+B.
+Being able to implement it completely in our work.
+
+C.
+
+
+
+What is my contribution towards the team’s deliveries?
+A.
+Doing my part and check if the documentation is acceptable.
+
+B.
+Doing my tasks more efficient and more independently.
+C.
+Keep on using resources to learn!
