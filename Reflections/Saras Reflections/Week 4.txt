@@ -1,0 +1,38 @@
+... the current situation or "what is" (A),
+... what you want the situation to be or "what might or should be" (B), and
+... a plan for getting from where you are to where you want to be or "feedback designed to reduce the gap" (A -> B).
+
+
+what do I want to learn or understand better?
+A. I don't really know much HTML, CSS or REACT right now. Not very good how to use or get imports such as 
+other packages and such.
+
+B. To do the header and other things for the webapp I should learn HTML, CSS and REACT.
+
+C. Through tutorials on the net and just trying things by myself should improve my knowledge in the languages.
+
+
+how can I help someone else, or the entire team, to learn something new?
+A. Right now I don't think I would be of much help, as we are all learning react.
+
+B. If I've found something that will help in learning this new language sharing is a given.
+
+C. Looking up tutorials both with videos and how to's.
+
+
+what is my contribution towards the team’s use of Scrum?
+A. Checking my tasks and doing them.
+
+B. Do it correctly so that I don´t have to redo anything. To make sure I do my tasks and 
+do the right documenting.
+
+C. Double check what's supposed to be done and be meticulous in document. 
+
+
+what is my contribution towards the team’s deliveries?
+A. Looking up and starting my task.
+
+B. Be done with my task and done it well with good documenting. 
+
+C. Understanding the task. With the help of add ons and other things will do the task. 
+
