@@ -4,41 +4,41 @@
 
 
 what do I want to learn or understand better?
-A. 
-I'm still not that good at programming, which is what I want to improve, especially in a larger project. 
+A. The Monday exercise gave me better view of how Scrum works, actually seeing how the work is connected 
+with the Trello. I also came to terms with a few details in our projekt, that I didn't know before.
 
-B.
+B. Sure got a better view of it but I still want to be able to implement it in our work better. I need to grasp 
+what my part (concrete) is in this project.
 
-
-C.
+C. Meeting within the group to specify what every individual shall do will help. Look at the course material and 
+try to think of it while working. 
 
 
 how can I help someone else, or the entire team, to learn something new?
-A.
+A. We haven't really started with anything new to learn so I still have my initial abilities 
+from before this course.
 
+B. If I can I will try my best to help if others struggle with something. 
 
-B.
-
-
-C.
+C. Check-ups with everyone, what went well and what didn't. Does anyone need help?
 
 
 what is my contribution towards the team’s use of Scrum?
-A.
+A. I've got a better idea of what it is and how to use it, though still a bit unsure with a few things, sprints 
+and such.
 
+B. Being able to implement it better in our project without having to look how to. That means that I should know it
+like the back of my hand and not being lost. 
 
-B.
-
-
-C.
+C. Look throught the course material. I guess tutorials on youtube always works, rather then just reading about it.
 
 
 what is my contribution towards the team’s deliveries?
-A.
+A. I think my contribution in programming will be less than most of the others as I've studied programming less
+than they have. 
 
+B. I want to be more confident in my learning of what will be used in this project, I would be able to do my work
+better and contribute better. 
 
-B.
-
-
-C.
+C. Try not to feel inferior in terms of programming and just get handsy on those parts. 
 
