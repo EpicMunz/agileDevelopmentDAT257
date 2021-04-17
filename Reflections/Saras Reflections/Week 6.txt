@@ -1,0 +1,44 @@
+... the current situation or "what is" (A),
+... what you want the situation to be or "what might or should be" (B), and
+... a plan for getting from where you are to where you want to be or "feedback designed to reduce the gap" (A -> B).
+
+
+what do I want to learn or understand better?
+A. 
+I'm still not that good at programming, which is what I want to improve, especially in a larger project. 
+
+B.
+
+
+C.
+
+
+how can I help someone else, or the entire team, to learn something new?
+A.
+
+
+B.
+
+
+C.
+
+
+what is my contribution towards the team’s use of Scrum?
+A.
+
+
+B.
+
+
+C.
+
+
+what is my contribution towards the team’s deliveries?
+A.
+
+
+B.
+
+
+C.
+
