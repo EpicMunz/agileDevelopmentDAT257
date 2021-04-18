@@ -17,8 +17,8 @@ import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
 export default class App extends React.Component {
   //Is called when cell with appointment is being rendered
   onEventRendered(args) {
-    if (args.data.Owner === "Nollkit") {
-      args.element.style.backgroundColor = "#09cdda";
+    if (args.data.Owner === "Nollkit") {                  //Determines the value of the Owner attribute in 
+      args.element.style.backgroundColor = "#09cdda";     //Sets color of cell accordingly
     } else if (args.data.Owner === "DNOLLK") {
       args.element.style.backgroundColor = "green";
     } else {
@@ -28,27 +28,27 @@ export default class App extends React.Component {
   //Creates a popup when double clicking a cell
   onPopupOpen(args) {
     if (args.type === "Editor") {
-      let subjectElement = args.element.querySelector("#Summary");
+      let subjectElement = args.element.querySelector("#Summary");  //Saves the text from the summary field in Editor
       if (subjectElement) {
-        subjectElement.value = args.data.Subject || "";
+        subjectElement.value = args.data.Subject || "";             //What we receive is saved as value in subjectElement
       }
-      let ownerElement = args.element.querySelector("#Owner");
+      let ownerElement = args.element.querySelector("#Owner");      //Saves the text from the hidden owner field in Editor
       if (ownerElement) {
-        ownerElement.value = args.data.Owner || "";
+        ownerElement.value = args.data.Owner || "";                 //What we receive is saved as value in ownerElement
       }
     }
   }
-  //When the popup closes
+  //When the popup closes, we use sessionStorage to determine who is currently the owner and add accodingly
   onPopupClose(args) {
     if (args.type === "Editor" && !isNullOrUndefined(args.data)) {
       let subjectElement = args.element.querySelector("#Summary");
       if (subjectElement) {
         args.data.Subject =
-          subjectElement.value + " - " + sessionStorage.getItem("owner");
+          subjectElement.value + " - " + sessionStorage.getItem("owner");     //Appends " - " + owner after printing summary value
       }
       let ownerElement = args.element.querySelector("#Owner");
       if (ownerElement) {
-        args.data.Owner = sessionStorage.getItem("owner");
+        args.data.Owner = sessionStorage.getItem("owner");                    //set owner of cell from sessionStorage
       }
     }
   }
@@ -61,7 +61,7 @@ export default class App extends React.Component {
       >
         <tbody>
           <tr>
-            <td className="e-textlabel">Summary</td>
+            <td className="e-textlabel">Summary</td>  {/*"summary" entry here*/}
             <td colSpan={4}>
               <input
                 id="Summary"
@@ -73,7 +73,7 @@ export default class App extends React.Component {
             </td>
           </tr>
           <tr>
-            <td className="e-textlabel"></td>
+            <td className="e-textlabel"></td>         {/*hidden owner entry here through sessionStorage to Owner id*/}
             <td colSpan={4}>
               <input
                 id="Owner"
@@ -85,7 +85,7 @@ export default class App extends React.Component {
             </td>
           </tr>
           <tr>
-            <td className="e-textlabel">From</td>
+            <td className="e-textlabel">From</td>     {/*"from" entry here*/}
             <td colSpan={4}>
               <DateTimePickerComponent
                 format="dd/MM/yy hh:mm a"
@@ -97,7 +97,7 @@ export default class App extends React.Component {
             </td>
           </tr>
           <tr>
-            <td className="e-textlabel">To</td>
+            <td className="e-textlabel">To</td>       {/*"to" entry here*/}
             <td colSpan={4}>
               <DateTimePickerComponent
                 format="dd/MM/yy hh:mm a"
@@ -115,7 +115,7 @@ export default class App extends React.Component {
     );
   }
   render() {
-    sessionStorage.setItem("owner", "Nollkit");
+    sessionStorage.setItem("owner", "Nollkit");             //Updates sessionStorage each render
 
     //Returns the necessary html code to render schedule
     return (
@@ -124,7 +124,7 @@ export default class App extends React.Component {
         width="100%"
         height="550px"
         currentView="Week"
-        selectedDate={new Date(2017, 11, 15)}
+        selectedDate={new Date()}
         timeScale={{ enable: true, interval: 60, slotCount: 1 }}
         editorTemplate={this.editorTemplate.bind(this)}
         showQuickInfo={false}
