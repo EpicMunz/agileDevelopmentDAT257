@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDom from "react-dom";
 
 //Importing from syncfusion api for schedule
 import {
@@ -12,16 +11,15 @@ import {
   ViewDirective,
   TimelineViews,
 } from "@syncfusion/ej2-react-schedule";
-import { extend, createElement, isNullOrUndefined } from "@syncfusion/ej2-base";
+import { isNullOrUndefined } from "@syncfusion/ej2-base";
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
-import { DropDownListComponent } from "@syncfusion/ej2-react-dropdowns";
 
 export default class App extends React.Component {
   //Is called when cell with appointment is being rendered
   onEventRendered(args) {
-    if (args.data.Owner == "Nollkit") {
+    if (args.data.Owner === "Nollkit") {
       args.element.style.backgroundColor = "#09cdda";
-    } else if (args.data.Owner == "DNOLLK") {
+    } else if (args.data.Owner === "DNOLLK") {
       args.element.style.backgroundColor = "green";
     } else {
       args.element.style.backgroundColor = "blue";

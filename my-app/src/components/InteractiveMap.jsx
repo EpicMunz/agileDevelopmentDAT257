@@ -35,7 +35,7 @@ export default class InteractiveMap extends Component {
             this.setState({ viewport });
           }}
         >
-          //Shows our locations on the map
+          {/*Shows our locations on the map*/}
           {locations.features.map((premises) => (
             <Marker
               key={premises.properties.LOCATION_ID}
