@@ -56,7 +56,7 @@ export default class InteractiveMap extends Component {
               </button>
             </Marker>
           ))}
-          //If a button is clicked a popup window is created at that location on the map
+          {/*If a button is clicked a popup window is created at that location on the map*/}
           {this.state.selectedPremise ? (
             <Popup
               latitude={this.state.selectedPremise.geometry.coordinates[0]}
