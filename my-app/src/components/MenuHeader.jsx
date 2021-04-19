@@ -13,9 +13,9 @@ export default class MenuHeader extends Component {
           <div className="logo" />
           <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
             <img //Leftmost image, should be of the users program
-              src={`${process.env.PUBLIC_URL}indek.png`}
-              width="50"
-              height="50"
+              src={`${process.env.PUBLIC_URL}finlogga.png`}
+              width="140"
+              height="55"
               alt="sektionslogga"
             />
             <SubMenu key="sub1" title="Profil"> 
