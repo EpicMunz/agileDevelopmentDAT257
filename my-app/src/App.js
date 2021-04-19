@@ -10,7 +10,6 @@ import BookingPageContainer from "./components/bookingPage/BookingPageContainer"
 function App() {
   return (
     <div>
-
       <MenuHeader />
       <BookingPageContainer/>
     </div>
