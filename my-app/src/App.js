@@ -3,19 +3,54 @@ import "./App.css";
 import InteractiveMap from "./components/InteractiveMap";
 import MenuHeader from "./components/MenuHeader";
 import Schedule from "./components/Schedule";
-import BookingPageContainer from "./components/bookingPage/BookingPageContainer";
+import LogInPage from "./components/LogInPage";
+import React, { Component } from "react";
 
 //This is the file for App Component. App Component is the main component in React which acts as a container for all other components.
 
+class App extends Component{
+    constructor(props){
+        super(props);
+        this.state = { isLoggedIn: false };
+}
+
+render() {
+var foo = Boolean(false);
+
+//this.state.isLoggedIn = LogInPage.loggedIn;
+
+    return ( this.state.isLoggedIn ?
+     <div>
+        <MenuHeader/>
+        <InteractiveMap/>
+        <Schedule/>
+      </div> :
+       <div>
+        <MenuHeader/>
+        {/*<LogInPage loginData={this.state.isLoggedIn}/>*/}
+
+       </div>
+
+
+    );
+}
+}
+
+
+
+
+/*
 function App() {
-  return (
+
+  return ( this.state.isLoggedIn &&
     <div>
       <MenuHeader />
       <InteractiveMap />
       <Schedule />
-      <BookingPageContainer/>
     </div>
   );
 }
+*/
 
 export default App;
+
