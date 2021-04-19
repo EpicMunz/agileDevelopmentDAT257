@@ -19,6 +19,7 @@ var foo = Boolean(false);
 
 //this.state.isLoggedIn = LogInPage.loggedIn;
 
+
     return ( this.state.isLoggedIn ?
      <div>
         <MenuHeader/>
