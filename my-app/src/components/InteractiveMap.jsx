@@ -25,7 +25,10 @@ export default class InteractiveMap extends Component {
         <ReactMapGl
           {...this.state.viewport}
           //Restyles the map, this one is called satellite but there are many styles to chose from
-          mapStyle="mapbox://styles/zneed/cknk41gmn04hw18mc0egyl2im"
+          //Satellite view
+          //mapStyle="mapbox://styles/zneed/cknk41gmn04hw18mc0egyl2im"
+          //Basic view
+          mapStyle="mapbox://styles/zneed/cknob180n4u8p17ny8h3qm0xr"
           //This accesses the mapBox(google map) token
           mapboxApiAccessToken={
             "pk.eyJ1Ijoiem5lZWQiLCJhIjoiY2tuaGpydWFqM2ZqMDJvbng5MHRudGY4OSJ9.D11Dq-An0CoSaUa4JPzQbQ"
