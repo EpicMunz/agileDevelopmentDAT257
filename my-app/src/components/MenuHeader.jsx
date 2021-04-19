@@ -25,7 +25,7 @@ export default class MenuHeader extends Component {
                 <Menu.Item key="4">Logga ut</Menu.Item>
               </Menu.ItemGroup>
             </SubMenu>
-            <Menu.Item key="1">Startsida</Menu.Item>
+            <Menu.Item key="1">Mina Bokningar</Menu.Item>
             <Menu.Item key="2">Karta</Menu.Item>
           </Menu>
         </Header>

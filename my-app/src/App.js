@@ -12,8 +12,6 @@ function App() {
     <div>
 
       <MenuHeader />
-      <InteractiveMap />
-      <Schedule />
       <BookingPageContainer/>
     </div>
   );
