@@ -12,14 +12,15 @@ export default class MenuHeader extends Component {
         <Header>
           <div className="logo" />
           <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
-            <img
+            <img //Leftmost image, should be of the users program
               src={`${process.env.PUBLIC_URL}indek.png`}
               width="50"
               height="50"
               alt="sektionslogga"
             />
-            <SubMenu key="sub1" title="Profil">
-              <Menu.ItemGroup key="g1">
+            <SubMenu key="sub1" title="Profil"> 
+              <Menu.ItemGroup key="g1" //Dropdown menu under "Profil"
+              >
                 <Menu.Item key="3">Användare</Menu.Item>
                 <Menu.Item key="4">Logga ut</Menu.Item>
               </Menu.ItemGroup>
