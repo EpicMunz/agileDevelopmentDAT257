@@ -38,7 +38,7 @@ export default class InteractiveMap extends Component {
             this.setState({ viewport });
           }}
         >
-          {/*Shows our locations on the map*/}
+          {/*Shows our locations on the map with a button, created an event on the button to make it interactable*/}
           {locations.features.map((premises) => (
             <Marker
               key={premises.properties.LOCATION_ID}
@@ -56,6 +56,7 @@ export default class InteractiveMap extends Component {
               </button>
             </Marker>
           ))}
+          //If a button is clicked a popup window is created at that location on the map
           {this.state.selectedPremise ? (
             <Popup
               latitude={this.state.selectedPremise.geometry.coordinates[0]}
