@@ -11,7 +11,7 @@ import React, { Component } from "react";
 class App extends Component{
     constructor(props){
         super(props);
-        this.state = { isLoggedIn: false };
+        this.state = { isLoggedIn: true};
 }
 
 render() {
@@ -20,15 +20,16 @@ var foo = Boolean(false);
 //this.state.isLoggedIn = LogInPage.loggedIn;
 
 
+
     return ( this.state.isLoggedIn ?
      <div>
         <MenuHeader/>
-        <InteractiveMap/>
+
         <Schedule/>
       </div> :
        <div>
         <MenuHeader/>
-        {/*<LogInPage loginData={this.state.isLoggedIn}/>*/}
+        <LogInPage loginData={this.state.isLoggedIn}/>
 
        </div>
 

@@ -1,5 +1,4 @@
-import React from "react";
-
+import React,{Component} from 'react';
 //Importing from syncfusion api for schedule
 import {
   ScheduleComponent,
@@ -15,6 +14,14 @@ import { isNullOrUndefined } from "@syncfusion/ej2-base";
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
 
 export default class App extends React.Component {
+
+
+  constructor(){
+    super(...arguments);
+    //loads in saved jsondata from localStorage
+    this.data = JSON.parse(localStorage.getItem("jsondata"));
+    }
+
   //Is called when cell with appointment is being rendered
   onEventRendered(args) {
     if (args.data.Owner === "Nollkit") {                  //Determines the value of the Owner attribute in 
@@ -24,6 +31,8 @@ export default class App extends React.Component {
     } else {
       args.element.style.backgroundColor = "blue";
     }
+    //stringifies javascript object array schedule data to json and stores it in localStorage
+    localStorage.setItem("jsondata",JSON.stringify(this.data));
   }
   //Creates a popup when double clicking a cell
   onPopupOpen(args) {
@@ -50,6 +59,7 @@ export default class App extends React.Component {
       if (ownerElement) {
         args.data.Owner = sessionStorage.getItem("owner");                    //set owner of cell from sessionStorage
       }
+
     }
   }
   //returns the custom made popup appointment editor
@@ -131,6 +141,7 @@ export default class App extends React.Component {
         popupOpen={this.onPopupOpen.bind(this)}
         popupClose={this.onPopupClose.bind(this)}
         eventRendered={this.onEventRendered.bind(this)}
+        eventSettings={{dataSource: this.data}}
       >
         <ViewsDirective>
           <ViewDirective option="Day" startHour="00:00" endHour="00:00" />
