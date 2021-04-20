@@ -19,8 +19,13 @@ export default class App extends React.Component {
   constructor(){
     super(...arguments);
     //loads in saved jsondata from localStorage
-    this.data = JSON.parse(localStorage.getItem("jsondata"));
+    var location = "geniknölen";
+    if(!localStorage.getItem("geniknölen")){
+        var dataTemp = [];
+        localStorage.setItem("geniknölen", JSON.stringify(dataTemp));
     }
+    this.data = JSON.parse(localStorage.getItem("geniknölen"));
+  }
 
   //Is called when cell with appointment is being rendered
   onEventRendered(args) {
@@ -32,7 +37,8 @@ export default class App extends React.Component {
       args.element.style.backgroundColor = "blue";
     }
     //stringifies javascript object array schedule data to json and stores it in localStorage
-    localStorage.setItem("jsondata",JSON.stringify(this.data));
+    localStorage.setItem("geniknölen", JSON.stringify(this.data));
+
   }
   //Creates a popup when double clicking a cell
   onPopupOpen(args) {
