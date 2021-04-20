@@ -9,6 +9,9 @@ import {
   ViewsDirective,
   ViewDirective,
   TimelineViews,
+  Resize,
+  DragAndDrop,
+  ExcelExport
 } from "@syncfusion/ej2-react-schedule";
 import { isNullOrUndefined } from "@syncfusion/ej2-base";
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
@@ -25,6 +28,19 @@ export default class App extends React.Component {
         localStorage.setItem("geniknölen", JSON.stringify(dataTemp));
     }
     this.data = JSON.parse(localStorage.getItem("geniknölen"));
+  }
+  //Handles the exporting of excel file for the schedule
+  onActionBegin(args) {
+          if (args.requestType === 'toolbarItemRendering') {
+              let exportItem = {
+                  align: 'Right', showTextOn: 'Both', prefixIcon: 'e-icon-schedule-excel-export',
+                  text: 'Excel Export', cssClass: 'e-excel-export', click: this.onExportClick.bind(this)
+              };
+              args.items.push(exportItem);
+          }
+      }
+  onExportClick() {
+      this.scheduleObj.exportToExcel();
   }
 
   //Is called when cell with appointment is being rendered
@@ -136,6 +152,7 @@ export default class App extends React.Component {
     //Returns the necessary html code to render schedule
     return (
       <ScheduleComponent
+        cssClass='excel-export'
         ref={(t) => (this.scheduleObj = t)}
         width="100%"
         height="550px"
@@ -148,13 +165,14 @@ export default class App extends React.Component {
         popupClose={this.onPopupClose.bind(this)}
         eventRendered={this.onEventRendered.bind(this)}
         eventSettings={{dataSource: this.data}}
+        actionBegin={this.onActionBegin.bind(this)}
       >
         <ViewsDirective>
           <ViewDirective option="Day" startHour="00:00" endHour="00:00" />
           <ViewDirective option="Week" startHour="00:00" endHour="00:00" />
           <ViewDirective option="Month" />
         </ViewsDirective>
-        <Inject services={[Day, Week, Month, TimelineViews]} />
+        <Inject services={[Day, Week, Month, TimelineViews, Resize, DragAndDrop, ExcelExport]} />
       </ScheduleComponent>
     );
   }
