@@ -25,7 +25,8 @@ var foo = Boolean(false);
     return ( this.state.isLoggedIn ?
      <div>
         <MenuHeader/>
-        <Schedule/>
+
+        <BookingPage/>
       </div> :
        <div>
         <MenuHeader/>
