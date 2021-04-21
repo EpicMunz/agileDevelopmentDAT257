@@ -7,6 +7,13 @@ const { Content, Sider } = Layout;
 //Structure: BookingPageContainer -> BookingPane -> BookingListItem
 export default class BookingPageContainer extends Component {
   state = {};
+  /*
+  Some pseudocode for how this could work (when its not hard coded):
+  1.Get the title of the menu item (probably via its key)
+  2.Pass this as a string to the bookingPane, call it maybe selectedLocation
+  3.The bookingPane parses the JSON file as:
+     this.section (ex "Nollkit")->selectedLocation->bookings[i]->event,date,time etc...
+  */
   render() {
     return (
       <React.Fragment>

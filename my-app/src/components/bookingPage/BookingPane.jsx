@@ -12,7 +12,7 @@ class BookingPane extends Component {
   }
   
   getData = () =>{
-    const x = datasource.nollkit.bookings[0];
+    const x = datasource.nollkit.geniknölen.bookings[0];
     this.setState({eventName: x.evtname, date:x.d, time:x.t}); 
     // Above sets the fields (note: its equal to eventName = x.evtname, but this is good practice)
   }
