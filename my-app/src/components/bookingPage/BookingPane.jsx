@@ -6,15 +6,13 @@ import datasource from "./dummy.json";
 class BookingPane extends Component {
   state = { eventName: undefined, date:undefined, time:undefined};
 
-  constructor() {
-    super();
+  componentDidMount(){
     this.getData();
   }
   
   getData = () =>{
     const x = datasource.nollkit.bookings[0];
-    this.setState({eventName: "random", date:x.d, time:x.t});
-    console.log(x.evtname)
+    this.setState({eventName: x.evtname, date:x.d, time:x.t});
   }
   render() {
     
