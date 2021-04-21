@@ -6,7 +6,18 @@ import BookingPane from "./BookingPane";
 const { Content, Sider } = Layout;
 //Structure: BookingPageContainer -> BookingPane -> BookingListItem
 export default class BookingPageContainer extends Component {
-  state = {};
+
+  constructor(props){
+  		super(props);
+  		this.state = {location: null}
+  		this.handleClick = this.handleClick.bind(this);
+  	}
+  //Saves the new location
+  handleClick(newLocation){
+    this.setState(state => ({
+        location: newLocation
+    }));
+  }
   render() {
     return (
       <React.Fragment>
@@ -20,20 +31,33 @@ export default class BookingPageContainer extends Component {
           >
             <Menu // The menu contains the different locations as items
               style={{ height: "100%", borderRight: 0 }}
-              defaultSelectedKeys={["geniknölen"]}
+              defaultSelectedKeys={["0"]}
               mode="inline"
             >
-              <Menu.Item key="geniknölen">Geniknölen</Menu.Item>
-              <Menu.Item key="kemigården">Kemigården</Menu.Item>
-              <Menu.Item key="vasaparken">Vasaparken</Menu.Item>
-              <Menu.Item key="deltaparken">Deltaparken</Menu.Item>
+              <Menu.Item key="1">
+                  <a onClick={() => this.handleClick("Geniknölen")}>
+                    GeniKnölen
+                  </a></Menu.Item>
+              <Menu.Item key="2">
+                  <a onClick={() => this.handleClick("Kemigården")}>
+                    Kemigården
+                 </a></Menu.Item>
+              <Menu.Item key="3">
+                  <a onClick={() => this.handleClick("Vasaparken")}>
+                    Vasaparken
+                 </a></Menu.Item>
+              <Menu.Item key="4">
+                  <a color="green" onClick={() => this.handleClick("Deltaparken")}>
+                    Deltaparken
+                 </a></Menu.Item>
             </Menu>
           </Sider>
           <Content
             className="site-layout-background"
             style={{ padding: 24, margin: 0 }}
           >
-            <BookingPane //The bookings are shown in the BookingPane
+            <BookingPane
+            location = {this.state.location}
             />
           </Content>
         </Layout>

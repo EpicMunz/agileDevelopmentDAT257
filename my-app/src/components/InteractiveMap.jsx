@@ -17,6 +17,11 @@ export default class InteractiveMap extends Component {
       },
       selectedPremise: null,
     };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(location){
+    this.props.onLocationChange(location);
   }
 
   render() {
@@ -66,6 +71,9 @@ export default class InteractiveMap extends Component {
                 <h2>{this.state.selectedPremise.properties.NAME}</h2>
                 <p>{this.state.selectedPremise.properties.NOTES} </p>
                 <p>{this.state.selectedPremise.properties.FACILITY}</p>
+                <a className="boka-tid-knapp" onClick={() => this.handleClick(this.state.selectedPremise.properties.NAME)}>
+                   Boka tid
+                </a>
               </div>
             </Popup>
           ) : null}

@@ -19,18 +19,19 @@ import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
 export default class App extends React.Component {
 
 
-  constructor(){
-    super(...arguments);
+  constructor(props){
+    super(props);
     //loads in saved jsondata from localStorage
-    var location = "geniknölen";
-    if(!localStorage.getItem("geniknölen")){
+    this.state = {location: this.props.location}
+    if(!localStorage.getItem(this.state.location)){
         var dataTemp = [];
-        localStorage.setItem("geniknölen", JSON.stringify(dataTemp));
+        localStorage.setItem(this.state.location, JSON.stringify(dataTemp));
     }
-    this.data = JSON.parse(localStorage.getItem("geniknölen"));
+    this.data = JSON.parse(localStorage.getItem(this.state.location));
   }
-  //Handles the exporting of excel file for the schedule
+
   onActionBegin(args) {
+      //Adds the excel export button to the toolbar
       if (args.requestType === 'toolbarItemRendering') {
           let exportItem = {
               align: 'Right', showTextOn: 'Both', prefixIcon: 'e-icon-schedule-excel-export',
@@ -38,6 +39,7 @@ export default class App extends React.Component {
           };
           args.items.push(exportItem);
       }
+      //Checks if current clicked appointment is empty
       if (args.requestType === 'eventCreate' && args.data.length > 0) {
           let eventData = args.data[0];
           let eventField = this.scheduleObj.eventFields;
@@ -47,19 +49,7 @@ export default class App extends React.Component {
           args.cancel = !this.scheduleObj.isSlotAvailable(startDate, endDate);
       }
   }
-  onRenderCell(args) {
-      if (args.elementType == 'workCells') {
-          let weekEnds = [0, 6];
-          if (weekEnds.indexOf((args.date).getDay()) >= 0) {
-              let ele = createElement('div', {
-                  innerHTML: "<p>"+sessionStorage.getItem("owner")+"</p>",
-                  className: 'templatewrap'
-              });
-              (args.element).appendChild(ele);
-          }
-      }
-  }
-
+  //exports current schedule data to excel document
   onExportClick() {
       this.scheduleObj.exportToExcel();
   }
@@ -74,7 +64,7 @@ export default class App extends React.Component {
       args.element.style.backgroundColor = "blue";
     }
     //stringifies javascript object array schedule data to json and stores it in localStorage
-    localStorage.setItem("geniknölen", JSON.stringify(this.data));
+    localStorage.setItem(this.state.location, JSON.stringify(this.data));
 
   }
   //Creates a popup when double clicking a cell

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import InteractiveMap from "./InteractiveMap";
 
 export default class LogInPage extends Component {
   	constructor(props){
@@ -6,14 +7,13 @@ export default class LogInPage extends Component {
 		this.state = { isActive: false};
 		this.handleClick = this.handleClick.bind(this);
 	}
-  
-	handleClick(e) {
-		this.props.onDisplayChange(e.target.value);
-	  }
+
+	handleClick() {
+		this.props.onDisplayChange(InteractiveMap);
+	}
 
 	render(){
 		return(
-
 			<div>
 				<button 
 					className="marker-btn"
@@ -21,14 +21,8 @@ export default class LogInPage extends Component {
 					<img src="redButton.png" alt="Premise button" />
 				</button>
 			</div>
-
-
-
-
-
 		);
-
-		}
+    }
 }
 
 

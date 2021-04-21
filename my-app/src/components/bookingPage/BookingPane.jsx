@@ -1,39 +1,50 @@
 import React, { Component } from "react";
-import { Divider } from "antd";
 import BookingListItem from "./BookingListItem";
-import datasource from "./dummy.json";
 
 class BookingPane extends Component {
-  state = { eventName: undefined, date:undefined, time:undefined}; 
-  // the bookingPane only cares about the eventname (ex bollkalas), the date and the time
 
-  componentDidMount(){
-    this.getData(); //react black magic to get the data from json to work
+
+  constructor(props){
+    super(props)
+
   }
-  
-  getData = () =>{
-    const x = datasource.nollkit.bookings[0];
-    this.setState({eventName: x.evtname, date:x.d, time:x.t}); 
-    // Above sets the fields (note: its equal to eventName = x.evtname, but this is good practice)
-  }
+
   render() {
-    
-    return (
-      <React.Fragment>
-        <div className="row" style={{ fontWeight: "bold" }} //Adds three cols displaying the different fields for the table below it
-        >
-          <div className="col">Event</div>
-          <div className="col">Datum</div>
-          <div className="col">Tid</div>
-        </div>
-        <Divider />
-        <BookingListItem //Currently adds a single hardcoded listitem, should be dynamic in the future, and feeds it the args
-          eventName={this.state.eventName}
-          date={this.state.date}
-          time={this.state.time}
-        />
-      </React.Fragment>
-    );
+  //Collects the data from localStorage that is linked to the specified location
+  this.data = JSON.parse(localStorage.getItem(this.props.location));
+    if(this.data != null){
+        return (
+              <React.Fragment>
+                 <div className="row" style={{ fontWeight: "bold" }}> {/* Top row containing three column titles Event, StartTid and SlutTid*/}
+                      <div className="col">Event</div>
+                      <div className="col">StartTid</div>
+                      <div className="col">SlutTid</div>
+                </div>
+
+                <tbody className="my-bookings-table" > {/* Table containing all appointments for a specified location for the current owner */}
+                      {
+                          this.data.map(function (element) {
+                             return <BookingListItem
+                                  eventName={element.Subject}
+                                  date={element.StartTime}
+                                  time={element.EndTime}
+                            />;
+                          })
+                      }
+               </tbody>
+
+
+              </React.Fragment>
+            );
+    }
+    //Checks if a location has been chosen
+    else if(this.props.location != null){
+    return(<p>Inga bokade tider för platsen</p>);
+    }
+    else {
+    return(<p>Vänligen välj en plats!</p>);
+    }
+
   }
 }
 

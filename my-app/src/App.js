@@ -9,46 +9,43 @@ import React, { Component } from "react";
 
 class App extends Component{
 	constructor(props){
-		super(props); //loginpage --> header, logInPage
-		this.state = { logInActive: true};
-		this.displayLogInPage = this.displayLogInPage.bind(this);
+		super(props);
+		this.state = { page: null, location: null};
+		this.displayChangePage = this.displayChangePage.bind(this);
+		this.changeLocation = this.changeLocation.bind(this);
 	}
-
-	displayLogInPage(){
+    //updates the current page state
+	displayChangePage(nextPage){
 		this.setState(state => ({
-			logInActive: !state.logInActive
+			page: nextPage
 		}));
 	}
-
-	/*
-	Switch case mellan states. 
-	*/
-	render() {
-
-		return ( 
-			
-				this.state.logInActive ?
-				<div>
-					<MenuHeader/>
-					<LogInPage
-						onDisplayChange = {this.displayLogInPage}
-						isActive = {this.state.isActive}
-					/>
-				</div> 
-				:
-				<div>
-					<MenuHeader/>
-					<Schedule/>
-				</div>
-
-
-
-
-		);
+	//updates the current chosen location and then changes the page to the schedule
+	changeLocation(newLocation){
+	    this.setState(state => ({
+            location: newLocation
+        }));
+        this.displayChangePage(Schedule);
 
 	}
+
+	render() {
+    var CurrentPage = this.state.page || LogInPage;
+		return (
+				<div>
+					<MenuHeader
+					  onDisplayChange = {this.displayChangePage}
+
+					/>
+					<CurrentPage
+					onDisplayChange = {this.displayChangePage}
+					onLocationChange = {this.changeLocation}
+					location = {this.state.location}
+
+					/>
+				</div>
+		);
+	}
 }
-
-
 
 export default App;
