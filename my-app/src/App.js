@@ -41,12 +41,11 @@ render() {
 				/>
 			</div> :
 
-			<div>
-				<MenuHeader/>
-				<Schedule/>
-				
-				
-			</div>
+        <BookingPage/>
+      </div> :
+       <div>
+        <MenuHeader/>
+        <LogInPage loginData={this.state.isLoggedIn}/>
 
 
 
