@@ -12,47 +12,43 @@ class App extends Component{
 		super(props); //loginpage --> header, logInPage
 		this.state = { logInActive: true};
 		this.displayLogInPage = this.displayLogInPage.bind(this);
-}
+	}
 
-displayLogInPage(pageDisplay){
-	this.setState(state => ({
-		logInActive: !state.logInActive
-	  }));
-}
+	displayLogInPage(){
+		this.setState(state => ({
+			logInActive: !state.logInActive
+		}));
+	}
 
-/*
-Switch case mellan states. 
+	/*
+	Switch case mellan states. 
+	*/
+	render() {
 
-
-
-*/
-render() {
-
-    return ( 
-		
+		return ( 
 			
-
-			this.state.logInActive ?
-			<div>
-				<MenuHeader/>
-				<LogInPage
-					onDisplayChange = {this.displayLogInPage}
-					isActive = {this.state.isActive}
-				/>
-			</div> :
-
-        <BookingPage/>
-      </div> :
-       <div>
-        <MenuHeader/>
-        <LogInPage loginData={this.state.isLoggedIn}/>
+				this.state.logInActive ?
+				<div>
+					<MenuHeader/>
+					<LogInPage
+						onDisplayChange = {this.displayLogInPage}
+						isActive = {this.state.isActive}
+					/>
+				</div> 
+				:
+				<div>
+					<MenuHeader/>
+					<Schedule/>
+				</div>
 
 
 
-    );
+
+		);
+
+	}
 }
-}
+
 
 
 export default App;
-

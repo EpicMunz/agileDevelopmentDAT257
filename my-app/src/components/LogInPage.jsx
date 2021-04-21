@@ -20,9 +20,6 @@ export default class LogInPage extends Component {
 					onClick={this.handleClick}>
 					<img src="redButton.png" alt="Premise button" />
 				</button>
-
-				<p>I am {this.state.isActive ? 'active' : 'inactive'}.</p>
-
 			</div>
 
 
