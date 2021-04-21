@@ -90,7 +90,10 @@ export default class App extends React.Component {
       }
     }
   }
-  //When the popup closes, we use sessionStorage to determine who is currently the owner and add accodingly
+  /*
+  When the popup closes, we use sessionStorage to determine
+  who is currently the owner and add accodingly
+  */
   onPopupClose(args) {
     if (args.type === "Editor" && !isNullOrUndefined(args.data)) {
       let subjectElement = args.element.querySelector("#Summary");
@@ -177,7 +180,7 @@ export default class App extends React.Component {
         height="700px"
         cssClass='schedule-cell-dimension'
         currentView="Week"
-        selectedDate={new Date()}
+        selectedDate={new Date()}                           //'new Date()' will fetch the current date
         timeScale={{ enable: true, interval: 60, slotCount: 1 }}
         editorTemplate={this.editorTemplate.bind(this)}
         showQuickInfo={false}
