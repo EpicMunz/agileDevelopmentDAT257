@@ -26,7 +26,7 @@ var foo = Boolean(false);
      <div>
         <MenuHeader/>
 
-        <Schedule/>
+        <BookingPage/>
       </div> :
        <div>
         <MenuHeader/>

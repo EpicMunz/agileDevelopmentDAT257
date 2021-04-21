@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Layout, Menu, Divider } from "antd";
+import { Layout, Menu } from "antd";
 import "./BookingPageContainer.css"
+import BookingPane from "./BookingPane";
 
-const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
+const { Content, Sider } = Layout;
 
 export default class BookingPageContainer extends Component {
   state = {};
@@ -28,12 +28,7 @@ export default class BookingPageContainer extends Component {
           </Menu>
         </Sider>
         <Content className="site-layout-background" style={{ padding: 24, margin: 0 }}>
-          <div className="row" style={{fontWeight: "bold"}}>
-              <div className="col">Event</div>
-              <div className="col">Datum</div>
-              <div className="col">Tid</div>
-          </div>
-          <Divider />
+            <BookingPane/>
         </Content>
       </Layout>
     );
