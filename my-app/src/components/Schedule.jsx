@@ -13,7 +13,7 @@ import {
   DragAndDrop,
   ExcelExport
 } from "@syncfusion/ej2-react-schedule";
-import { isNullOrUndefined } from "@syncfusion/ej2-base";
+import { extend, createElement, isNullOrUndefined } from '@syncfusion/ej2-base';
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
 
 export default class App extends React.Component {
@@ -31,14 +31,35 @@ export default class App extends React.Component {
   }
   //Handles the exporting of excel file for the schedule
   onActionBegin(args) {
-          if (args.requestType === 'toolbarItemRendering') {
-              let exportItem = {
-                  align: 'Right', showTextOn: 'Both', prefixIcon: 'e-icon-schedule-excel-export',
-                  text: 'Excel Export', cssClass: 'e-excel-export', click: this.onExportClick.bind(this)
-              };
-              args.items.push(exportItem);
+      if (args.requestType === 'toolbarItemRendering') {
+          let exportItem = {
+              align: 'Right', showTextOn: 'Both', prefixIcon: 'e-icon-schedule-excel-export',
+              text: 'Excel Export', cssClass: 'e-excel-export', click: this.onExportClick.bind(this)
+          };
+          args.items.push(exportItem);
+      }
+      if (args.requestType === 'eventCreate' && args.data.length > 0) {
+          let eventData = args.data[0];
+          let eventField = this.scheduleObj.eventFields;
+          let startDate = eventData[eventField.startTime];
+          let endDate = eventData[eventField.endTime];
+
+          args.cancel = !this.scheduleObj.isSlotAvailable(startDate, endDate);
+      }
+  }
+  onRenderCell(args) {
+      if (args.elementType == 'workCells') {
+          let weekEnds = [0, 6];
+          if (weekEnds.indexOf((args.date).getDay()) >= 0) {
+              let ele = createElement('div', {
+                  innerHTML: "<p>"+sessionStorage.getItem("owner")+"</p>",
+                  className: 'templatewrap'
+              });
+              (args.element).appendChild(ele);
           }
       }
+  }
+
   onExportClick() {
       this.scheduleObj.exportToExcel();
   }
@@ -74,8 +95,7 @@ export default class App extends React.Component {
     if (args.type === "Editor" && !isNullOrUndefined(args.data)) {
       let subjectElement = args.element.querySelector("#Summary");
       if (subjectElement) {
-        args.data.Subject =
-          subjectElement.value + " - " + sessionStorage.getItem("owner");     //Appends " - " + owner after printing summary value
+        args.data.Subject = subjectElement.value;     //Appends " - " + owner after printing summary value
       }
       let ownerElement = args.element.querySelector("#Owner");
       if (ownerElement) {
@@ -111,7 +131,7 @@ export default class App extends React.Component {
                 id="Owner"
                 className="e-field e-input"
                 type="hidden"
-                name="Subject"
+                name="Owner"
                 style={{ width: "100%" }}
               />
             </td>
@@ -148,14 +168,14 @@ export default class App extends React.Component {
   }
   render() {
     sessionStorage.setItem("owner", "Nollkit");             //Updates sessionStorage each render
-
     //Returns the necessary html code to render schedule
     return (
       <ScheduleComponent
         cssClass='excel-export'
         ref={(t) => (this.scheduleObj = t)}
         width="100%"
-        height="550px"
+        height="700px"
+        cssClass='schedule-cell-dimension'
         currentView="Week"
         selectedDate={new Date()}
         timeScale={{ enable: true, interval: 60, slotCount: 1 }}
@@ -164,7 +184,14 @@ export default class App extends React.Component {
         popupOpen={this.onPopupOpen.bind(this)}
         popupClose={this.onPopupClose.bind(this)}
         eventRendered={this.onEventRendered.bind(this)}
-        eventSettings={{dataSource: this.data}}
+        eventSettings={{dataSource: this.data,
+        fields: {
+                 id: 'Id',
+                 subject: { name: 'Subject' },
+                 location: { name: 'Owner' },
+                 startTime: { name: 'StartTime' },
+                 endTime: { name: 'EndTime' }
+             }}}
         actionBegin={this.onActionBegin.bind(this)}
       >
         <ViewsDirective>
