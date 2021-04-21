@@ -1,4 +1,4 @@
-import React, { useState, Component } from "react";
+import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import ReactMapGl, { Marker, Popup } from "react-map-gl";
 import * as locations from "../data/locations.json";
@@ -49,7 +49,7 @@ export default class InteractiveMap extends Component {
                 className="marker-btn"
                 onClick={(e) => {
                   e.preventDefault();
-                  this.state.selectedPremise = premises;
+                  this.setState({selectedPremise: premises});
                 }}
               >
                 <img src="redButton.png" alt="Premise button" />

@@ -1,32 +1,37 @@
 import React, { Component } from "react";
 
 export default class LogInPage extends Component {
+  	constructor(props){
+		super(props);
+		this.state = { isActive: false};
+		this.handleClick = this.handleClick.bind(this);
+	}
+  
+	handleClick(e) {
+		this.props.onDisplayChange(e.target.value);
+	  }
+
+	render(){
+		return(
+
+			<div>
+				<button 
+					className="marker-btn"
+					onClick={this.handleClick}>
+					<img src="redButton.png" alt="Premise button" />
+				</button>
+
+				<p>I am {this.state.isActive ? 'active' : 'inactive'}.</p>
+
+			</div>
 
 
 
-    render(){
-    var loggedIn = new Boolean(false);
-        return(
 
 
-            <button
-                className="marker-btn"
-                onClick={(e) => {
-                  e.preventDefault();
-                  loggedIn = true;
-                }}
-              >
-                <img src="redButton.png" alt="Premise button" />
-              </button>
+		);
 
-
-
-
-
-
-        );
-
-    }
+		}
 }
 
 

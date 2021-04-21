@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React from 'react';
 //Importing from syncfusion api for schedule
 import {
   ScheduleComponent,
