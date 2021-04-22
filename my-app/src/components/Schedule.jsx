@@ -82,7 +82,7 @@ export default class App extends React.Component {
   }
   /*
   When the popup closes, we use sessionStorage to determine
-  who is currently the owner and add accodingly
+  who is currently the owner and add accordingly
   */
   onPopupClose(args) {
     if (args.type === "Editor" && !isNullOrUndefined(args.data)) {
