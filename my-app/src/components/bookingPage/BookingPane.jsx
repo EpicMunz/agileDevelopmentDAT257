@@ -3,19 +3,13 @@ import BookingListItem from "./BookingListItem";
 
 class BookingPane extends Component {
 
-
-  constructor(props){
-    super(props)
-
-  }
-
   render() {
   //Collects the data from localStorage that is linked to the specified location
   this.data = JSON.parse(localStorage.getItem(this.props.location));
     if(this.data != null){
         return (
               <React.Fragment>
-                 <div className="row" style={{ fontWeight: "bold" }}> {/* Top row containing three column titles Event, StartTid and SlutTid*/}
+                 <div className="row" style={{ fontWeight: "bold", fontSize: "25px"  }}> {/* Top row containing three column titles Event, StartTid and SlutTid*/}
                       <div className="col">Event</div>
                       <div className="col">Datum</div>
                       <div className="col">Tid</div>

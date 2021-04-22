@@ -11,7 +11,8 @@ import {
   TimelineViews,
   Resize,
   DragAndDrop,
-  ExcelExport
+  ExcelExport,
+  hover
 } from "@syncfusion/ej2-react-schedule";
 import { isNullOrUndefined } from '@syncfusion/ej2-base';
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
@@ -33,14 +34,28 @@ export default class App extends React.Component {
   onActionBegin(args) {
       //Adds the excel export button to the toolbar
       if (args.requestType === 'toolbarItemRendering') {
+          let dividerRight = {
+              align: 'Right', 
+              cssClass: 'e-toolbar-item e-schedule-seperator e-separator',
+              type: 'none'
+          }
+          args.items.push(dividerRight);
+
           let exportItem = {
-              align: 'Right', showTextOn: 'Both', prefixIcon: 'e-icon-schedule-excel-export',
+              align: 'Right', showTextOn: 'Both',
               text: 'Excel Export', cssClass: 'e-excel-export', click: this.onExportClick.bind(this)
           };
           args.items.push(exportItem);
+          let dividerLeft = {
+            align: 'Left', 
+            cssClass: 'e-toolbar-item e-schedule-seperator e-separator',
+            type: 'none'
+      
+        }
+        args.items.push(dividerLeft);
           let title = {
                         align: 'Left', showTextOn: 'false',
-                        text: this.props.location,
+                        text: this.props.location                
                     };
                     args.items.push(title);
       }

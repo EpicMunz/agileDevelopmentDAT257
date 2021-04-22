@@ -23,7 +23,7 @@ class BookingListItem extends Component {
     return (
       <React.Fragment // A really simple listitem that displays the events name, date and time as a row...
       >
-        <div className="row" >
+        <div className="row" style={{fontSize: "20px"}}>
           <div className="col">{this.props.eventName}</div>
           <div className="col">{bookDate.getFullYear() + "-" + 
                                 this.formatDate(bookDate.getMonth()) + "-" + 
