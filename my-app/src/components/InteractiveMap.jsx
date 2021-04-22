@@ -68,12 +68,15 @@ export default class InteractiveMap extends Component {
               longitude={this.state.selectedPremise.geometry.coordinates[1]}
             >
               <div>
+
                 <h2>{this.state.selectedPremise.properties.NAME}</h2>
                 <p>{this.state.selectedPremise.properties.NOTES} </p>
                 <p>{this.state.selectedPremise.properties.FACILITY}</p>
-                <a className="boka-tid-knapp" onClick={() => this.handleClick(this.state.selectedPremise.properties.NAME)}>
-                   Boka tid
-                </a>
+                <button
+                  className="boka-tid-knapp" 
+                  onClick={() => this.handleClick(this.state.selectedPremise.properties.NAME)}>
+                  Boka tid
+                </button>
               </div>
             </Popup>
           ) : null}

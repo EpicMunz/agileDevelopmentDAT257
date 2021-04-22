@@ -13,7 +13,7 @@ import {
   DragAndDrop,
   ExcelExport
 } from "@syncfusion/ej2-react-schedule";
-import { extend, createElement, isNullOrUndefined } from '@syncfusion/ej2-base';
+import { isNullOrUndefined } from '@syncfusion/ej2-base';
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
 
 export default class App extends React.Component {
@@ -168,7 +168,6 @@ export default class App extends React.Component {
         ref={(t) => (this.scheduleObj = t)}
         width="100%"
         height="700px"
-        cssClass='schedule-cell-dimension'
         currentView="Week"
         selectedDate={new Date()}                           //'new Date()' will fetch the current date
         timeScale={{ enable: true, interval: 60, slotCount: 1 }}

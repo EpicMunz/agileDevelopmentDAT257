@@ -1,5 +1,4 @@
 import "./App.css";
-import InteractiveMap from "./components/InteractiveMap";
 import MenuHeader from "./components/MenuHeader";
 import Schedule from "./components/Schedule";
 import LogInPage from "./components/LogInPage";

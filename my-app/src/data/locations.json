@@ -173,7 +173,7 @@
 				"LOCATION_ID": 11,
 				"NAME": "Kyrkbacken",
 				"NOTES": "Outdoor",
-				"FACILITY": "Fint ställe att sitta i varandras knän på"
+				"FACILITY": "Fint ställe att sitta i varandras knän på o.o"
 			},
 			"geometry": {
 				"type": "Point",
@@ -187,7 +187,7 @@
 			"type": "Feature",
 			"properties": {
 				"LOCATION_ID": 12,
-				"NAME": "Maskinnnergården",
+				"NAME": "Maskininnergården",
 				"NOTES": "Outdoor",
 				"FACILITY": "Fint ställe att titta på XP på"
 			},
