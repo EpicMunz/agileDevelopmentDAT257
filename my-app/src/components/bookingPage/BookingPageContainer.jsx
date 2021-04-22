@@ -33,6 +33,7 @@ export default class BookingPageContainer extends Component {
               style={{ height: "100%", borderRight: 0 }}
               defaultSelectedKeys={["0"]}
               mode="inline"
+              className = "my-bookings"
             >
               <Menu.Item key="1">
                   <a onClick={() => this.handleClick("Geniknölen")}>
