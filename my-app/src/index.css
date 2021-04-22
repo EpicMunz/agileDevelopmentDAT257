@@ -5,6 +5,7 @@ body {
 	sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	font-size: 25px;
 }
 
 code {
@@ -27,6 +28,10 @@ code {
 	display:block;
 	overflow-y: auto;
 	overflow-x: hidden;
+	font-size: 20px;
+}
+.my-bookings{
+    font-size: 20px;
 }
 
 .boka-tid-knapp{
@@ -52,3 +57,5 @@ code {
 	color:#CCC;
 	font-weight: normal;
 }
+
+
