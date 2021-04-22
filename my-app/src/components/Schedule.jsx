@@ -38,6 +38,11 @@ export default class App extends React.Component {
               text: 'Excel Export', cssClass: 'e-excel-export', click: this.onExportClick.bind(this)
           };
           args.items.push(exportItem);
+          let title = {
+                        align: 'Left', showTextOn: 'false',
+                        text: this.props.location,
+                    };
+                    args.items.push(title);
       }
       //Checks if current clicked appointment is empty
       if (args.requestType === 'eventCreate' && args.data.length > 0) {
