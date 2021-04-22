@@ -17,8 +17,8 @@ class BookingPane extends Component {
               <React.Fragment>
                  <div className="row" style={{ fontWeight: "bold" }}> {/* Top row containing three column titles Event, StartTid and SlutTid*/}
                       <div className="col">Event</div>
-                      <div className="col">StartTid</div>
-                      <div className="col">SlutTid</div>
+                      <div className="col">Datum</div>
+                      <div className="col">Tid</div>
                 </div>
 
                 <tbody className="my-bookings-table" > {/* Table containing all appointments for a specified location for the current owner */}
@@ -26,8 +26,8 @@ class BookingPane extends Component {
                           this.data.map(function (element) {
                              return <BookingListItem
                                   eventName={element.Subject}
-                                  date={element.StartTime}
-                                  time={element.EndTime}
+                                  startTime={element.StartTime}                                                           
+                                  endTime={element.EndTime}
                             />;
                           })
                       }

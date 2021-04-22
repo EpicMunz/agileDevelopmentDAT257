@@ -18,10 +18,10 @@ export default class MenuHeader extends Component {
 	}
 	//Changes the current page to the selected one in the header
     handleClick(page){
-        if(page == "map"){
+        if(page === "map"){
             this.props.onDisplayChange(Map);
         }
-        else if(page == "minabokningar"){
+        else if(page === "minabokningar"){
             this.props.onDisplayChange(BookingPane)
         }
     }
