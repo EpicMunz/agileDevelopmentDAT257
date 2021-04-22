@@ -406,6 +406,26 @@
 					11.978107
 				]
 			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"LOCATION_ID": 25,
+				"NAME": "Mossen",
+				"NOTES": "Outdoor",
+				"FACILITY": "Fint ställe att mossa på"
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					57.684810,
+					11.979186
+				]
+			}
 		}
+
+
+
+
 	]
 }
