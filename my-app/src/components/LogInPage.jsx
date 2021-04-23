@@ -9,6 +9,7 @@ export default class LogInPage extends Component {
 	}
 
 	handleClick() {
+	    sessionStorage.setItem("owner", "Nollkit");
 		this.props.onDisplayChange(InteractiveMap);
 	}
 

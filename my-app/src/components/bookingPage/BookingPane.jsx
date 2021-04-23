@@ -5,8 +5,9 @@ class BookingPane extends Component {
 
   render() {
   //Collects the data from localStorage that is linked to the specified location
-  this.data = JSON.parse(localStorage.getItem(this.props.location));
-    if(this.data != null){
+
+    if(this.props.data != null){
+        var location = this.props.location;
         return (
               <React.Fragment>
                  <div className="row" style={{ fontWeight: "bold", fontSize: "25px"  }}> {/* Top row containing three column titles Event, StartTid and SlutTid*/}
@@ -17,12 +18,14 @@ class BookingPane extends Component {
 
                 <tbody className="my-bookings-table" > {/* Table containing all appointments for a specified location for the current owner */}
                       {
-                          this.data.map(function (element) {
-                             return <BookingListItem
-                                  eventName={element.Subject}
-                                  startTime={element.StartTime}                                                           
-                                  endTime={element.EndTime}
-                            />;
+                          location &&
+                          this.props.data.map(function (element) {
+                          if(element.Location == location){
+                               return <BookingListItem
+                                    eventName={element.Subject}
+                                    startTime={element.StartTime}
+                                    endTime={element.EndTime}
+                              />;}
                           })
                       }
                </tbody>

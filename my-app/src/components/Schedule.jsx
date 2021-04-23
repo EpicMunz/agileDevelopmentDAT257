@@ -11,26 +11,38 @@ import {
   TimelineViews,
   Resize,
   DragAndDrop,
-  ExcelExport,
-  hover
+  ExcelExport
 } from "@syncfusion/ej2-react-schedule";
 import { isNullOrUndefined } from '@syncfusion/ej2-base';
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
 
+export const options = {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+}
+export function fetchScheduleData(param){
+        options.body = JSON.stringify(param);
+      return fetch(`http://localhost:3000/save`, options);
+}
 export default class App extends React.Component {
 
-
   constructor(props){
-    super(props);
-    //loads in saved jsondata from localStorage
-    this.state = {location: this.props.location}
-    if(!localStorage.getItem(this.state.location)){
-        var dataTemp = [];
-        localStorage.setItem(this.state.location, JSON.stringify(dataTemp));
-    }
-    this.data = JSON.parse(localStorage.getItem(this.state.location));
+    super(props)
+    this.state = { dataReceived: false }
   }
-
+  async componentDidMount() {
+  var data = [{
+    Id: 1,
+    Location: this.props.location
+  }];
+  options.body = JSON.stringify(data);
+      const response = await fetch(`http://localhost:3000/getSavedData`, options);
+      const json = await response.json();
+      this.data = json;
+      this.setState({dataReceived: true});
+  }
   onActionBegin(args) {
       //Adds the excel export button to the toolbar
       if (args.requestType === 'toolbarItemRendering') {
@@ -73,7 +85,6 @@ export default class App extends React.Component {
   onExportClick() {
       this.scheduleObj.exportToExcel();
   }
-
   //Is called when cell with appointment is being rendered
   onEventRendered(args) {
     if (args.data.Owner === "Nollkit") {                  //Determines the value of the Owner attribute in 
@@ -83,8 +94,8 @@ export default class App extends React.Component {
     } else {
       args.element.style.backgroundColor = "blue";
     }
-    //stringifies javascript object array schedule data to json and stores it in localStorage
-    localStorage.setItem(this.state.location, JSON.stringify(this.data));
+    fetchScheduleData(this.data);
+
 
   }
   //Creates a popup when double clicking a cell
@@ -99,6 +110,7 @@ export default class App extends React.Component {
         ownerElement.value = args.data.Owner || "";                 //What we receive is saved as value in ownerElement
       }
     }
+
   }
   /*
   When the popup closes, we use sessionStorage to determine
@@ -113,6 +125,10 @@ export default class App extends React.Component {
       let ownerElement = args.element.querySelector("#Owner");
       if (ownerElement) {
         args.data.Owner = sessionStorage.getItem("owner");                    //set owner of cell from sessionStorage
+      }
+      let locationElement = args.element.querySelector("#Location");
+      if(locationElement){
+        args.data.Location = this.props.location;
       }
 
     }
@@ -150,6 +166,18 @@ export default class App extends React.Component {
             </td>
           </tr>
           <tr>
+              <td className="e-textlabel"></td>         {/*hidden location entry here*/}
+              <td colSpan={4}>
+                <input
+                  id="Location"
+                  className="e-field e-input"
+                  type="hidden"
+                  name="Location"
+                  style={{ width: "100%" }}
+                />
+              </td>
+            </tr>
+          <tr>
             <td className="e-textlabel">From</td>     {/*"from" entry here*/}
             <td colSpan={4}>
               <DateTimePickerComponent
@@ -180,9 +208,10 @@ export default class App extends React.Component {
     );
   }
   render() {
-    sessionStorage.setItem("owner", "Nollkit");             //Updates sessionStorage each render
+                //Updates sessionStorage each render
     //Returns the necessary html code to render schedule
-    return (
+
+    return this.state.dataReceived ? (
       <ScheduleComponent
         cssClass='excel-export'
         ref={(t) => (this.scheduleObj = t)}
@@ -198,11 +227,13 @@ export default class App extends React.Component {
         eventRendered={this.onEventRendered.bind(this)}
         eventSettings={{dataSource: this.data,
         fields: {
-                 id: 'Id',
-                 subject: { name: 'Subject' },
-                 location: { name: 'Owner' },
-                 startTime: { name: 'StartTime' },
-                 endTime: { name: 'EndTime' }
+                    id: 'Id',
+                    subject: { name: 'Subject' },
+                    source: { name: 'Location' },
+                    location: {name: 'Owner'},
+                    startTime: { name: 'StartTime' },
+                    endTime: { name: 'EndTime'}
+
              }}}
         actionBegin={this.onActionBegin.bind(this)}
       >
@@ -212,7 +243,7 @@ export default class App extends React.Component {
           <ViewDirective option="Month" />
         </ViewsDirective>
         <Inject services={[Day, Week, Month, TimelineViews, Resize, DragAndDrop, ExcelExport]} />
-      </ScheduleComponent>
-    );
+      </ScheduleComponent>)
+    : (<p>Loading Schedule...</p>);
   }
 }
