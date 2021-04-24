@@ -1,0 +1,15 @@
+.username-box{
+    display: flex;
+    flex-direction: column;
+    background-color:darkgrey;
+
+
+}
+
+.input-box{
+    width: 20%;
+}
+
+.submit-box{
+    width: 100px;
+}
