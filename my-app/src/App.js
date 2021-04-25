@@ -6,56 +6,36 @@ import React, { Component } from "react";
 
 //This is the file for App Component. App Component is the main component in React which acts as a container for all other components.
 
-class App extends Component{
-	constructor(props){
-		super(props);
-		this.state = { page: null, location: null};
-		this.displayChangePage = this.displayChangePage.bind(this);
-		this.changeLocation = this.changeLocation.bind(this);
-	}
-    //updates the current page state
-	displayChangePage(nextPage){
-		this.setState(state => ({
-			page: nextPage
-		}));
-	}
-	//updates the current chosen location and then changes the page to the schedule
-	changeLocation(newLocation){
-	    this.setState(state => ({
-            location: newLocation
-        }));
-        this.displayChangePage(Schedule);
+export default class App extends Component {
+  state = { page: null, location: null };
 
-	}
+  //updates the current page state
+  displayChangePage = (nextPage) => {
+    this.setState({
+      page: nextPage,
+    });
+  };
+  //updates the current chosen location and then changes the page to the schedule
+  changeLocation = (newLocation) => {
+    this.setState({
+      location: newLocation,
+    });
+    this.displayChangePage(Schedule);
+  };
 
-	render() {
-        var CurrentPage = this.state.page || LogInPage;
-        if(CurrentPage != LogInPage){
-            return (
-                    <div>
-                        <MenuHeader
-                          onDisplayChange = {this.displayChangePage}
-                        />
-                        <CurrentPage
-                        onDisplayChange = {this.displayChangePage}
-                        onLocationChange = {this.changeLocation}
-                        location = {this.state.location}
-                        />
-                    </div>
-                );
-        }
-        else {
-            return (
-                    <div>
-                        <CurrentPage
-                        onDisplayChange = {this.displayChangePage}
-                        onLocationChange = {this.changeLocation}
-                        location = {this.state.location}
-                        />
-                    </div>
-                        );
-        }
-	}
+  render() {
+    const CurrentPage = this.state.page || LogInPage;
+    return (
+      <div>
+        {CurrentPage != LogInPage && (
+          <MenuHeader onDisplayChange={this.displayChangePage} />
+        )}
+        <CurrentPage
+          onDisplayChange={this.displayChangePage}
+          onLocationChange={this.changeLocation}
+          location={this.state.location}
+        />
+      </div>
+    );
+  }
 }
-
-export default App;
