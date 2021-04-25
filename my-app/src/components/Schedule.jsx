@@ -87,16 +87,8 @@ export default class App extends React.Component {
   }
   //Is called when cell with appointment is being rendered
   onEventRendered(args) {
-    if (args.data.Owner === "Nollkit") {                  //Determines the value of the Owner attribute in 
-      args.element.style.backgroundColor = "#09cdda";     //Sets color of cell accordingly
-    } else if (args.data.Owner === "DNOLLK") {
-      args.element.style.backgroundColor = "green";
-    } else {
-      args.element.style.backgroundColor = "blue";
-    }
+    args.element.style.backgroundColor = args.data.color;
     fetchScheduleData(this.data);
-
-
   }
   //Creates a popup when double clicking a cell
   onPopupOpen(args) {
@@ -110,7 +102,6 @@ export default class App extends React.Component {
         ownerElement.value = args.data.Owner || "";                 //What we receive is saved as value in ownerElement
       }
     }
-
   }
   /*
   When the popup closes, we use sessionStorage to determine
@@ -124,12 +115,20 @@ export default class App extends React.Component {
       }
       let ownerElement = args.element.querySelector("#Owner");
       if (ownerElement) {
-        args.data.Owner = sessionStorage.getItem("owner");                    //set owner of cell from sessionStorage
+        var jsonData = JSON.parse(sessionStorage.getItem("userData"));
+        var owner = jsonData.Username;
+        args.data.Owner = owner;                 //set owner of cell from sessionStorage
       }
       let locationElement = args.element.querySelector("#Location");
       if(locationElement){
         args.data.Location = this.props.location;
       }
+      let colorElement = args.element.querySelector("#color");
+            if(colorElement){
+            var jsonData = JSON.parse(sessionStorage.getItem("userData"));
+            var color = jsonData.Color;
+              args.data.color = color;
+            }
 
     }
   }
@@ -173,6 +172,18 @@ export default class App extends React.Component {
                   className="e-field e-input"
                   type="hidden"
                   name="Location"
+                  style={{ width: "100%" }}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td className="e-textlabel"></td>         {/*hidden location entry here*/}
+              <td colSpan={4}>
+                <input
+                  id="color"
+                  className="e-field e-input"
+                  type="hidden"
+                  name="color"
                   style={{ width: "100%" }}
                 />
               </td>
@@ -232,7 +243,8 @@ export default class App extends React.Component {
                     source: { name: 'Location' },
                     location: {name: 'Owner'},
                     startTime: { name: 'StartTime' },
-                    endTime: { name: 'EndTime'}
+                    endTime: { name: 'EndTime'},
+                    color:{ name: 'color'}
 
              }}}
         actionBegin={this.onActionBegin.bind(this)}

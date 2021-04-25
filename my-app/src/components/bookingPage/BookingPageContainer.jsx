@@ -26,6 +26,7 @@ export default class BookingPageContainer extends Component {
   		this.locations = [];
   		this.handleClick = this.handleClick.bind(this);
   		this.getData();
+
   	}
   //Saves the new location in location state
   handleClick(newLocation){
@@ -42,13 +43,14 @@ export default class BookingPageContainer extends Component {
   //Requests my bookings data from server
   async getData(){
       var data = [{
-          Owner: sessionStorage.getItem("owner")
+          Owner: JSON.parse(sessionStorage.getItem("userData")).Username
       }];
       var receivedData = await fetchMyBookingData(data);
       var jsonData = await receivedData.json();
       this.setState(state => ({
               data: jsonData
       }));
+
   }
   render() {
     return (
@@ -63,7 +65,7 @@ export default class BookingPageContainer extends Component {
           >
             <Menu // The menu contains the different locations as items
               style={{ height: "100%", borderRight: 0 }}
-              defaultSelectedKeys={["1"]}
+              defaultSelectedKeys={["0"]}
               mode="inline"
               className = "my-bookings"
             >{

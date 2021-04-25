@@ -29,21 +29,32 @@ class App extends Component{
 	}
 
 	render() {
-    var CurrentPage = this.state.page || LogInPage;
-		return (
-				<div>
-					<MenuHeader
-					  onDisplayChange = {this.displayChangePage}
-
-					/>
-					<CurrentPage
-					onDisplayChange = {this.displayChangePage}
-					onLocationChange = {this.changeLocation}
-					location = {this.state.location}
-
-					/>
-				</div>
-		);
+        var CurrentPage = this.state.page || LogInPage;
+        if(CurrentPage != LogInPage){
+            return (
+                    <div>
+                        <MenuHeader
+                          onDisplayChange = {this.displayChangePage}
+                        />
+                        <CurrentPage
+                        onDisplayChange = {this.displayChangePage}
+                        onLocationChange = {this.changeLocation}
+                        location = {this.state.location}
+                        />
+                    </div>
+                );
+        }
+        else {
+            return (
+                    <div>
+                        <CurrentPage
+                        onDisplayChange = {this.displayChangePage}
+                        onLocationChange = {this.changeLocation}
+                        location = {this.state.location}
+                        />
+                    </div>
+                        );
+        }
 	}
 }
 
