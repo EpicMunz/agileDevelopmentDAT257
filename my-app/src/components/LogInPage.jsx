@@ -1,16 +1,8 @@
 import React, { Component } from "react";
 import InteractiveMap from "./InteractiveMap";
 import "./LoginPage.css";
-export const options = {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-}
-function fetchMyBookingData(param){
-        options.body = JSON.stringify(param);
-      return fetch(`http://localhost:3000/logInUser`, options);
-}
+import {fetchData} from "./ClientFetch";
+
 export default class LogInPage extends Component {
   	constructor(props){
 		super(props);
@@ -34,7 +26,7 @@ export default class LogInPage extends Component {
               Username: this.state.username,
               Password: this.state.password
           }];
-          var receivedData = await fetchMyBookingData(data);
+          var receivedData = await fetchData("/logInUser", data);
           var jsonData = await receivedData.json();
           if(jsonData != null && jsonData.Username != null){
             sessionStorage.setItem("userData", JSON.stringify(jsonData));

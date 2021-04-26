@@ -15,33 +15,33 @@ import {
 } from "@syncfusion/ej2-react-schedule";
 import { isNullOrUndefined } from '@syncfusion/ej2-base';
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
+import { fetchData } from "./ClientFetch";
 
-export const options = {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-}
-export function fetchScheduleData(param){
-        options.body = JSON.stringify(param);
-      return fetch(`http://localhost:3000/save`, options);
-}
 export default class App extends React.Component {
 
   constructor(props){
     super(props)
     this.state = { dataReceived: false }
+    this.componentWillReceiveProps(this.props);
   }
   async componentDidMount() {
-  var data = [{
-    Id: 1,
-    Location: this.props.location
-  }];
-  options.body = JSON.stringify(data);
-      const response = await fetch(`http://localhost:3000/getSavedData`, options);
-      const json = await response.json();
-      this.data = json;
-      this.setState({dataReceived: true});
+      if(this.props.data == null){
+          var data = [{
+                  Id: 1,
+                  Location: this.props.location
+                }];
+                const response = await fetchData("/getSavedData", data);
+                const json = await response.json();
+                this.data = json;
+                this.setState({dataReceived: true});
+      }
+  }
+  //Is called when object has been used before instead of constructor when passing props
+  componentWillReceiveProps(nextProps){
+      this.data = nextProps.data;
+      this.setState(state => ({
+              dataReceived: true
+          }));
   }
   onActionBegin(args) {
       //Adds the excel export button to the toolbar
@@ -52,7 +52,6 @@ export default class App extends React.Component {
               type: 'none'
           }
           args.items.push(dividerRight);
-
           let exportItem = {
               align: 'Right', showTextOn: 'Both',
               text: 'Excel Export', cssClass: 'e-excel-export', click: this.onExportClick.bind(this)
@@ -62,14 +61,13 @@ export default class App extends React.Component {
             align: 'Left', 
             cssClass: 'e-toolbar-item e-schedule-seperator e-separator',
             type: 'none'
-      
         }
         args.items.push(dividerLeft);
-          let title = {
-                        align: 'Left', showTextOn: 'false',
-                        text: this.props.location                
-                    };
-                    args.items.push(title);
+        let title = {
+            align: 'Left', showTextOn: 'false',
+            text: this.props.location
+        };
+        args.items.push(title);
       }
       //Checks if current clicked appointment is empty
       if (args.requestType === 'eventCreate' && args.data.length > 0) {
@@ -88,7 +86,9 @@ export default class App extends React.Component {
   //Is called when cell with appointment is being rendered
   onEventRendered(args) {
     args.element.style.backgroundColor = args.data.color;
-    fetchScheduleData(this.data);
+    if(this.props.data == null){
+        fetchData('/save', this.data);
+    }
   }
   //Creates a popup when double clicking a cell
   onPopupOpen(args) {
@@ -124,12 +124,11 @@ export default class App extends React.Component {
         args.data.Location = this.props.location;
       }
       let colorElement = args.element.querySelector("#color");
-            if(colorElement){
-            var jsonData = JSON.parse(sessionStorage.getItem("userData"));
-            var color = jsonData.Color;
-              args.data.color = color;
-            }
-
+      if(colorElement){
+      var jsonData = JSON.parse(sessionStorage.getItem("userData"));
+      var color = jsonData.Color;
+        args.data.color = color;
+      }
     }
   }
   //returns the custom made popup appointment editor
@@ -232,7 +231,7 @@ export default class App extends React.Component {
         selectedDate={new Date()}                           //'new Date()' will fetch the current date
         timeScale={{ enable: true, interval: 60, slotCount: 1 }}
         editorTemplate={this.editorTemplate.bind(this)}
-        showQuickInfo={false}
+        showQuickInfo={true}
         popupOpen={this.onPopupOpen.bind(this)}
         popupClose={this.onPopupClose.bind(this)}
         eventRendered={this.onEventRendered.bind(this)}
@@ -240,8 +239,8 @@ export default class App extends React.Component {
         fields: {
                     id: 'Id',
                     subject: { name: 'Subject' },
-                    source: { name: 'Location' },
-                    location: {name: 'Owner'},
+                    location: { name:  'Owner' },
+                    description: {name: 'Location'},
                     startTime: { name: 'StartTime' },
                     endTime: { name: 'EndTime'},
                     color:{ name: 'color'}
