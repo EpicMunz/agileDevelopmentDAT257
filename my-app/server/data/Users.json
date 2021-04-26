@@ -1,12 +1,20 @@
-[{
-  "Username": "Nollkit",
-  "Password": "123",
-  "Id": "420",
-  "Color": "#09cdda"
-},
+[
+  {
+    "Username": "Nollkit",
+    "Password": "123",
+    "Id": "420",
+    "Color": "#09cdda"
+  },
   {
     "Username": "DNollK",
     "Password": "123",
     "Id": "69",
     "Color": "orange"
-  }]
+  },
+  {
+    "Username": "admin",
+    "Password": "kingen",
+    "Id": 1,
+    "Color": "black"
+  }
+]
