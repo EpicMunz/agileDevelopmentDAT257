@@ -44,7 +44,7 @@ export default class App extends React.Component {
       this.setState({dataReceived: true});
   }
   onActionBegin(args) {
-      //Adds a divider on the right side of the toolbar
+      //Adds the excel export button to the toolbar
       if (args.requestType === 'toolbarItemRendering') {
           let dividerRight = {
               align: 'Right', 
@@ -52,13 +52,12 @@ export default class App extends React.Component {
               type: 'none'
           }
           args.items.push(dividerRight);
-      //Adds the excel export button to the toolbar
+
           let exportItem = {
               align: 'Right', showTextOn: 'Both',
               text: 'Excel Export', cssClass: 'e-excel-export', click: this.onExportClick.bind(this)
           };
           args.items.push(exportItem);
-      //Adds a divider on the left side of the toolbar
           let dividerLeft = {
             align: 'Left', 
             cssClass: 'e-toolbar-item e-schedule-seperator e-separator',
@@ -66,8 +65,7 @@ export default class App extends React.Component {
       
         }
         args.items.push(dividerLeft);
-      //Adds a title to the toolbar which displays the chosen location for the current schedule 
-        let title = {
+          let title = {
                         align: 'Left', showTextOn: 'false',
                         text: this.props.location                
                     };
@@ -179,7 +177,7 @@ export default class App extends React.Component {
               </td>
             </tr>
             <tr>
-              <td className="e-textlabel"></td>         {/*hidden color entry here*/}
+              <td className="e-textlabel"></td>         {/*hidden location entry here*/}
               <td colSpan={4}>
                 <input
                   id="color"
