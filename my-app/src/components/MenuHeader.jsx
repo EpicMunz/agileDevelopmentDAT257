@@ -24,6 +24,9 @@ export default class MenuHeader extends Component {
         else if(page === "minabokningar"){
             this.props.onDisplayChange(BookingPane)
         }
+        else if(page == "tillgängligalokaler"){
+          //this.props.onDisplayChange(AvailableLocations)
+        }
     }
   render() {
     return (
@@ -52,6 +55,11 @@ export default class MenuHeader extends Component {
                 <a onClick={() => this.handleClick("map")}>
                   Karta
                 </a></Menu.Item>
+            <Menu.Item key = "3">
+              <a onClick={() => this.handleClick("minabokningar")}>
+                Tillgängliga Lokaler
+              </a>
+            </Menu.Item>
           </Menu>
         </Header>
       </Layout>
