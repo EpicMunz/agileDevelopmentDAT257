@@ -42,7 +42,7 @@ router.post('/getMyBookings', (req, res) => {
     fs.readdirSync('./data/').forEach(file => {
        var jsonData = JSON.parse(fs.readFileSync('./data/' + file));
        for(var i = 0; i < jsonData.length; i++){
-            if(jsonData[i].Owner == data[0].Owner){
+            if(jsonData[i].Owner === data[0].Owner){
                 returndata.push(jsonData[i]);
             }
        }

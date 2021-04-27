@@ -2,7 +2,11 @@ import React, { Component}from "react";
 import { Divider, Button} from "antd";
 
 class BookingListItem extends Component {
-  state = {};
+  
+    constructor(props) {
+		super(props);
+		this.state = {};
+  	}
 
   formatDate(number){
 
@@ -21,7 +25,7 @@ class BookingListItem extends Component {
     bookDate.setMonth(bookDate.getMonth()+1);
 
     return (
-      <React.Fragment // A really simple listitem that displays the events name, date and time as a row...
+      <React.Fragment // A really simple listitem that displays the location, date and time as a row...
       >
         <div className="row" style={{fontSize: "20px"}}>
           <div className="col">{this.props.location}</div>
