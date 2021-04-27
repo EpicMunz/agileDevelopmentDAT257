@@ -1,5 +1,5 @@
 import React, { Component}from "react";
-import { Divider } from "antd";
+import { Divider, Button} from "antd";
 
 class BookingListItem extends Component {
   state = {};
@@ -24,7 +24,7 @@ class BookingListItem extends Component {
       <React.Fragment // A really simple listitem that displays the events name, date and time as a row...
       >
         <div className="row" style={{fontSize: "20px"}}>
-          <div className="col">{this.props.eventName}</div>
+          <div className="col">{this.props.location}</div>
           <div className="col">{bookDate.getFullYear() + "-" + 
                                 this.formatDate(bookDate.getMonth()) + "-" + 
                                 this.formatDate(bookDate.getDate())}</div>
@@ -35,7 +35,13 @@ class BookingListItem extends Component {
                                 this.formatDate(endTime.getHours()) + ":" +
                                 this.formatDate(endTime.getMinutes())
                                 )}</div>
+            <div className="col">
+                <Button type="primary" size="large">
+                    Boka Platsen
+                </Button>
+            </div>
         </div>
+
         <Divider //... and adds a thin line below it 
         />
       </React.Fragment>

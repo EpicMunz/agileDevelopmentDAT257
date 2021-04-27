@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import AvLocListItem from "./AvLocListItem";
-import * as locations from "../data/locations.json";
+
 
 class AvLocPane extends Component {
 
@@ -8,40 +8,25 @@ class AvLocPane extends Component {
   //Collects the data from localStorage that is linked to the specified location
 
     if(this.props.data != null){
-        var location = this.props.location;
+        var hardDate = Date();
         return (
               <React.Fragment>
                  <div className="row" style={{ fontWeight: "bold", fontSize: "25px"  }}> {/* Top row containing three column titles Event, StartTid and SlutTid*/}
                       <div className="col">Lokal</div>
                       <div className="col">Datum</div>
                       <div className="col">Tid</div>
+                      <div className="col"></div>
                 </div>
 
                 <tbody className="my-bookings-table" > {/* Table containing all appointments for a specified location for the current owner */}
-                      {
-                          location &&
-                          this.props.data.map(function (element) {
-                            /*
-                            1. Get all location names from json
-                            2. iterate through every name and see if the booking currently searched is available
-                                if so add to list
-                            3. Display list with listitems
-                            -----
-                            for each booking in json:
-                                if not ((booking.starttime == start and booking.endtime == end)
-                                and booking.date == date):
-                                    add location and time to list
-                            )*/
 
-                        
-                          if(element.Location == location){
-                               return <AvLocListItem
-                                    location={element.Location}
-                                    startTime={element.StartTime}
-                                    endTime={element.EndTime}
-                              />;}
-                          })
-                      }
+
+                    <AvLocListItem 
+                    location={"Teknologgården"}
+                    startTime={"2021-04-27T10:00:00.000Z"}
+                    endTime={"2021-04-26T13:00:00.000Z"}>
+                    </AvLocListItem>
+                      
                </tbody>
 
 

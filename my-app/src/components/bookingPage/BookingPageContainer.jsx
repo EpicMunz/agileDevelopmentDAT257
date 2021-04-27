@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import { Layout, Menu } from "antd";
 import "./BookingPageContainer.css";
-import BookingPane from "./BookingPane";
 import {fetchData} from "../ClientFetch";
 import Schedule from "../Schedule";
 
-const { Content, Sider } = Layout;
+
 //Structure: BookingPageContainer -> BookingPane -> BookingListItem
 export default class BookingPageContainer extends Component {
 

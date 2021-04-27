@@ -4,6 +4,7 @@ import { Layout, Menu } from "antd";
 import Map from "./InteractiveMap";
 import BookingPane from "./bookingPage/BookingPageContainer.jsx";
 import LogInPage from "./LogInPage";
+import AvailableLocations from "./availableLocations/AvailableLocations.jsx";
 
 const { Header } = Layout;
 const { SubMenu } = Menu;
@@ -24,8 +25,8 @@ export default class MenuHeader extends Component {
         else if(page === "minabokningar"){
             this.props.onDisplayChange(BookingPane)
         }
-        else if(page == "tillgängligalokaler"){
-          //this.props.onDisplayChange(AvailableLocations)
+        else if(page === "available"){
+          this.props.onDisplayChange(AvailableLocations)
         }
     }
   render() {
@@ -56,7 +57,7 @@ export default class MenuHeader extends Component {
                   Karta
                 </a></Menu.Item>
             <Menu.Item key = "3">
-              <a onClick={() => this.handleClick("minabokningar")}>
+              <a onClick={() => this.handleClick("available")}>
                 Tillgängliga Lokaler
               </a>
             </Menu.Item>

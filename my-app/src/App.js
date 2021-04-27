@@ -27,7 +27,7 @@ export default class App extends Component {
     const CurrentPage = this.state.page || LogInPage;
     return (
       <div>
-        {CurrentPage != LogInPage && (
+        {CurrentPage !== LogInPage && (
           <MenuHeader onDisplayChange={this.displayChangePage} />
         )}
         <CurrentPage
