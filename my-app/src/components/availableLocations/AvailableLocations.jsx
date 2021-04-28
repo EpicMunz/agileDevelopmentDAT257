@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Layout, Menu} from "antd";
 import AvLocPane from "./AvLocPane.jsx";
-const { Content, Sider } = Layout;
+const { Content} = Layout;
 
 
 export default class AvailableLocations extends Component {
@@ -13,6 +13,7 @@ export default class AvailableLocations extends Component {
 	//returns a schedule component with linked props
 	render() {
 		let input = "15-17";
+
 		return (
 			<React.Fragment>
 			  <h1 className="display-1">Tillgängliga lokaler</h1>
@@ -29,10 +30,7 @@ export default class AvailableLocations extends Component {
 				  className="site-layout-background"
 				  style={{ padding: 24, margin: 0 }}
 				>
-				  <AvLocPane
-				  location = {this.state.location}
-				  data = {this.state.data}
-				  />
+				  <AvLocPane/>
 				</Content>
 			  </Layout>
 			</React.Fragment>
