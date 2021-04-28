@@ -19,27 +19,57 @@ class BookingListItem extends Component {
     var bookDate = new Date(this.props.startTime);
     var endTime = new Date(this.props.endTime);
     bookDate.setMonth(bookDate.getMonth()+1);
+    endTime.setMonth(endTime.getMonth()+1);
+    if(bookDate.getDate() != endTime.getDate()){
 
-    return (
-      <React.Fragment // A really simple listitem that displays the events name, date and time as a row...
-      >
-        <div className="row" style={{fontSize: "20px"}}>
-          <div className="col">{this.props.eventName}</div>
-          <div className="col">{bookDate.getFullYear() + "-" + 
-                                this.formatDate(bookDate.getMonth()) + "-" + 
-                                this.formatDate(bookDate.getDate())}</div>
+        return (
+              <React.Fragment // A really simple listitem that displays the events name, date and time as a row...
+              >
+                <div className="row" style={{fontSize: "20px"}}>
+                  <div className="col">{this.props.eventName}</div>
+                  <div className="col">{bookDate.getFullYear() + "-" +
+                                                          this.formatDate(bookDate.getMonth()) + "-" +
+                                                          this.formatDate(bookDate.getDate()) + " - " +
+                                                          endTime.getFullYear() + "-" +
+                                                          this.formatDate(endTime.getMonth()) + "-" +
+                                                          this.formatDate(endTime.getDate())}</div>
 
-          <div className="col">{this.formatDate(bookDate.getHours() + ":" +
-                                this.formatDate(bookDate.getMinutes()) + "-" +
-                                
-                                this.formatDate(endTime.getHours()) + ":" +
-                                this.formatDate(endTime.getMinutes())
-                                )}</div>
-        </div>
-        <Divider //... and adds a thin line below it 
-        />
-      </React.Fragment>
-    );
+                  <div className="col">{this.formatDate(bookDate.getHours() + ":" +
+                                        this.formatDate(bookDate.getMinutes()) + "-" +
+
+                                        this.formatDate(endTime.getHours()) + ":" +
+                                        this.formatDate(endTime.getMinutes())
+                                        )}</div>
+                </div>
+                <Divider //... and adds a thin line below it
+                />
+              </React.Fragment>
+            );
+    }
+    else {
+        return (
+              <React.Fragment // A really simple listitem that displays the events name, date and time as a row...
+              >
+                <div className="row" style={{fontSize: "20px"}}>
+                  <div className="col">{this.props.eventName}</div>
+                  <div className="col">{bookDate.getFullYear() + "-" +
+                                        this.formatDate(bookDate.getMonth()) + "-" +
+                                        this.formatDate(bookDate.getDate())}</div>
+
+                  <div className="col">{this.formatDate(bookDate.getHours() + ":" +
+                                        this.formatDate(bookDate.getMinutes()) + "-" +
+
+                                        this.formatDate(endTime.getHours()) + ":" +
+                                        this.formatDate(endTime.getMinutes())
+                                        )}</div>
+                </div>
+                <Divider //... and adds a thin line below it
+                />
+              </React.Fragment>
+            );
+    }
+
+
   }
 }
 

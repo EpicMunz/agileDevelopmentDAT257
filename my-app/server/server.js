@@ -35,6 +35,18 @@ router.post('/getSavedData',(req, res) => {
     console.log("Sending scheduledata for "+location+"...");
     res.send(jsonData);
 });
+router.post('/getAllSavedData',(req, res) => {
+
+        var returndata = [];
+        fs.readdirSync('./data/').forEach(file => {
+           var jsonData = JSON.parse(fs.readFileSync('./data/' + file));
+           for(var i = 0; i < jsonData.length; i++){
+                returndata.push(jsonData[i])
+           }
+        });
+        console.log("Sending all saved booking data");
+        res.send(returndata);
+});
 //Sends schedule data for specified owner for all locations to client
 router.post('/getMyBookings', (req, res) => {
     var data = req.body;
@@ -53,7 +65,7 @@ router.post('/getMyBookings', (req, res) => {
 //Checks login details and then if successful returns data of user
 router.post('/logInUser', (req, res) => {
         var data = req.body;
-        var jsonData = JSON.parse(fs.readFileSync('./data/Users.json'));
+        var jsonData = JSON.parse(fs.readFileSync('./users/UsersData.json'));
         for(var i = 0; i < jsonData.length; i++){
             if(jsonData[i].Username == data[0].Username && jsonData[i].Password == data[0].Password){
                 console.log("Sending user data for logged in user");

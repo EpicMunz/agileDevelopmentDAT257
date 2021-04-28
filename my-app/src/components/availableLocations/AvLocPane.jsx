@@ -2,21 +2,23 @@ import React, { Component } from "react";
 import AvLocListItem from "./AvLocListItem";
 import * as locations from "../../data/locations.json";
 import { fetchData } from "../ClientFetch";
+import BookingListItem from "../bookingPage/BookingListItem";
 
 class AvLocPane extends Component {
 
     constructor(props) {
 		super(props);
 		this.state = {};
+		this.getData();
+		this.locations = [];
     }
 
-    async getData(location) {
+    async getData() {
 
             var data = [{
-                    Id: 1,
-                    Location: location
+                    Id: 1
                     }];
-                    const response = await fetchData("/getSavedData", data);
+                    const response = await fetchData("/getAllSavedData", data);
                     const json = await response.json();
                     this.data = json;
                     this.setState({dataReceived: true}); //used to rerender view
@@ -33,114 +35,64 @@ class AvLocPane extends Component {
 
     render() {
     //Collects the data from localStorage that is linked to the specified location
-
-        let validDate = true;
+        this.locations = [];
+        for(var i = 0; i < locations.features.length; i++){
+               this.locations.push(locations.features[i].properties.NAME);
+        }
+        let startInput = new Date(this.props.startTime);
+        let endInput = new Date(this.props.endTime);
+        if(this.state.dataReceived && this.props.startTime != null && this.props.endTime != null){
 
             return (
+                       <React.Fragment>
+                           <div className="row" style={{ fontWeight: "bold", fontSize: "25px"  }}> {/* Top row containing three column titles Event, StartTid and SlutTid*/}
+                               <div className="col">Lokal</div>
+                               <div className="col">Datum</div>
+                               <div className="col">Tid</div>
+                               <div className="col"></div>
+                           </div>
 
-                
-                
-                <React.Fragment>
-                    <div className="row" style={{ fontWeight: "bold", fontSize: "25px"  }}> {/* Top row containing three column titles Event, StartTid and SlutTid*/}
-                        <div className="col">Lokal</div>
-                        <div className="col">Datum</div>
-                        <div className="col">Tid</div>
-                        <div className="col"></div>
-                    </div>
+                           <tbody className="my-bookings-table" > {/* Table containing all appointments for a specified location for the current owner */}
+                          {
+                                   this.locations.map((location) => {
+                                   this.data.map((element) => {
 
-                    <tbody className="my-bookings-table" > {/* Table containing all appointments for a specified location for the current owner */}
+                                      let start = new Date(element.StartTime);
+                                      let end = new Date(element.EndTime);
 
-                    
-                    {/*{
-                        locations.features.map((premises) => {
-                            
-                            return <h1>{premises.properties.NAME}</h1>;
-                            
-                            })
-                    
-                    }
-                    }*/}
+                                      if(location === element.Location){
+                                          if((startInput.getDate() <= end.getDate()) && (start.getDate() <= endInput.getDate())){
+                                              if(startInput.getHours() <= end.getHours() && (start.getHours() <= endInput.getHours())){
+                                                     var index = this.locations.indexOf(element.Location);
+                                                     location = null;
 
-                   {
-                
-                        //will map an array with all existing locations
-                        locations.features.map((premises) => {
-                        
-                            //Fetches all bookings from current location "premises"
-                            //this.getData(premises.properties.NAME); //fetch into variable data
-                            validDate = true;
-
-                            //if(this.state.dataReceived){
-                            
-                                //will run through all the bookings of the current location
-                                //for(var i = 0; i<this.data.length; i++){
-
-                                let start = new Date("2021-04-20T13:00:00.000Z");//new Date(this.data[i].StartTime);
-                                let end = new Date("2021-04-20T14:00:00.000Z");//new Date(this.data[i].EndTime);
-
-                                let startInput = new Date("2021-04-20T11:00:00.000Z");
-                                let endInput = new Date("2021-04-20T14:00:00.000Z");
-
-                                //start = gammal  / 22:00   26
-                                //end = gammal    / 02:00   27
-
-                                //startInput = ny / 20:00   26                   
-                                //endInput = ny   / 22:00   26
-                                
-                                if((startInput.getDate() <= start.getDate()) && (end.getDate() >= startInput.getDate())
-                                && (endInput.getDate() <= start.getDate() && (end.getDate() >= endInput.getDate()))){
-                                    
-                                    if( 
-                                        (startInput.getHours() <= start.getHours()) && (end.getHours() <= startInput.getHours())
-                                        && (endInput.getHours() <= start.getHours() && (end.getHours() <= endInput.getHours()))){      
-                                          
-                                        
-
-                                        }else{
-
-                                            validDate = false;
-                                            alert("hours fail at " + premises.properties.NAME + ", " + start + ", " + end);
-                                            //break;
-        
-                                        }
-
-                                }else{
-
-                                    validDate = false;
-                                    alert("hours fail at " + premises.properties.NAME + ", " + start + ", " + end);
-                                   // break;
-
-                                }
-
-                            
-
-                            if(validDate){
-
-                                alert("ok");
-                                return <h1>{premises.properties.NAME}</h1>
-
-                            }
-
-                       // }else{
+                                              }
+                                         }
+                                         }
 
 
+                                  })
+                                    if(location != null){
+                                                  return <BookingListItem
+                                                          eventName={location}
+                                                          startTime={startInput}
+                                                          endTime={endInput}
+                                                        />;
+                                              }
+                                     })
 
-                      //  }
-                    
-                    })
 
-                       
-                }
+                          }
+                       </tbody>
+                       </React.Fragment>
+                   );
+        }
+        else {
+            return "";
+        }
 
-                        
-                </tbody>
-
-
-                </React.Fragment>
-            );
     }
 
 }
-
 
 export default AvLocPane;
