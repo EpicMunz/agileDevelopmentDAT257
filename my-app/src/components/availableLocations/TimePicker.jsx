@@ -12,9 +12,11 @@ export default class AvailableLocations extends Component {
 		super(props);
 		this.state = {};
   	}
+  	//Handles the selected StartTime for the event
     handleStartTime(props){
         this.props.onStartTimeChange(props);
     }
+    //Handles the selected EndTime for the event
     handleEndTime(props){
             this.props.onEndTimeChange(props);
    }
