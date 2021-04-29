@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 //Importing from syncfusion api for schedule
 import {
   ScheduleComponent,
@@ -11,95 +11,122 @@ import {
   TimelineViews,
   Resize,
   DragAndDrop,
-  ExcelExport
+  ExcelExport,
 } from "@syncfusion/ej2-react-schedule";
-import { isNullOrUndefined } from '@syncfusion/ej2-base';
+import { isNullOrUndefined } from "@syncfusion/ej2-base";
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
-import { fetchData } from "./ClientFetch";
 
+export const options = {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+};
+export function fetchScheduleData(param) {
+  options.body = JSON.stringify(param);
+  return fetch(`http://localhost:3000/save`, options);
+}
 export default class App extends React.Component {
+  state = { dataReceived: false };
 
-  constructor(props){
-    super(props)
-    this.state = { dataReceived: false }
-    this.componentWillReceiveProps(this.props);
+  constructor(props) {
+    super(props);
   }
+
+  //comment needed
   async componentDidMount() {
-      if(this.props.data == null){
-          var data = [{
-                  Id: 1,
-                  Location: this.props.location
-                }];
-                const response = await fetchData("/getSavedData", data);
-                const json = await response.json();
-                this.data = json;
-                this.setState({dataReceived: true});
-      }
+    var data = [
+      {
+        Id: 1,
+        Location: this.props.location,
+      },
+    ];
+    options.body = JSON.stringify(data);
+    const api_call = await fetch(`http://localhost:3000/getSavedData`, options);
+    const response = await api_call.json();
+    this.data = response;
+    this.setState({ dataReceived: true });
   }
-  //Is called when object has been used before instead of constructor when passing props
-  componentWillReceiveProps(nextProps){
-      this.data = nextProps.data;
-      this.setState(state => ({
-              dataReceived: true
-          }));
-  }
-  onActionBegin(args) {
-      //Adds the excel export button to the toolbar
-      if (args.requestType === 'toolbarItemRendering') {
-          let dividerRight = {
-              align: 'Right', 
-              cssClass: 'e-toolbar-item e-schedule-seperator e-separator',
-              type: 'none'
-          }
-          args.items.push(dividerRight);
-          let exportItem = {
-              align: 'Right', showTextOn: 'Both',
-              text: 'Excel Export', cssClass: 'e-excel-export', click: this.onExportClick.bind(this)
-          };
-          args.items.push(exportItem);
-          let dividerLeft = {
-            align: 'Left', 
-            cssClass: 'e-toolbar-item e-schedule-seperator e-separator',
-            type: 'none'
-        }
-        args.items.push(dividerLeft);
-        let title = {
-            align: 'Left', showTextOn: 'false',
-            text: this.props.location
-        };
-        args.items.push(title);
-      }
-      //Checks if current clicked appointment is empty
-      if (args.requestType === 'eventCreate' && args.data.length > 0) {
-          let eventData = args.data[0];
-          let eventField = this.scheduleObj.eventFields;
-          let startDate = eventData[eventField.startTime];
-          let endDate = eventData[eventField.endTime];
 
-          args.cancel = !this.scheduleObj.isSlotAvailable(startDate, endDate);
-      }
+  //comment needed
+  onActionBegin(args) {
+    console.log("action begun");
+    if (
+      args.requestType === "eventCreate" ||
+      args.requestType === "eventChange"
+    ) {
+      args.cancel = true;
+    }
+
+    //Adds the excel export button to the toolbar
+    if (args.requestType === "toolbarItemRendering") {
+      let dividerRight = {
+        align: "Right",
+        cssClass: "e-toolbar-item e-schedule-seperator e-separator",
+        type: "none",
+      };
+      args.items.push(dividerRight);
+
+      let exportItem = {
+        align: "Right",
+        showTextOn: "Both",
+        text: "Excel Export",
+        cssClass: "e-excel-export",
+        click: this.onExportClick.bind(this),
+      };
+      args.items.push(exportItem);
+      let dividerLeft = {
+        align: "Left",
+        cssClass: "e-toolbar-item e-schedule-seperator e-separator",
+        type: "none",
+      };
+      args.items.push(dividerLeft);
+      let title = {
+        align: "Left",
+        showTextOn: "false",
+        text: this.props.location,
+      };
+      args.items.push(title);
+    }
+    //Checks if current clicked appointment is empty
+    if (args.requestType === "eventCreate" && args.data.length > 0) {
+      let eventData = args.data[0];
+      let eventField = this.scheduleObj.eventFields;
+      let startDate = eventData[eventField.startTime];
+      let endDate = eventData[eventField.endTime];
+
+      args.cancel = !this.scheduleObj.isSlotAvailable(startDate, endDate);
+    }
   }
   //exports current schedule data to excel document
   onExportClick() {
-      this.scheduleObj.exportToExcel();
+    this.scheduleObj.exportToExcel();
   }
   //Is called when cell with appointment is being rendered
   onEventRendered(args) {
     args.element.style.backgroundColor = args.data.color;
-    if(this.props.data == null){
-        fetchData('/save', this.data);
-    }
+    fetchScheduleData(this.data);
   }
   //Creates a popup when double clicking a cell
   onPopupOpen(args) {
+    const jsonData = JSON.parse(sessionStorage.getItem("userData"));
+    const currentUser = jsonData.Username;
+    const userStatus = jsonData.Status;
+    if (
+      args.data.Owner !== currentUser &&
+      args.data.Owner !== undefined &&
+      userStatus !== "admin"
+    ) {
+      args.cancel = true;
+    }
     if (args.type === "Editor") {
-      let subjectElement = args.element.querySelector("#Summary");  //Saves the text from the summary field in Editor
+      let subjectElement = args.element.querySelector("#Summary"); //Saves the text from the summary field in Editor
       if (subjectElement) {
-        subjectElement.value = args.data.Subject || "";             //What we receive is saved as value in subjectElement
+        subjectElement.value = args.data.Subject || ""; //What we receive is saved as value in subjectElement
       }
-      let ownerElement = args.element.querySelector("#Owner");      //Saves the text from the hidden owner field in Editor
+      let ownerElement = args.element.querySelector("#Owner"); //Saves the text from the hidden owner field in Editor
       if (ownerElement) {
-        ownerElement.value = args.data.Owner || "";                 //What we receive is saved as value in ownerElement
+        ownerElement.value = args.data.Owner || ""; //What we receive is saved as value in ownerElement
       }
     }
   }
@@ -111,26 +138,27 @@ export default class App extends React.Component {
     if (args.type === "Editor" && !isNullOrUndefined(args.data)) {
       let subjectElement = args.element.querySelector("#Summary");
       if (subjectElement) {
-        args.data.Subject = subjectElement.value;     //Appends " - " + owner after printing summary value
+        args.data.Subject = subjectElement.value; //Appends " - " + owner after printing summary value
       }
       let ownerElement = args.element.querySelector("#Owner");
       if (ownerElement) {
         var jsonData = JSON.parse(sessionStorage.getItem("userData"));
         var owner = jsonData.Username;
-        args.data.Owner = owner;                 //set owner of cell from sessionStorage
+        args.data.Owner = owner; //set owner of cell from sessionStorage
       }
       let locationElement = args.element.querySelector("#Location");
-      if(locationElement){
+      if (locationElement) {
         args.data.Location = this.props.location;
       }
       let colorElement = args.element.querySelector("#color");
-      if(colorElement){
-      var jsonData = JSON.parse(sessionStorage.getItem("userData"));
-      var color = jsonData.Color;
+      if (colorElement) {
+        var jsonData = JSON.parse(sessionStorage.getItem("userData"));
+        var color = jsonData.Color;
         args.data.color = color;
       }
     }
   }
+  //should propably be an own component
   //returns the custom made popup appointment editor
   editorTemplate(props) {
     return props !== undefined ? (
@@ -140,7 +168,7 @@ export default class App extends React.Component {
       >
         <tbody>
           <tr>
-            <td className="e-textlabel">Summary</td>  {/*"summary" entry here*/}
+            <td className="e-textlabel">Summary</td> {/*"summary" entry here*/}
             <td colSpan={4}>
               <input
                 id="Summary"
@@ -152,7 +180,8 @@ export default class App extends React.Component {
             </td>
           </tr>
           <tr>
-            <td className="e-textlabel"></td>         {/*hidden owner entry here through sessionStorage to Owner id*/}
+            <td className="e-textlabel"></td>{" "}
+            {/*hidden owner entry here through sessionStorage to Owner id*/}
             <td colSpan={4}>
               <input
                 id="Owner"
@@ -164,31 +193,31 @@ export default class App extends React.Component {
             </td>
           </tr>
           <tr>
-              <td className="e-textlabel"></td>         {/*hidden location entry here*/}
-              <td colSpan={4}>
-                <input
-                  id="Location"
-                  className="e-field e-input"
-                  type="hidden"
-                  name="Location"
-                  style={{ width: "100%" }}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td className="e-textlabel"></td>         {/*hidden location entry here*/}
-              <td colSpan={4}>
-                <input
-                  id="color"
-                  className="e-field e-input"
-                  type="hidden"
-                  name="color"
-                  style={{ width: "100%" }}
-                />
-              </td>
-            </tr>
+            <td className="e-textlabel"></td> {/*hidden location entry here*/}
+            <td colSpan={4}>
+              <input
+                id="Location"
+                className="e-field e-input"
+                type="hidden"
+                name="Location"
+                style={{ width: "100%" }}
+              />
+            </td>
+          </tr>
           <tr>
-            <td className="e-textlabel">From</td>     {/*"from" entry here*/}
+            <td className="e-textlabel"></td> {/*hidden location entry here*/}
+            <td colSpan={4}>
+              <input
+                id="color"
+                className="e-field e-input"
+                type="hidden"
+                name="color"
+                style={{ width: "100%" }}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td className="e-textlabel">From</td> {/*"from" entry here*/}
             <td colSpan={4}>
               <DateTimePickerComponent
                 format="dd/MM/yy hh:mm a"
@@ -200,7 +229,7 @@ export default class App extends React.Component {
             </td>
           </tr>
           <tr>
-            <td className="e-textlabel">To</td>       {/*"to" entry here*/}
+            <td className="e-textlabel">To</td> {/*"to" entry here*/}
             <td colSpan={4}>
               <DateTimePickerComponent
                 format="dd/MM/yy hh:mm a"
@@ -218,34 +247,35 @@ export default class App extends React.Component {
     );
   }
   render() {
-                //Updates sessionStorage each render
+    //Updates sessionStorage each render
     //Returns the necessary html code to render schedule
 
     return this.state.dataReceived ? (
       <ScheduleComponent
-        cssClass='excel-export'
+        cssClass="excel-export"
         ref={(t) => (this.scheduleObj = t)}
         width="100%"
         height="700px"
         currentView="Week"
-        selectedDate={new Date()}                           //'new Date()' will fetch the current date
+        selectedDate={new Date()} //'new Date()' will fetch the current date
         timeScale={{ enable: true, interval: 60, slotCount: 1 }}
         editorTemplate={this.editorTemplate.bind(this)}
-        showQuickInfo={true}
+        showQuickInfo={false}
         popupOpen={this.onPopupOpen.bind(this)}
         popupClose={this.onPopupClose.bind(this)}
         eventRendered={this.onEventRendered.bind(this)}
-        eventSettings={{dataSource: this.data,
-        fields: {
-                    id: 'Id',
-                    subject: { name: 'Subject' },
-                    location: { name:  'Owner' },
-                    description: {name: 'Location'},
-                    startTime: { name: 'StartTime' },
-                    endTime: { name: 'EndTime'},
-                    color:{ name: 'color'}
-
-             }}}
+        eventSettings={{
+          dataSource: this.data,
+          fields: {
+            id: "Id",
+            subject: { name: "Subject" },
+            source: { name: "Location" },
+            location: { name: "Owner" },
+            startTime: { name: "StartTime" },
+            endTime: { name: "EndTime" },
+            color: { name: "color" },
+          },
+        }}
         actionBegin={this.onActionBegin.bind(this)}
       >
         <ViewsDirective>
@@ -253,8 +283,20 @@ export default class App extends React.Component {
           <ViewDirective option="Week" startHour="00:00" endHour="00:00" />
           <ViewDirective option="Month" />
         </ViewsDirective>
-        <Inject services={[Day, Week, Month, TimelineViews, Resize, DragAndDrop, ExcelExport]} />
-      </ScheduleComponent>)
-    : (<p>Loading Schedule...</p>);
+        <Inject
+          services={[
+            Day,
+            Week,
+            Month,
+            TimelineViews,
+            Resize,
+            DragAndDrop,
+            ExcelExport,
+          ]}
+        />
+      </ScheduleComponent>
+    ) : (
+      <p>Loading Schedule...</p>
+    );
   }
 }

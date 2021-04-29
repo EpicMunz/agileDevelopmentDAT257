@@ -3,18 +3,21 @@
     "Username": "Nollkit",
     "Password": "123",
     "Id": "420",
+    "Status": "User",
     "Color": "#09cdda"
   },
   {
     "Username": "DNollK",
     "Password": "123",
     "Id": "69",
+    "Status": "User",
     "Color": "orange"
   },
   {
     "Username": "admin",
     "Password": "kingen",
     "Id": "1",
+    "Status": "admin",
     "Color": "black"
   }
 ]

@@ -14,7 +14,7 @@ export default class MenuHeader extends Component {
 
     constructor(props){
 		super(props);
-		this.state = { page: LogInPage};
+		this.state = { page: LogInPage, currentUser: "admin"};
 		this.handleClick = this.handleClick.bind(this);
 	}
 	//Changes the current page to the selected one in the header
@@ -30,6 +30,8 @@ export default class MenuHeader extends Component {
         }
     }
   render() {
+    const jsonData = JSON.parse(sessionStorage.getItem("userData"));
+    const userStatus = jsonData.Status
     return (
       <Layout className="layout">
         <Header>
@@ -48,10 +50,10 @@ export default class MenuHeader extends Component {
                 <Menu.Item key="4">Logga ut</Menu.Item>
               </Menu.ItemGroup>
             </SubMenu>
-            <Menu.Item key="1">
+            {userStatus !== "admin" &&(<Menu.Item key="1">
                 <a onClick={() => this.handleClick("minabokningar")}>
                    Mina Bokningar
-                </a></Menu.Item>
+                </a></Menu.Item>)}
             <Menu.Item key="2">
                 <a onClick={() => this.handleClick("map")}>
                   Karta
