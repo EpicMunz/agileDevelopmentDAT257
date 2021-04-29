@@ -15,17 +15,8 @@ import {
 } from "@syncfusion/ej2-react-schedule";
 import { isNullOrUndefined } from "@syncfusion/ej2-base";
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
+import {fetchData} from "./ClientFetch";
 
-export const options = {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-};
-export function fetchScheduleData(param) {
-  options.body = JSON.stringify(param);
-  return fetch(`http://localhost:3000/save`, options);
-}
 export default class App extends React.Component {
   state = { dataReceived: false };
 
@@ -35,18 +26,29 @@ export default class App extends React.Component {
 
   //comment needed
   async componentDidMount() {
-    var data = [
-      {
-        Id: 1,
-        Location: this.props.location,
-      },
-    ];
-    options.body = JSON.stringify(data);
-    const api_call = await fetch(`http://localhost:3000/getSavedData`, options);
-    const response = await api_call.json();
-    this.data = response;
-    this.setState({ dataReceived: true });
+      if(this.props.data == null){
+          var data = [
+                {
+                  Id: 1,
+                  Location: this.props.location,
+                },
+              ];
+              const api_call = await fetchData('/getSavedData', data);
+              const response = await api_call.json();
+              this.data = response;
+              this.setState({ dataReceived: true });
+      }
+      else{
+        this.componentWillReceiveProps(this.props);
+      }
+
   }
+  componentWillReceiveProps(nextProps){
+        this.data = nextProps.data;
+        this.setState(state => ({
+                dataReceived: true
+            }));
+    }
 
   //comment needed
   onActionBegin(args) {
@@ -97,7 +99,7 @@ export default class App extends React.Component {
   //Is called when cell with appointment is being rendered
   onEventRendered(args) {
     args.element.style.backgroundColor = args.data.color;
-    fetchScheduleData(this.data);
+    fetchData('/save', this.data);
   }
   //Creates a popup when double clicking a cell
   onPopupOpen(args) {
