@@ -50,14 +50,6 @@ export default class App extends React.Component {
 
   //comment needed
   onActionBegin(args) {
-    console.log("action begun");
-    if (
-      args.requestType === "eventCreate" ||
-      args.requestType === "eventChange"
-    ) {
-      args.cancel = true;
-    }
-
     //Adds the excel export button to the toolbar
     if (args.requestType === "toolbarItemRendering") {
       let dividerRight = {
