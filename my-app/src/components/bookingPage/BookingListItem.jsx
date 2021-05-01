@@ -5,6 +5,9 @@ import { fetchData } from "../ClientFetch";
 class BookingListItem extends Component {
   state = {};
 
+  /*
+  starts by fetching schedule data, then adds a schedule entry and sends it to the server.
+  */
   async bookPremise() {
     var data = [{
       Location:this.props.Location
