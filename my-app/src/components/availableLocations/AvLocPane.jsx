@@ -74,7 +74,7 @@ class AvLocPane extends Component {
                                   })
                                     if(location != null){
                                                   return <BookingListItem
-                                                          eventName={location}
+                                                          Location={location}
                                                           startTime={startInput}
                                                           endTime={endInput}
                                                         />;
