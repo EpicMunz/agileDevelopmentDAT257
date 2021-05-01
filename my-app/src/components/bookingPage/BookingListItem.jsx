@@ -23,9 +23,10 @@ class BookingListItem extends Component {
         StartTime: this.props.startTime,
         EndTime: this.props.endTime,
       };
-    alert(json.color);
+    
     response.push(json);
     fetchData("/save", response);
+    alert("Booking has been saved");
   }
 
   formatDate(number) {
