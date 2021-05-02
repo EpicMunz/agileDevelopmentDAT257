@@ -16,7 +16,7 @@ export default class AvailableLocations extends Component {
 
     changeStartTime(args){
         this.StartTime = args;
-        if(this.EndTime != ""){
+        if(this.EndTime !== ""){
             this.setState(state => ({
                           timeSet: !this.state.timeSet
                       }));
@@ -24,7 +24,7 @@ export default class AvailableLocations extends Component {
     }
     changeEndTime(args){
         this.EndTime = args;
-        if(this.StartTime != ""){
+        if(this.StartTime !== ""){
                     this.setState(state => ({
                                               timeSet: !this.state.timeSet
                                           }));

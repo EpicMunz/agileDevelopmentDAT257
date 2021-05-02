@@ -15,40 +15,34 @@ import {
 } from "@syncfusion/ej2-react-schedule";
 import { isNullOrUndefined } from "@syncfusion/ej2-base";
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
-import {fetchData} from "./ClientFetch";
+import { fetchData } from "./ClientFetch";
 
 export default class App extends React.Component {
   state = { dataReceived: false };
 
-  constructor(props) {
-    super(props);
-  }
-
   //comment needed
   async componentDidMount() {
-      if(this.props.data == null){
-          var data = [
-                {
-                  Id: 1,
-                  Location: this.props.location,
-                },
-              ];
-              const api_call = await fetchData('/getSavedData', data);
-              const response = await api_call.json();
-              this.data = response;
-              this.setState({ dataReceived: true });
-      }
-      else{
-        this.componentWillReceiveProps(this.props);
-      }
-
-  }
-  componentWillReceiveProps(nextProps){
-        this.data = nextProps.data;
-        this.setState(state => ({
-                dataReceived: true
-            }));
+    if (this.props.data == null) {
+      var data = [
+        {
+          Id: 1,
+          Location: this.props.location,
+        },
+      ];
+      const api_call = await fetchData("/getSavedData", data);
+      const response = await api_call.json();
+      this.data = response;
+      this.setState({ dataReceived: true });
+    } else {
+      this.componentWillReceiveProps(this.props);
     }
+  }
+  componentWillReceiveProps(nextProps) {
+    this.data = nextProps.data;
+    this.setState((state) => ({
+      dataReceived: true,
+    }));
+  }
 
   //comment needed
   onActionBegin(args) {
@@ -99,7 +93,7 @@ export default class App extends React.Component {
   //Is called when cell with appointment is being rendered
   onEventRendered(args) {
     args.element.style.backgroundColor = args.data.color;
-    fetchData('/save', this.data);
+    fetchData("/save", this.data);
   }
   //Creates a popup when double clicking a cell
   onPopupOpen(args) {
@@ -130,13 +124,14 @@ export default class App extends React.Component {
   */
   onPopupClose(args) {
     if (args.type === "Editor" && !isNullOrUndefined(args.data)) {
+      var jsonData = JSON.parse(sessionStorage.getItem("userData"));
       let subjectElement = args.element.querySelector("#Summary");
       if (subjectElement) {
         args.data.Subject = subjectElement.value; //Appends " - " + owner after printing summary value
       }
       let ownerElement = args.element.querySelector("#Owner");
       if (ownerElement) {
-        var jsonData = JSON.parse(sessionStorage.getItem("userData"));
+        
         var owner = jsonData.Username;
         args.data.Owner = owner; //set owner of cell from sessionStorage
       }
@@ -146,7 +141,7 @@ export default class App extends React.Component {
       }
       let colorElement = args.element.querySelector("#color");
       if (colorElement) {
-        var jsonData = JSON.parse(sessionStorage.getItem("userData"));
+        
         var color = jsonData.Color;
         args.data.color = color;
       }

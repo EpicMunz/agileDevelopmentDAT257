@@ -4,25 +4,21 @@ import ReactMapGl, { Marker, Popup } from "react-map-gl";
 import * as locations from "../data/locations.json";
 
 export default class InteractiveMap extends Component {
-  //This makes it so that the map is created with a focus over Chalmers university
-  constructor(props) {
-    super(props);
-    this.state = {
-      viewport: {
-        latitude: 57.68861,
-        longitude: 11.978938,
-        width: "100vw",
-        height: "100vh",
-        zoom: 16,
-      },
-      selectedPremise: null,
-    };
-    this.handleClick = this.handleClick.bind(this);
-  }
+  state = {
+    //This makes it so that the map is created with a focus over Chalmers university
+    viewport: {
+      latitude: 57.68861,
+      longitude: 11.978938,
+      width: "100vw",
+      height: "100vh",
+      zoom: 16,
+    },
+    selectedPremise: null,
+  };
 
-  handleClick(location){
+  handleClick = (location) => {
     this.props.onLocationChange(location);
-  }
+  };
 
   render() {
     return (
@@ -30,8 +26,7 @@ export default class InteractiveMap extends Component {
         <ReactMapGl
           {...this.state.viewport}
           //Restyles the map, this one is called satellite but there are many styles to chose from
-          //Satellite view
-          //mapStyle="mapbox://styles/zneed/cknk41gmn04hw18mc0egyl2im"
+
           //Basic view
           mapStyle="mapbox://styles/zneed/cknob180n4u8p17ny8h3qm0xr"
           //This accesses the mapBox(google map) token
@@ -54,7 +49,7 @@ export default class InteractiveMap extends Component {
                 className="marker-btn"
                 onClick={(e) => {
                   e.preventDefault();
-                  this.setState({selectedPremise: premises});
+                  this.setState({ selectedPremise: premises });
                 }}
               >
                 <img src="redButton.png" alt="Premise button" />
@@ -72,8 +67,11 @@ export default class InteractiveMap extends Component {
                 <p>{this.state.selectedPremise.properties.NOTES} </p>
                 <p>{this.state.selectedPremise.properties.FACILITY}</p>
                 <button
-                  className="boka-tid-knapp" 
-                  onClick={() => this.handleClick(this.state.selectedPremise.properties.NAME)}>
+                  className="boka-tid-knapp"
+                  onClick={() =>
+                    this.handleClick(this.state.selectedPremise.properties.NAME)
+                  }
+                >
                   Boka tid
                 </button>
               </div>

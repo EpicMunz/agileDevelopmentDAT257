@@ -42,7 +42,7 @@ class BookingListItem extends Component {
     var endTime = new Date(this.props.endTime);
     bookDate.setMonth(bookDate.getMonth() + 1);
     endTime.setMonth(endTime.getMonth() + 1);
-    if (bookDate.getDate() != endTime.getDate()) {
+    if (bookDate.getDate() !== endTime.getDate()) {
       return (
         <React.Fragment // A really simple listitem that displays the events name, date and time as a row...
         >
