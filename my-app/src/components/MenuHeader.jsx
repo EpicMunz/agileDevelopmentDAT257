@@ -50,10 +50,10 @@ export default class MenuHeader extends Component {
                 <Menu.Item key="4">Logga ut</Menu.Item>
               </Menu.ItemGroup>
             </SubMenu>
-            {userStatus !== "admin" &&(<Menu.Item key="1">
+            <Menu.Item key="1">
                 <a onClick={() => this.handleClick("minabokningar")}>
                    Mina Bokningar
-                </a></Menu.Item>)}
+                </a></Menu.Item>
             <Menu.Item key="2">
                 <a onClick={() => this.handleClick("map")}>
                   Karta
