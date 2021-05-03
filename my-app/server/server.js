@@ -20,6 +20,7 @@ router.post('/save',(req, res) => {
     var location = jsonData[0].Location;
     let data = JSON.stringify(jsonData);
     fs.writeFileSync('./data/'+location+'.json', data);
+    console.log("Saving data for " + location);
     res.send("Data has been saved");
 });
 //Sends saved schedule data for specified location to client
@@ -77,7 +78,30 @@ router.post('/logInUser', (req, res) => {
         var emptyData = [{Id: null}];
         return res.send(emptyData);
 });
-
+router.post('/addUser', (req, res) => {
+        var data = req.body;
+        var jsonData = JSON.parse(fs.readFileSync('./users/UsersData.json'));
+        jsonData.push(data);
+        fs.writeFileSync('./users/UsersData.json', JSON.stringify(jsonData));
+        console.log("Added user " + data.Username);
+        return res.send("Added user Successfully");
+});
+router.post('/removeUser', (req, res) => {
+        var data = req.body;
+        var jsonData = JSON.parse(fs.readFileSync('./users/UsersData.json'));
+        var indexOfUserToRemove = jsonData.findIndex(item => item.Username === data.Username);
+        if(indexOfUserToRemove > -1){
+             jsonData.splice(indexOfUserToRemove, 1);
+        }
+        fs.writeFileSync('./users/UsersData.json', JSON.stringify(jsonData));
+        console.log("Removed user " + data.Username);
+        return res.send("Added user Successfully");
+});
+router.post('/getAllUsers', (req, res) => {
+        var jsonData = JSON.parse(fs.readFileSync('./users/UsersData.json'));
+        console.log("Returning all users");
+        return res.send(jsonData);
+});
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'))
 })

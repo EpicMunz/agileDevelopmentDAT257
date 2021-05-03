@@ -50,49 +50,5 @@ export default class BookingPageContainer extends Component {
                      data = {this.state.data}
                    />
                  </div>);
-
-    /*
-    return (
-      <React.Fragment>
-        <h1 className="display-1">Mina Bokningar</h1>
-        <Layout>
-          <Sider //Some styling for the menu
-            className="site-layout-background"
-            breakpoint={"lg"}
-            theme="light"
-            trigger={null}
-          >
-            <Menu // The menu contains the different locations as items
-              style={{ height: "100%", borderRight: 0 }}
-              defaultSelectedKeys={["0"]}
-              mode="inline"
-              className = "my-bookings"
-            >{
-                this.state.data.map((element, i) =>{
-                    if(this.locations.indexOf(element.Location) < 0){
-                        this.addLocation(element.Location);
-                        return <Menu.Item key={i}>
-                                    <a onClick={() => this.handleClick(element.Location)}>
-                                        {element.Location}
-                                    </a>
-                               </Menu.Item>;
-                    }
-                })
-            }
-            </Menu>
-          </Sider>
-          <Content
-            className="site-layout-background"
-            style={{ padding: 24, margin: 0 }}
-          >
-            <BookingPane
-            location = {this.state.location}
-            data = {this.state.data}
-            />
-          </Content>
-        </Layout>
-      </React.Fragment>
-    );
-    */
   }
 }
