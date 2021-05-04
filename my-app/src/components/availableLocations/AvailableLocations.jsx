@@ -35,12 +35,24 @@ export default class AvailableLocations extends Component {
 	this.setState({EventName: e.target.value});
 	this.EventName = e.target.value;
   }
- 
-	//returns a schedule component with linked props
-	render() {
-		return (
-			<React.Fragment>
+  //returns a schedule component with linked props
+  render() {
+    let input = "15-17";
 
+    return (
+      <React.Fragment>
+        <h1 className="display-1">Tillgängliga lokaler</h1>
+        
+          <TimePicker
+            onStartTimeChange={this.changeStartTime.bind(this)}
+            onEndTimeChange={this.changeEndTime.bind(this)}
+          />
+		<h1>Ange titeln på ditt event</h1>
+          <Input 
+		  	placeholder="T.ex 'Bollkalas'" 
+			value={this.state.EventName}
+		  	onChange = {this.onChange}
+		  />
 
         <Layout>
           <Menu // The menu contains the different locations as items
@@ -49,12 +61,6 @@ export default class AvailableLocations extends Component {
             mode="inline"
             className="my-bookings"
           ></Menu>
-          <h1>Ange titeln på ditt event</h1>
-          <Input 
-        placeholder="T.ex 'Bollkalas'" 
-      value={this.state.EventName}
-        onChange = {this.onChange}
-      />
           <Content
             className="site-layout-background"
             style={{ padding: 24, margin: 0 }}
