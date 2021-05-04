@@ -16,7 +16,7 @@ class BookingListItem extends Component {
     const response = await api_call.json();
     var json = 
       {
-        Subject: "default event",
+        Subject: this.props.eventName,
         Owner: JSON.parse(sessionStorage.getItem("userData")).Username,
         Location: this.props.Location,
         color: JSON.parse(sessionStorage.getItem("userData")).Color,

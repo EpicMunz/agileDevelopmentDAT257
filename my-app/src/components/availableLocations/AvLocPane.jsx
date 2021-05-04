@@ -77,6 +77,7 @@ class AvLocPane extends Component {
                                                           Location={location}
                                                           startTime={startInput}
                                                           endTime={endInput}
+                                                          eventName={this.props.eventName}
                                                         />;
                                               }
                                      })
