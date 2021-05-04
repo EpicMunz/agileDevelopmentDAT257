@@ -5,6 +5,7 @@ import Map from "./InteractiveMap";
 import BookingPane from "./bookingPage/BookingPageContainer.jsx";
 import LogInPage from "./LogInPage";
 import AvailableLocations from "./availableLocations/AvailableLocations.jsx";
+import AddAccountPage from "./AdminAccountPage/AccountPage.jsx";
 
 const { Header } = Layout;
 const { SubMenu } = Menu;
@@ -28,6 +29,18 @@ export default class MenuHeader extends Component {
         else if(page === "available"){
           this.props.onDisplayChange(AvailableLocations)
         }
+        else if(page === "AddAccount"){
+            this.props.onDisplayChange(AddAccountPage);
+        }
+    }
+    //If status of user is admin add AddAccountPage to header
+    accountPageToHeader(){
+    if(JSON.parse(sessionStorage.getItem("userData")).Status === "admin")
+        return (<Menu.Item key = "4">
+                              <a onClick={() => this.handleClick("AddAccount")}>
+                                Hantera användare
+                              </a>
+                            </Menu.Item>);
     }
   render() {
     const jsonData = JSON.parse(sessionStorage.getItem("userData"));
@@ -63,6 +76,7 @@ export default class MenuHeader extends Component {
                 Tillgängliga Lokaler
               </a>
             </Menu.Item>
+            {this.accountPageToHeader()}
           </Menu>
         </Header>
       </Layout>

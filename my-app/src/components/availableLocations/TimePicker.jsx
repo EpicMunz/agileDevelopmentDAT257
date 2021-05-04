@@ -1,10 +1,5 @@
 import React, { Component } from "react";
-import { Layout, Menu} from "antd";
-import AvLocPane from "./AvLocPane.jsx";
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
-
-const { Content} = Layout;
-
 
 
 export default class AvailableLocations extends Component {

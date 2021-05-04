@@ -1,0 +1,10 @@
+.rectangle {
+  display: block;
+  width: 240px;
+  background: white;
+  text-align:right;
+  text-align-last: center;
+  border: 1px;
+  border-style: solid;
+  padding-bottom: 20px;
+}

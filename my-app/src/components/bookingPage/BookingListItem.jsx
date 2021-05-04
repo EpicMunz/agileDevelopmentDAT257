@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Divider, Button } from "antd";
 import { fetchData } from "../ClientFetch";
+import uuid from 'react-uuid'
 
 class BookingListItem extends Component {
   state = {};
@@ -22,11 +23,14 @@ class BookingListItem extends Component {
         color: JSON.parse(sessionStorage.getItem("userData")).Color,
         StartTime: this.props.startTime,
         EndTime: this.props.endTime,
+        Id: response.length + 1,
+        Guid: uuid(),
       };
     
     response.push(json);
     fetchData("/save", response);
     alert("Booking has been saved");
+    this.props.onChange();
   }
 
   formatDate(number) {

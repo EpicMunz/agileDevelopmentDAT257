@@ -8,9 +8,10 @@ class AvLocPane extends Component {
 
     constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {reRender: false};
 		this.getData();
 		this.locations = [];
+		this.onSuccessfulBooking = this.onSuccessfulBooking.bind(this);
     }
 
     async getData() {
@@ -32,6 +33,9 @@ class AvLocPane extends Component {
             }));
     }
 */
+    onSuccessfulBooking(){
+        this.getData();
+    }
 
     render() {
     //Collects the data from localStorage that is linked to the specified location
@@ -63,9 +67,7 @@ class AvLocPane extends Component {
                                       if(location === element.Location){
                                           if((startInput.getDate() <= end.getDate()) && (start.getDate() <= endInput.getDate())){
                                               if(startInput.getHours() <= end.getHours() && (start.getHours() <= endInput.getHours())){
-                                                     var index = this.locations.indexOf(element.Location);
                                                      location = null;
-
                                               }
                                          }
                                          }
@@ -78,6 +80,7 @@ class AvLocPane extends Component {
                                                           startTime={startInput}
                                                           endTime={endInput}
                                                           eventName={this.props.eventName}
+                                                          onChange={this.onSuccessfulBooking}
                                                         />;
                                               }
                                      })

@@ -93,7 +93,9 @@ export default class App extends React.Component {
   //Is called when cell with appointment is being rendered
   onEventRendered(args) {
     args.element.style.backgroundColor = args.data.color;
-    fetchData("/save", this.data);
+    if(this.props.data == null){
+        fetchData("/save", this.data);
+    }
   }
   //Creates a popup when double clicking a cell
   onPopupOpen(args) {
@@ -103,7 +105,8 @@ export default class App extends React.Component {
     if (
       args.data.Owner !== currentUser &&
       args.data.Owner !== undefined &&
-      userStatus !== "admin"
+      userStatus !== "admin" &&
+      args.type === "Editor"
     ) {
       args.cancel = true;
     }
@@ -117,6 +120,11 @@ export default class App extends React.Component {
         ownerElement.value = args.data.Owner || ""; //What we receive is saved as value in ownerElement
       }
     }
+    let isCell = args.target.classList.contains('e-work-cells') || args.target.classList.contains('e-header-cells');
+    if (args.type === "QuickInfo" && isCell) {
+      args.cancel = true;
+    }
+
   }
   /*
   When the popup closes, we use sessionStorage to determine
@@ -147,6 +155,20 @@ export default class App extends React.Component {
       }
     }
   }
+  //Changes the header of the quickInfoPopup
+  header(props) {
+          return (<div>
+      {props.elementType === "cell" ? (<div className="e-cell-header e-popup-header">
+          <div className="e-header-icon-wrapper">
+            <button id="close" className="e-close e-close-icon e-icons" title="Close" onClick={() => this.scheduleObj.closeQuickInfoPopup()}/>
+          </div>
+        </div>) : (<div className="e-event-header e-popup-header">
+            <div className="e-header-icon-wrapper">
+              <button id="close" className="e-close e-close-icon e-icons" title="CLOSE" onClick={() => this.scheduleObj.closeQuickInfoPopup()}/>
+            </div>
+          </div>)}
+    </div>);
+      }
   //should propably be an own component
   //returns the custom made popup appointment editor
   editorTemplate(props) {
@@ -235,57 +257,110 @@ export default class App extends React.Component {
       <div></div>
     );
   }
-  render() {
-    //Updates sessionStorage each render
+  render(props) {
     //Returns the necessary html code to render schedule
+    //Return is different if user is on MyBookings page vs regular location schedule
+    if(this.props.data != null){
+        return this.state.dataReceived ? (
+            <ScheduleComponent
+                    cssClass="excel-export"
+                    ref={(schedule) => (this.scheduleObj = schedule)}
+                    width="100%"
+                    height="700px"
+                    currentView="Week"
+                    selectedDate={new Date()} //'new Date()' will fetch the current date
+                    timeScale={{ enable: true, interval: 60, slotCount: 1 }}
+                    editorTemplate={this.editorTemplate.bind(this)}
+                    showQuickInfo={true}
+                    popupOpen={this.onPopupOpen.bind(this)}
+                    popupClose={this.onPopupClose.bind(this)}
+                    eventRendered={this.onEventRendered.bind(this)}
+                    eventSettings={{
+                      dataSource: this.data,
+                      fields: {
+                        Id: "Id",
+                        subject: { name: "Subject" },
+                        source: { name: "Owner" },
+                        location: { name: "Location" },
+                        startTime: { name: "StartTime" },
+                        endTime: { name: "EndTime" },
+                        color: { name: "color" },
+                      },
+                    }}
+                    actionBegin={this.onActionBegin.bind(this)}
+                    quickInfoTemplates={{ header: this.header.bind(this)}}
+                  >
+                    <ViewsDirective>
+                      <ViewDirective option="Day" startHour="00:00" endHour="00:00" />
+                      <ViewDirective option="Week" startHour="00:00" endHour="00:00" />
+                      <ViewDirective option="Month" />
+                    </ViewsDirective>
+                    <Inject
+                      services={[
+                        Day,
+                        Week,
+                        Month,
+                        TimelineViews,
+                        ExcelExport,
+                      ]}
+                    />
+                  </ScheduleComponent>)
+                  : (
+                    <p>Loading Schedule...</p>
+                    );
+    }
+    else {
+        return this.state.dataReceived ? (
+              <ScheduleComponent
+                id = "schedule"
+                cssClass="excel-export"
+                ref={(schedule) => (this.scheduleObj = schedule)}
+                width="100%"
+                height="700px"
+                currentView="Week"
+                selectedDate={new Date()} //'new Date()' will fetch the current date
+                timeScale={{ enable: true, interval: 60, slotCount: 1 }}
+                editorTemplate={this.editorTemplate.bind(this)}
+                showQuickInfo={true}
+                popupOpen={this.onPopupOpen.bind(this)}
+                popupClose={this.onPopupClose.bind(this)}
+                eventRendered={this.onEventRendered.bind(this)}
+                eventSettings={{
+                  dataSource: this.data,
+                  fields: {
+                    id: "Id",
+                    subject: { name: "Subject" },
+                    source: { name: "Location" },
+                    location: { name: "Owner" },
+                    startTime: { name: "StartTime" },
+                    endTime: { name: "EndTime" },
+                    color: { name: "color" },
+                  },
+                }}
+                actionBegin={this.onActionBegin.bind(this)}
+                quickInfoTemplates={{ header: this.header.bind(this)}}
+              >
+                <ViewsDirective>
+                  <ViewDirective option="Day" startHour="00:00" endHour="00:00" />
+                  <ViewDirective option="Week" startHour="00:00" endHour="00:00" />
+                  <ViewDirective option="Month" />
+                </ViewsDirective>
+                <Inject
+                  services={[
+                    Day,
+                    Week,
+                    Month,
+                    TimelineViews,
+                    Resize,
+                    DragAndDrop,
+                    ExcelExport,
+                  ]}
+                />
+              </ScheduleComponent>
+            ) : (
+              <p>Loading Schedule...</p>
+            );
+    }
 
-    return this.state.dataReceived ? (
-      <ScheduleComponent
-        cssClass="excel-export"
-        ref={(t) => (this.scheduleObj = t)}
-        width="100%"
-        height="700px"
-        currentView="Week"
-        selectedDate={new Date()} //'new Date()' will fetch the current date
-        timeScale={{ enable: true, interval: 60, slotCount: 1 }}
-        editorTemplate={this.editorTemplate.bind(this)}
-        showQuickInfo={false}
-        popupOpen={this.onPopupOpen.bind(this)}
-        popupClose={this.onPopupClose.bind(this)}
-        eventRendered={this.onEventRendered.bind(this)}
-        eventSettings={{
-          dataSource: this.data,
-          fields: {
-            id: "Id",
-            subject: { name: "Subject" },
-            source: { name: "Location" },
-            location: { name: "Owner" },
-            startTime: { name: "StartTime" },
-            endTime: { name: "EndTime" },
-            color: { name: "color" },
-          },
-        }}
-        actionBegin={this.onActionBegin.bind(this)}
-      >
-        <ViewsDirective>
-          <ViewDirective option="Day" startHour="00:00" endHour="00:00" />
-          <ViewDirective option="Week" startHour="00:00" endHour="00:00" />
-          <ViewDirective option="Month" />
-        </ViewsDirective>
-        <Inject
-          services={[
-            Day,
-            Week,
-            Month,
-            TimelineViews,
-            Resize,
-            DragAndDrop,
-            ExcelExport,
-          ]}
-        />
-      </ScheduleComponent>
-    ) : (
-      <p>Loading Schedule...</p>
-    );
   }
 }
