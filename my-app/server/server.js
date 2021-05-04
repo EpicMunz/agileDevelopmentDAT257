@@ -102,6 +102,30 @@ router.post('/getAllUsers', (req, res) => {
         console.log("Returning all users");
         return res.send(jsonData);
 });
+router.post('/getLocations', (req, res) => {
+        var jsonData = JSON.parse(fs.readFileSync('./locations/locations.json'));
+        console.log("Returning all locations");
+        return res.send(jsonData);
+});
+router.post('/addLocation', (req, res) => {
+        var newLocation = req.body;
+        var jsonData = JSON.parse(fs.readFileSync('./locations/locations.json'));
+        jsonData.features.push(newLocation);
+        fs.writeFileSync('./locations/locations.json', JSON.stringify(jsonData));
+        console.log("Saved new location to map");
+        return res.send("Location has been saved");
+});
+router.post('/removeLocation', (req, res) => {
+        var locationData = req.body;
+        var jsonData = JSON.parse(fs.readFileSync('./locations/locations.json'));
+        var indexOfLocationToRemove = jsonData.features.findIndex(item => item.properties.NAME === locationData.name);
+        if(indexOfLocationToRemove > -1){
+             jsonData.features.splice(indexOfLocationToRemove, 1);
+        }
+        fs.writeFileSync('./locations/locations.json', JSON.stringify(jsonData));
+        console.log("Removed location of map");
+        return res.send("Location has been removed");
+});
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'))
 })

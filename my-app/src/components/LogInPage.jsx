@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import InteractiveMap from "./InteractiveMap";
+import InteractiveMap from "./map/InteractiveMap";
 import "./LoginPage.css";
 import {fetchData} from "./ClientFetch";
 

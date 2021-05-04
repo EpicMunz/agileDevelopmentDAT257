@@ -1,0 +1,28 @@
+.rectangleNewLocation {
+  display: block;
+  width: 240px;
+  background: white;
+  text-align:left;
+  text-align-last: left;
+  padding-bottom: 20px;
+}
+.form{
+    text-align: center;
+    width: 200px;
+}
+input[type=text]{
+    padding: 5px;
+    border-radius: 5px;
+
+}
+textarea{
+    padding: 5px;
+    border-radius: 5px;
+}
+label{
+    font-size: 15px;
+    text-align: left;
+}
+h2{
+  font-size: 25px;
+}
