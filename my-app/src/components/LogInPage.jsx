@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import InteractiveMap from "./map/InteractiveMap";
 import "./LoginPage.css";
 import {fetchData} from "./ClientFetch";
+import { Button } from "antd";
+import ForgotPassword from "./ForgotPassword";
 
 export default class LogInPage extends Component {
   	constructor(props){
@@ -35,6 +37,10 @@ export default class LogInPage extends Component {
           return false;
       }
 
+	onChange = (e) =>{
+		this.props.onDisplayChange(ForgotPassword);
+	}
+
 	render(){
 		return(
 			<div>
@@ -45,7 +51,11 @@ export default class LogInPage extends Component {
 						<label for="password">Password:</label>
 						<input type="password" id="password" name="login" 
 						onChange={e=>this.setState({password:e.target.value})}className="input-box"/><br/><br/>
-						<button onClick={this.handleLogin}> Submit </button> 
+						<button onClick={this.handleLogin}> Submit </button>
+						<Button 
+							type="default" 
+							onClick={this.onChange}>
+								Glömt mitt lösenord</Button>
 				</div>
 			</div>
 		);

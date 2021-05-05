@@ -126,6 +126,20 @@ router.post('/removeLocation', (req, res) => {
         console.log("Removed location of map");
         return res.send("Location has been removed");
 });
+router.post('/getUsersMail', (req, res) => {
+        var adress = req.body;
+        var jsonData = JSON.parse(fs.readFileSync('./users/UsersData.json'));
+        for(var i = 0; i < jsonData.length; i++){
+                if (jsonData[i].Mail === adress.Mail){
+                        console.log("email has been sent")
+
+                        return res.send("Mail has been sent");
+                }
+        }
+        console.log("Email not found")
+        return res.send("Email not found");
+});
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'))
 })

@@ -2,6 +2,7 @@ import "./App.css";
 import MenuHeader from "./components/MenuHeader";
 import Schedule from "./components/Schedule";
 import LogInPage from "./components/LogInPage";
+import ForgotPassword from "./components/ForgotPassword";
 import React, { Component } from "react";
 
 //This is the file for App Component. App Component is the main component in React which acts as a container for all other components.
@@ -27,7 +28,7 @@ export default class App extends Component {
     const CurrentPage = this.state.page || LogInPage;
     return (
       <div>
-        {CurrentPage !== LogInPage && (
+        {(CurrentPage !== ForgotPassword && CurrentPage !== LogInPage) && (
           <MenuHeader onDisplayChange={this.displayChangePage} />
         )}
         <CurrentPage

@@ -1,1 +1,23 @@
-[{"Username":"Nollkit","Password":"123","Status":"User","Color":"#09cdda"},{"Username":"DNollK","Password":"123","Status":"User","Color":"#fa6607"},{"Username":"admin","Password":"kingen","Status":"admin","Color":"black"}]
+[
+  {
+    "Username": "Nollkit",
+    "Password": "123",
+    "Status": "User",
+    "Color": "#09cdda",
+    "Mail":"test0@gmail.com"
+  },
+  {
+    "Username": "DNollK",
+    "Password": "123",
+    "Status": "User",
+    "Color": "#fa6607",
+    "Mail":"test1@gmail.com"
+  },
+  {
+    "Username": "admin",
+    "Password": "kingen",
+    "Status": "admin",
+    "Color": "black",
+    "Mail":"test2@gmail.com"
+  }
+]
