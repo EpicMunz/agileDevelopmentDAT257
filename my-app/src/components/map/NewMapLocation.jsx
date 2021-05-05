@@ -19,7 +19,7 @@ export default class NewMapLocation extends Component {
     handleDescriptionChange(e){
         this.setState({description: e.target.value});
     }
-    //Send new location data tom server
+    //Send new location data to server
     async handleSubmit(event){
         event.preventDefault();
         var data = {

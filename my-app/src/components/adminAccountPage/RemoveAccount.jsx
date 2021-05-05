@@ -43,7 +43,7 @@ export default class RemoveAccountPage extends Component{
 
 
     render(){
-        return this.state.data != null ? (<div className="rectangle">
+        return this.state.data != null ? (<div className="rectangleAddAccount">
         <h3>Remove User</h3>
         <form id="formdata" onSubmit={(e) => this.handleSubmit(e)}>
                   <label>

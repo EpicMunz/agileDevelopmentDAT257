@@ -50,7 +50,7 @@ export default class AddAccountPage extends Component{
 
 
     render(){
-        return (<div className="rectangle"><form id="formdata" onSubmit={(e) => this.handleSubmit(e)}>
+        return (<div className="rectangleAddAccount"><form id="formdata" onSubmit={(e) => this.handleSubmit(e)}>
                   <h3>Add User</h3>
                   <label>
                     Username:

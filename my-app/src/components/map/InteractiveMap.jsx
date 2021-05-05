@@ -34,6 +34,7 @@ export default class InteractiveMap extends Component {
         const api_call = await fetchData("/getLocations", data);
         const response = await api_call.json();
         this.setState({data: response, newLocation: null, selectedPremise: null});
+        //Fhem
     }
 
   handleClick = (location) => {
