@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./BookingPageContainer.css";
-import {fetchData} from "../ClientFetch";
-import Schedule from "../Schedule";
+import {fetchData} from "../clientFetch/ClientFetch";
+import Schedule from "../schedule/Schedule.jsx";
 
 
 //Structure: BookingPageContainer -> BookingPane -> BookingListItem

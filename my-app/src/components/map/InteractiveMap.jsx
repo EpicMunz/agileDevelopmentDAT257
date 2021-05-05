@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import ReactMapGl, { Marker, Popup } from "react-map-gl";
 import NewLocation from "./NewMapLocation.jsx";
-import {fetchData } from "../ClientFetch.jsx";
+import {fetchData } from "../clientFetch/ClientFetch.jsx";
 
 export default class InteractiveMap extends Component {
 
@@ -34,7 +34,6 @@ export default class InteractiveMap extends Component {
         const api_call = await fetchData("/getLocations", data);
         const response = await api_call.json();
         this.setState({data: response, newLocation: null, selectedPremise: null});
-        //Fhem
     }
 
   handleClick = (location) => {

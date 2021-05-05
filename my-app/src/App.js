@@ -1,8 +1,8 @@
 import "./App.css";
-import MenuHeader from "./components/MenuHeader";
-import Schedule from "./components/Schedule";
-import LogInPage from "./components/LogInPage";
-import ForgotPassword from "./components/ForgotPassword";
+import MenuHeader from "./components/header/MenuHeader";
+import Schedule from "./components/schedule/Schedule";
+import LogInPage from "./components/logInPage/LogInPage";
+import ForgotPassword from "./components/logInPage/ForgotPassword";
 import React, { Component } from "react";
 
 //This is the file for App Component. App Component is the main component in React which acts as a container for all other components.

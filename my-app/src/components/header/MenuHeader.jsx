@@ -1,11 +1,11 @@
 import "antd/dist/antd.css";
 import React, { Component } from "react";
 import { Layout, Menu } from "antd";
-import Map from "./map/InteractiveMap";
-import BookingPane from "./bookingPage/BookingPageContainer.jsx";
-import LogInPage from "./LogInPage";
-import AvailableLocations from "./availableLocations/AvailableLocations.jsx";
-import AddAccountPage from "./adminAccountPage/AccountPage.jsx";
+import Map from "../map/InteractiveMap";
+import BookingPane from "../bookingPage/BookingPageContainer.jsx";
+import LogInPage from "../logInPage/LogInPage.jsx";
+import AvailableLocations from "../availableLocations/AvailableLocations.jsx";
+import AddAccountPage from "../adminAccountPage/AccountPage.jsx";
 
 const { Header } = Layout;
 const { SubMenu } = Menu;

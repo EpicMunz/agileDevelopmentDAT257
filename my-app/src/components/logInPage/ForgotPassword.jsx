@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Form, Input, Button, Checkbox } from "antd";
-import { fetchData } from "./ClientFetch";
+import { Form, Input, Button} from "antd";
+import { fetchData } from "../clientFetch/ClientFetch";
 
 export default class ForgotPassword extends Component {
   constructor(props) {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Divider, Button } from "antd";
-import { fetchData } from "../ClientFetch";
+import { fetchData } from "../clientFetch/ClientFetch";
 import uuid from 'react-uuid'
 
 class BookingListItem extends Component {

@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import "./NewMapLocation.css";
-import {fetchData} from "../ClientFetch.jsx";
+import {fetchData} from "../clientFetch/ClientFetch.jsx";
 
 
 export default class NewMapLocation extends Component {

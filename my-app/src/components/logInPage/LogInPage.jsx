@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import InteractiveMap from "./map/InteractiveMap";
+import InteractiveMap from "../map/InteractiveMap";
 import "./LoginPage.css";
-import {fetchData} from "./ClientFetch";
+import {fetchData} from "../clientFetch/ClientFetch";
 import { Button } from "antd";
-import ForgotPassword from "./ForgotPassword";
+import ForgotPassword from "./ForgotPassword.jsx";
 
 export default class LogInPage extends Component {
   	constructor(props){
@@ -16,7 +16,7 @@ export default class LogInPage extends Component {
    //checks if username and password was correct, if yes then switch to map screen
 	async handleLogin() {
 		if(await this.getData()){
-			this.props.onDisplayChange(InteractiveMap); 
+			this.props.onDisplayChange(InteractiveMap);
 		}
 		else{
 			alert("Wrong Username or Password!");
@@ -46,14 +46,14 @@ export default class LogInPage extends Component {
 			<div>
 				<div className="username-box">
 						<label for="username">Username:</label>
-						<input type="text" id="username" name="login" 
+						<input type="text" id="username" name="login"
 						onChange={e=>this.setState({username:e.target.value})} className="input-box"/><br/><br/>
 						<label for="password">Password:</label>
-						<input type="password" id="password" name="login" 
+						<input type="password" id="password" name="login"
 						onChange={e=>this.setState({password:e.target.value})}className="input-box"/><br/><br/>
 						<button onClick={this.handleLogin}> Submit </button>
-						<Button 
-							type="default" 
+						<Button
+							type="default"
 							onClick={this.onChange}>
 								Glömt mitt lösenord</Button>
 				</div>

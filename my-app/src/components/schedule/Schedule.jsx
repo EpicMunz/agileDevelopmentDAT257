@@ -15,12 +15,12 @@ import {
 } from "@syncfusion/ej2-react-schedule";
 import { isNullOrUndefined } from "@syncfusion/ej2-base";
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
-import { fetchData } from "./ClientFetch";
+import { fetchData } from "../clientFetch/ClientFetch";
 
 export default class App extends React.Component {
   state = { dataReceived: false };
 
-  //comment needed
+  //When component is run for the first time
   async componentDidMount() {
     if (this.props.data == null) {
       var data = [
@@ -37,6 +37,7 @@ export default class App extends React.Component {
       this.componentWillReceiveProps(this.props);
     }
   }
+  //When component has already been created but has received new props
   componentWillReceiveProps(nextProps) {
     this.data = nextProps.data;
     this.setState((state) => ({
@@ -44,7 +45,7 @@ export default class App extends React.Component {
     }));
   }
 
-  //comment needed
+  //Is triggered on any action
   onActionBegin(args) {
     //Adds the excel export button to the toolbar
     if (args.requestType === "toolbarItemRendering") {
@@ -86,7 +87,7 @@ export default class App extends React.Component {
       args.cancel = !this.scheduleObj.isSlotAvailable(startDate, endDate);
     }
   }
-  //exports current schedule data to excel document
+  //Exports current schedule data to excel document
   onExportClick() {
     this.scheduleObj.exportToExcel();
   }
@@ -124,7 +125,6 @@ export default class App extends React.Component {
     if (args.type === "QuickInfo" && isCell) {
       args.cancel = true;
     }
-
   }
   /*
   When the popup closes, we use sessionStorage to determine
@@ -139,7 +139,6 @@ export default class App extends React.Component {
       }
       let ownerElement = args.element.querySelector("#Owner");
       if (ownerElement) {
-        
         var owner = jsonData.Username;
         args.data.Owner = owner; //set owner of cell from sessionStorage
       }
@@ -149,7 +148,6 @@ export default class App extends React.Component {
       }
       let colorElement = args.element.querySelector("#color");
       if (colorElement) {
-        
         var color = jsonData.Color;
         args.data.color = color;
       }
@@ -169,7 +167,6 @@ export default class App extends React.Component {
           </div>)}
     </div>);
       }
-  //should propably be an own component
   //returns the custom made popup appointment editor
   editorTemplate(props) {
     return props !== undefined ? (
@@ -361,6 +358,5 @@ export default class App extends React.Component {
               <p>Loading Schedule...</p>
             );
     }
-
   }
 }

@@ -1,5 +1,5 @@
 import {Component} from "react";
-import {fetchData} from "../ClientFetch";
+import {fetchData} from "../clientFetch/ClientFetch";
 import "./AccountPage.css";
 
 
