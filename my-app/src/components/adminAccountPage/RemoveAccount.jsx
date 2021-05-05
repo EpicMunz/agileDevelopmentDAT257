@@ -1,4 +1,4 @@
-import react, {Component} from "react";
+import {Component} from "react";
 import {fetchData} from "../ClientFetch";
 import "./AccountPage.css";
 
@@ -43,14 +43,14 @@ export default class RemoveAccountPage extends Component{
 
 
     render(){
-        return this.state.data != null ? (<div className="rectangleAddAccount">
+        return this.state.data !== null ? (<div className="rectangleAddAccount">
         <h3>Remove User</h3>
         <form id="formdata" onSubmit={(e) => this.handleSubmit(e)}>
                   <label>
                     User:
                     <select onChange={(e) => this.handleSelect(e)}>
                       { this.state.data.map((element) => (
-                        element.Status != "admin" ? (
+                        element.Status !== "admin" ? (
                             <option value={element.Username}>{element.Username} </option>): (null)
                       ))}
                     </select>

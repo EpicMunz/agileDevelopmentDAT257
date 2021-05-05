@@ -37,14 +37,12 @@ export default class MenuHeader extends Component {
     accountPageToHeader(){
     if(JSON.parse(sessionStorage.getItem("userData")).Status === "admin")
         return (<Menu.Item key = "4">
-                              <a onClick={() => this.handleClick("AddAccount")}>
+                              <a href="/#" onClick={() => this.handleClick("AddAccount")}>
                                 Hantera användare
                               </a>
                             </Menu.Item>);
     }
   render() {
-    const jsonData = JSON.parse(sessionStorage.getItem("userData"));
-    const userStatus = jsonData.Status
     return (
       <Layout className="layout">
         <Header>
@@ -64,15 +62,15 @@ export default class MenuHeader extends Component {
               </Menu.ItemGroup>
             </SubMenu>
             <Menu.Item key="1">
-                <a onClick={() => this.handleClick("minabokningar")}>
+                <a href="/#" onClick={() => this.handleClick("minabokningar")}>
                    Mina Bokningar
                 </a></Menu.Item>
             <Menu.Item key="2">
-                <a onClick={() => this.handleClick("map")}>
+                <a href="/#" onClick={() => this.handleClick("map")}>
                   Karta
                 </a></Menu.Item>
             <Menu.Item key = "3">
-              <a onClick={() => this.handleClick("available")}>
+              <a href="/#" onClick={() => this.handleClick("available")}>
                 Tillgängliga Lokaler
               </a>
             </Menu.Item>

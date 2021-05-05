@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import AvLocListItem from "./AvLocListItem";
 import * as locations from "../../data/locations.json";
 import { fetchData } from "../ClientFetch";
 import BookingListItem from "../bookingPage/BookingListItem";
@@ -58,8 +57,8 @@ class AvLocPane extends Component {
 
                            <tbody className="my-bookings-table" > {/* Table containing all appointments for a specified location for the current owner */}
                           {
-                                   this.locations.map((location) => {
-                                   this.data.map((element) => {
+                                   this.locations.foreach((location) => {
+                                   this.data.foreach((element) => {
 
                                       let start = new Date(element.StartTime);
                                       let end = new Date(element.EndTime);
@@ -75,13 +74,13 @@ class AvLocPane extends Component {
 
                                   })
                                     if(location != null){
-                                                  return <BookingListItem
+                                                  return (<BookingListItem
                                                           Location={location}
                                                           startTime={startInput}
                                                           endTime={endInput}
                                                           eventName={this.props.eventName}
                                                           onChange={this.onSuccessfulBooking}
-                                                        />;
+                                                        />);
                                               }
                                      })
 

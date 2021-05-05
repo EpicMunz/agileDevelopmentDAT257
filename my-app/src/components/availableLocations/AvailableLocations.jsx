@@ -37,8 +37,6 @@ export default class AvailableLocations extends Component {
   }
   //returns a schedule component with linked props
   render() {
-    let input = "15-17";
-
     return (
       <React.Fragment>
         <h1 className="display-1">Tillgängliga lokaler</h1>

@@ -1,4 +1,4 @@
-import react, {Component} from "react";
+import {Component} from "react";
 import AddAccount from "./AddAccount.jsx";
 import RemoveAccount from "./RemoveAccount.jsx";
 
