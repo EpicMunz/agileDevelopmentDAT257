@@ -4,20 +4,27 @@
     "Password": "123",
     "Status": "User",
     "Color": "#09cdda",
-    "Mail":"test0@gmail.com"
+    "Mail": "test0@gmail.com"
   },
   {
     "Username": "DNollK",
     "Password": "123",
     "Status": "User",
     "Color": "#fa6607",
-    "Mail":"test1@gmail.com"
+    "Mail": "test1@gmail.com"
   },
   {
     "Username": "admin",
     "Password": "kingen",
     "Status": "admin",
     "Color": "black",
-    "Mail":"test2@gmail.com"
+    "Mail": "fhemofund@gmail.com"
+  },
+  {
+    "Username": "fhemmis",
+    "Password": "storfhem",
+    "Status": "User",
+    "Mail": "storfhem@gmail.com",
+    "Color": "#1398AA"
   }
 ]

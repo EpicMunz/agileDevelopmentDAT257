@@ -12,9 +12,11 @@ export default class ForgotPassword extends Component {
  async onSubmit(){
     var data = { Mail:this.state.adress}
     var response = await fetchData("/getUsersMail",data); 
-    //var ofund = await JSON.stringify(response);
-    if (response == "Mail has been sent"){
+    var ofund = await response.json();
+    if (ofund.Response === "Mail has been sent"){
         alert("ajjemena");
+    }else{
+      alert("DET VAR SOUPER-CLOSE JAG LOUVER");
     }
     
     

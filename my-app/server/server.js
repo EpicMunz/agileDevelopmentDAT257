@@ -14,6 +14,30 @@ app.use(cors())
 
 const fs = require('fs');
 
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'fhemofund@gmail.com',
+    pass: 'fhem!ofund!5'
+  }
+});
+
+var mailOptions = {
+  from: 'fhemofund@gmail.com',
+  to: 'fhemofund@gmail.com',
+  subject: 'Tjebbatjona',
+  text: 'skoj'
+};
+
+function formatDate(number) {
+        if (number < 10) {
+          number = "0" + number;
+        }
+        return number;
+}
+
 //Saves sent schedule data for specified location
 router.post('/save',(req, res) => {
     var jsonData = req.body;
@@ -132,16 +156,36 @@ router.post('/getUsersMail', (req, res) => {
         for(var i = 0; i < jsonData.length; i++){
                 if (jsonData[i].Mail === adress.Mail){
                         console.log("email has been sent")
+                        
+                        var tempPassword;
 
-                        return res.send("Mail has been sent");
+                        tempPassword = "" + (Math.floor(Math.random() * 900000) + 100000);
+                        var today = new Date();
+                        var date = today.getFullYear()+'-'+(formatDate(today.getMonth()+1))+'-'+formatDate(today.getDate())
+                        +' '+ formatDate(today.getHours()) + ":" + formatDate(today.getMinutes());
+                        mailOptions.subject = "New password: " + date;
+                        mailOptions.to = adress.Mail;
+                        mailOptions.text = tempPassword;
+                        transporter.sendMail(mailOptions, function(error, info){
+                                if (error) {
+                                console.log(error);
+                                } else {
+                                console.log('Email sent: ' + info.response);
+                                }
+                        });
+                        var data = JSON.stringify({Response: "Mail has been sent"});
+                        return res.send(data);
                 }
         }
         console.log("Email not found")
-        return res.send("Email not found");
+        var data = JSON.stringify({Response: "Email not found"});
+        return res.send(data);
 });
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'))
 })
 
+
 app.listen(8080)
+

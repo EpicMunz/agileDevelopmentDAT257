@@ -37,7 +37,7 @@ export default class AddAccountPage extends Component{
             Username: this.state.name,
             Password: this.state.password,
             Status: "User",
-            Email: this.state.email,
+            Mail: this.state.email,
             Color: this.state.color
         }
         //Requests adding of user
