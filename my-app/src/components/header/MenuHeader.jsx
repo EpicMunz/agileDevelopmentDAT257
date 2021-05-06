@@ -6,6 +6,7 @@ import BookingPane from "../bookingPage/BookingPageContainer.jsx";
 import LogInPage from "../logInPage/LogInPage.jsx";
 import AvailableLocations from "../availableLocations/AvailableLocations.jsx";
 import AddAccountPage from "../adminAccountPage/AccountPage.jsx";
+import ManageProfilePage from "../profilePage/ManageProfilePage.jsx";
 
 const { Header } = Layout;
 const { SubMenu } = Menu;
@@ -19,7 +20,10 @@ export default class MenuHeader extends Component {
 	}
 	//Changes the current page to the selected one in the header
     handleClick(page){
-        if(page === "map"){
+        if(page === "användare"){
+            this.props.onDisplayChange(ManageProfilePage);
+        }
+        else if(page === "map"){
             this.props.onDisplayChange(Map);
         }
         else if(page === "minabokningar"){
@@ -56,7 +60,10 @@ export default class MenuHeader extends Component {
             <SubMenu key="sub1" title="Profil"> 
               <Menu.ItemGroup key="g1" //Dropdown menu under "Profil"
               >
-                <Menu.Item key="3">Användare</Menu.Item>
+                <Menu.Item key="5">
+                <a href="/#" onClick={() => this.handleClick("användare")}>
+                  Användare
+                  </a></Menu.Item>
                 <Menu.Item key="4">Logga ut</Menu.Item>
               </Menu.ItemGroup>
             </SubMenu>
