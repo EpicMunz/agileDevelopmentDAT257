@@ -44,6 +44,7 @@ export default class MenuHeader extends Component {
                                 Hantera användare
                               </a>
                             </Menu.Item>);
+                            
     }
   render() {
     return (
