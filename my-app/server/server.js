@@ -15,6 +15,7 @@ app.use(cors())
 const fs = require('fs');
 
 var nodemailer = require('nodemailer');
+var bcrypt = require('bcryptjs');
 
 var transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -92,7 +93,10 @@ router.post('/logInUser', (req, res) => {
         var data = req.body;
         var jsonData = JSON.parse(fs.readFileSync('./users/UsersData.json'));
         for(var i = 0; i < jsonData.length; i++){
-            if(jsonData[i].Username == data[0].Username && jsonData[i].Password == data[0].Password){
+        
+        /*compares the username to the given username and also checks
+        the given password to the encrypted password*/
+            if(jsonData[i].Username == data[0].Username && bcrypt.compareSync(data[0].Password,jsonData[i].Password)){
                 console.log("Sending user data for logged in user");
                 var data = jsonData[i];
                 return res.send(data);
@@ -150,6 +154,14 @@ router.post('/removeLocation', (req, res) => {
         console.log("Removed location of map");
         return res.send("Location has been removed");
 });
+
+/*
+First it checks that the given mailadress has a corresponding mailadress in the database.
+If so it sends a mail to the adress with a new password and also encrypts and saves the hash in the database
+        - The mail contains a random code with 6 digits that is the new password.
+        - The user is alerted that a mail has been sent.
+If it does not exist it simply alerts the user.
+*/
 router.post('/getUsersMail', (req, res) => {
         var adress = req.body;
         var jsonData = JSON.parse(fs.readFileSync('./users/UsersData.json'));
@@ -173,19 +185,21 @@ router.post('/getUsersMail', (req, res) => {
                                 console.log('Email sent: ' + info.response);
                                 }
                         });
-                        var data = JSON.stringify({Response: "Mail has been sent"});
-                        return res.send(data);
+                        var encryptedPassword = bcrypt.hashSync(tempPassword,10);
+                        jsonData[i].Password = encryptedPassword;
+                        fs.writeFileSync('./users/UsersData.json', JSON.stringify(jsonData));
+                        var dataAcc = JSON.stringify({Response: "Mail has been sent"});
+                        return res.send(dataAcc);
                 }
         }
         console.log("Email not found")
-        var data = JSON.stringify({Response: "Email not found"});
-        return res.send(data);
+        var dataDec = JSON.stringify({Response: "Email not found"});
+        return res.send(dataDec);
 });
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'))
 })
-
 
 app.listen(8080)
 

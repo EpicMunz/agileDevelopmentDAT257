@@ -2,6 +2,7 @@ import {Component} from "react";
 import {fetchData} from "../clientFetch/ClientFetch";
 import "./AccountPage.css";
 
+var bcrypt = require('bcryptjs');
 
 //Component used for adding users
 export default class AddAccountPage extends Component{
@@ -33,9 +34,11 @@ export default class AddAccountPage extends Component{
     //Is called when submitting form
     handleSubmit(event) {
         event.preventDefault();
+        var encryptedPassword = bcrypt.hashSync(this.state.password,10);
+
         var data = {
             Username: this.state.name,
-            Password: this.state.password,
+            Password: encryptedPassword,
             Status: "User",
             Mail: this.state.email,
             Color: this.state.color
