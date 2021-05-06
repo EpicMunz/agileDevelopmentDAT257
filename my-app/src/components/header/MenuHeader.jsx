@@ -10,7 +10,6 @@ import AddAccountPage from "../adminAccountPage/AccountPage.jsx";
 const { Header } = Layout;
 const { SubMenu } = Menu;
 
-
 export default class MenuHeader extends Component {
 
     constructor(props){
@@ -46,11 +45,11 @@ export default class MenuHeader extends Component {
     return (
       <Layout className="layout">
         <Header>
-          <div className="logo" />
           <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
             <img //Leftmost image, should be of the users program
-              src={`${process.env.PUBLIC_URL}finlogga.png`}
-              width="140"
+              src={`${process.env.PUBLIC_URL}MKlogga.png`}
+              className="imgBorder"
+              width="60"
               height="55"
               alt="sektionslogga"
             />

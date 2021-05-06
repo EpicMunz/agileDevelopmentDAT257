@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import InteractiveMap from "../map/InteractiveMap";
 import "./LoginPage.css";
 import {fetchData} from "../clientFetch/ClientFetch";
-import { Button } from "antd";
 import ForgotPassword from "./ForgotPassword.jsx";
+import { Form, Input, Button, Checkbox } from 'antd';
+
+
 
 export default class LogInPage extends Component {
   	constructor(props){
@@ -42,22 +44,59 @@ export default class LogInPage extends Component {
 	}
 
 	render(){
+
+
 		return(
-			<div>
-				<div className="username-box">
-						<label for="username">Username:</label>
-						<input type="text" id="username" name="login"
-						onChange={e=>this.setState({username:e.target.value})} className="input-box"/><br/><br/>
-						<label for="password">Password:</label>
-						<input type="password" id="password" name="login"
-						onChange={e=>this.setState({password:e.target.value})}className="input-box"/><br/><br/>
-						<button onClick={this.handleLogin}> Submit </button>
-						<Button
-							type="default"
-							onClick={this.onChange}>
-								Glömt mitt lösenord</Button>
-				</div>
-			</div>
-		);
+        <div>
+        <img className="imgCenter" src={`${process.env.PUBLIC_URL}MKloginlogga.png`} alt="Avatar"
+              width="500"
+              height="400"
+        />
+        <Form className="item"
+          name="basic"
+          initialValues={{
+            remember: true,
+          }}
+        >
+          <Form.Item onChange={e=>this.setState({username:e.target.value})}
+            label="Username"
+            name="username"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your username!',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item onChange={e=>this.setState({password:e.target.value})}
+            label="Password"
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your password!',
+              },
+            ]}
+          >
+            <Input.Password />
+          </Form.Item>
+          <Form.Item name="remember" valuePropName="checked">
+            <Checkbox>Remember me</Checkbox>
+          </Form.Item>
+          <Form.Item >
+            <Button type="primary" htmlType="submit" onClick={this.handleLogin}>
+              Submit
+            </Button>
+            	<Button
+                        size= "small"
+                        type="link"
+                        onClick={this.onChange}>
+                            Glömt mitt lösenord</Button>
+          </Form.Item>
+        </Form>
+        </div>
+      );
     }
 }

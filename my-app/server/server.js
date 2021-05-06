@@ -20,16 +20,30 @@ var bcrypt = require('bcryptjs');
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'fhemofund@gmail.com',
-    pass: 'fhem!ofund!5'
+    user: 'fhemfhem55@gmail.com',
+    pass: 'Fhem55##'
   }
 });
 
+/*
 var mailOptions = {
-  from: 'fhemofund@gmail.com',
-  to: 'fhemofund@gmail.com',
+  from: 'fhemfhem55@gmail.com',
+  to: 'fhemfhem55@gmail.com',
+  subject: 'Sötis skaru ha en stor en eller?',
+  text: 'Köpa fhem sex?',
+  attachments: [{
+          filename: 'Billy.png',
+          path: __dirname + '/Billy.png',
+          cid: 'Billy'
+      }]
+};
+*/
+
+var mailOptions = {
+  from: 'fhemfhem55@gmail.com',
+  to: 'fhemfhem55@gmail.com',
   subject: 'Tjebbatjona',
-  text: 'skoj'
+  text: 'Ditt lösenord är: ',
 };
 
 function formatDate(number) {
@@ -200,6 +214,26 @@ router.post('/getUsersMail', (req, res) => {
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'))
 })
+
+/*
+var myVar = setInterval(myTimer, 1000);
+var numberOfTimes = 0;
+
+
+function myTimer() {
+for (var i=0; i < 2; i++){
+    transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+        console.log(error);
+    } else {
+        console.log('Email sent: ' + numberOfTimes + " " + info.response);
+    }
+    });
+    numberOfTimes++;
+    }
+}
+*/
+
 
 app.listen(8080)
 
