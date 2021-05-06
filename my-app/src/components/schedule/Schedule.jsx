@@ -45,6 +45,21 @@ export default class App extends React.Component {
     }));
   }
 
+
+  onDataBound(){
+        if(this.props.data == null){
+            if(this.data.length < 1){
+                var data = [{
+                    Location: this.props.location
+                }]
+                fetchData("/save", data);
+            }
+            else {
+                fetchData("/save", this.data);
+            }
+        }
+  }
+
   //Is triggered on any action
   onActionBegin(args) {
     //Adds the excel export button to the toolbar
@@ -94,9 +109,6 @@ export default class App extends React.Component {
   //Is called when cell with appointment is being rendered
   onEventRendered(args) {
     args.element.style.backgroundColor = args.data.color;
-    if(this.props.data == null){
-        fetchData("/save", this.data);
-    }
   }
   //Creates a popup when double clicking a cell
   onPopupOpen(args) {
@@ -121,9 +133,11 @@ export default class App extends React.Component {
         ownerElement.value = args.data.Owner || ""; //What we receive is saved as value in ownerElement
       }
     }
-    let isCell = args.target.classList.contains('e-work-cells') || args.target.classList.contains('e-header-cells');
-    if (args.type === "QuickInfo" && isCell) {
-      args.cancel = true;
+    if(args.target != null){
+        let isCell = args.target.classList.contains('e-work-cells') || args.target.classList.contains('e-header-cells');
+            if (args.type === "QuickInfo" && isCell) {
+              args.cancel = true;
+            }
     }
   }
   /*
@@ -261,7 +275,7 @@ export default class App extends React.Component {
         return this.state.dataReceived ? (
             <ScheduleComponent
                     cssClass="excel-export"
-                    ref={(schedule) => (this.scheduleObj = schedule)}
+                    ref={(t) => (this.scheduleObj = t)}
                     width="100%"
                     height="700px"
                     currentView="Week"
@@ -286,6 +300,7 @@ export default class App extends React.Component {
                     }}
                     actionBegin={this.onActionBegin.bind(this)}
                     quickInfoTemplates={{ header: this.header.bind(this)}}
+                    dataBound={this.onDataBound.bind(this)}
                   >
                     <ViewsDirective>
                       <ViewDirective option="Day" startHour="00:00" endHour="00:00" />
@@ -336,6 +351,7 @@ export default class App extends React.Component {
                 }}
                 actionBegin={this.onActionBegin.bind(this)}
                 quickInfoTemplates={{ header: this.header.bind(this)}}
+                dataBound={this.onDataBound.bind(this)}
               >
                 <ViewsDirective>
                   <ViewDirective option="Day" startHour="00:00" endHour="00:00" />

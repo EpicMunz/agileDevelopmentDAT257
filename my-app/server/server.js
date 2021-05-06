@@ -56,8 +56,15 @@ function formatDate(number) {
 //Saves sent schedule data for specified location
 router.post('/save',(req, res) => {
     var jsonData = req.body;
+    if(jsonData != null){
+
+    }
+    var empty = [];
+    var data = JSON.stringify(empty);
     var location = jsonData[0].Location;
-    let data = JSON.stringify(jsonData);
+    if(jsonData[0].Subject != null){
+        data = JSON.stringify(jsonData);
+    }
     fs.writeFileSync('./data/'+location+'.json', data);
     console.log("Saving data for " + location);
     res.send("Data has been saved");
