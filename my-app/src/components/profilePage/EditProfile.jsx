@@ -13,19 +13,19 @@ export default class EditProfile extends Component{
         super(props)
         this.state = { isActive: false,
             disabledEmail: true, disabledPassword: true, disabledNewPassword: true};         //byt till disabled istället för show, username: "", email: "", password: "",
-        /*this.handleChangePassword = this.handleChangePassword.bind(this);
-        this.handleChangeEmail = this.handleChangeEmail.bind(this);*/
+        this.handleChangePassword = this.handleChangePassword.bind(this);
+        this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleEmail = this.handleEmail.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
         
     }
     //Changes state values when textfield changes
-   /* handleChangePassword(e){
+    handleChangePassword(e){
         this.setState({password: e.target.value});
     }
     handleChangeEmail(e){
         this.setState({email: e.target.value});
-    }*/
+    }
 
     handleEmail(){
         this.setState({disabledEmail: !this.state.disabledEmail});
@@ -36,16 +36,22 @@ export default class EditProfile extends Component{
     }
     handleSave(event){
         event.preventDefault();
-        var encryptedPassword = bcrypt.hashSync(this.state.password,10);
-
-        var data = {
-            Password: encryptedPassword,
-            Status: "User",
-            Mail: this.state.email
+        var data = [];
+        if(this.state.password != null){
+            var encryptedPassword = bcrypt.hashSync(this.state.password,10);
+            data = {
+                    Password: encryptedPassword,
+                    Mail: this.state.email
+            }
+        }
+        else {
+            data = {
+                    Mail: this.state.email
+            }
         }
         //Requests adding of user
         fetchData("/editProfile", data);
-        document.getElementById("formdata").reset();
+        document.getElementById("saveform").reset();
         alert("Nya detaljer är sparade");
         this.props.onSubmit();
 
@@ -53,11 +59,8 @@ export default class EditProfile extends Component{
 
     //Updates userData whenever you login to ManageProfilePage
     componentDidMount(){
-        var fetchedData = JSON.parse(sessionStorage.getItem("userData"));     
-        console.log(fetchedData.Username);   
-        this.setState({username: fetchedData.Username, email: fetchedData.Mail});
-        //this.setState({email: JSON.parse(sessionStorage.getItem("userData").Mail)});
-        //this.setState({password: JSON.parse(sessionStorage.getItem("userData").Password)});
+        var fetchedData = JSON.parse(sessionStorage.getItem("userData"));
+        this.setState({ email: fetchedData.Mail});
     }
     
 
@@ -67,35 +70,35 @@ export default class EditProfile extends Component{
             <h3 className="rubrik" >Användarprofil</h3>
             <form id="saveform" onSubmit={(e) => this.handleSave(e)}>
                     <div>
-                        <label className="alignment" type="text" name="name"> 
+                        <label className="alignment" type="text" name="userNameLabel">
                         Användarnamn: 
                         </label>
                         <div><label className="username" type="text" name="name"> {this.state.username} </label></div>
                     </div>
                     <div>
-                        <label className="alignment" type="text" name="name">
+                        <label className="alignment" type="text" name="emailLabel">
                             Email:
                         </label>
                         <div>
-                            <input className= "input" placeholder={this.state.email} type="text" name="name" disabled={this.state.disabledEmail}/>
-                            <img className="pen-logo" src={`${process.env.PUBLIC_URL}pen.png`} alt="edit" onClick={this.handleEmail}/>
+                            <input className= "input" placeholder={this.state.email} type="text" name="email" disabled={this.state.disabledEmail} onChange={this.handleChangeEmail}/>
+                            <img className="pen-logo" src={`${process.env.PUBLIC_URL}pen.png`} alt="edit" onClick={() => this.handleEmail()}/>
                         </div>    
                     </div>
                     <div>
-                        <label className="alignment" type="password" name="password">
+                        <label className="alignment" type="password" name="passwordLabel">
                         Lösenord:
                         </label>
                         <div>
-                            <input className="input" placeholder="nuvarande lösenord" type="password" name="name" disabled={this.state.disabledPassword}/>   
-                            <img className="pen-logo" src={`${process.env.PUBLIC_URL}pen.png`} alt="edit" onClick={this.handlePassword} />  
+                            <input className="input" placeholder="nuvarande lösenord" type="password" name="password" disabled={this.state.disabledPassword} onChange={this.handleChangePassword}/>
+                            <img className="pen-logo" src={`${process.env.PUBLIC_URL}pen.png`} alt="edit" onClick={() => this.handlePassword()} />
                         </div>
                     </div>
                     <div>
-                        <label className="alignment" type="password" name="password">
+                        <label className="alignment" type="password" name="newPasswordLabel">
                         Nytt lösenord:
                         </label>
                         <div>
-                            <input className="input" placeholder="nytt lösenord" type="password" name="name" disabled={this.state.disabledNewPassword}/>  
+                            <input className="input" placeholder="nytt lösenord" type="password" name="newPassword" disabled={this.state.disabledNewPassword}/>
                         </div>   
                     </div>
                     <div className="save-button">
