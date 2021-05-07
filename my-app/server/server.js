@@ -127,6 +127,13 @@ router.post('/logInUser', (req, res) => {
         var emptyData = [{Id: null}];
         return res.send(emptyData);
 });
+
+router.post('/editProfile', (req, res) => {
+        var data = req.body;
+        var jsonData = JSON.parse(fs.readFileSync('./users/UsersData.json'));
+        console.log("Changed email");
+});
+
 router.post('/addUser', (req, res) => {
         var data = req.body;
         var jsonData = JSON.parse(fs.readFileSync('./users/UsersData.json'));
@@ -169,7 +176,7 @@ router.post('/removeLocation', (req, res) => {
         var jsonData = JSON.parse(fs.readFileSync('./locations/locations.json'));
         var indexOfLocationToRemove = jsonData.features.findIndex(item => item.properties.NAME === locationData.name);
         if(indexOfLocationToRemove > -1){
-             jsonData.features.splice(indexOfLocationToRemove, 1);
+             jsonData.features.splice(indexOfLocationToRemove, 1); 
         }
         fs.writeFileSync('./locations/locations.json', JSON.stringify(jsonData));
         console.log("Removed location of map");
