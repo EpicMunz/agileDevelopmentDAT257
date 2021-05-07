@@ -13,42 +13,57 @@ export default class EditProfile extends Component{
         super(props)
         this.state = { isActive: false,
             disabledEmail: true, disabledPassword: true, disabledNewPassword: true};         //byt till disabled istället för show, username: "", email: "", password: "",
-        this.handleChangePassword = this.handleChangePassword.bind(this);
+        this.handleChangeOldPassword = this.handleChangeOldPassword.bind(this);
+        this.handleChangeNewPassword = this.handleChangeNewPassword.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleEmail = this.handleEmail.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
         
     }
     //Changes state values when textfield changes
-    handleChangePassword(e){
-        this.setState({password: e.target.value});
+    handleChangeOldPassword(e){
+        this.setState({oldPassword: e.target.value});
+    }
+    handleChangeNewPassword(e){
+        this.setState({newPassword: e.target.value});
     }
     handleChangeEmail(e){
         this.setState({email: e.target.value});
     }
-
     handleEmail(){
         this.setState({disabledEmail: !this.state.disabledEmail});
     }
     handlePassword(){
         this.setState({disabledPassword: !this.state.disabledPassword});
         this.setState({disabledNewPassword: !this.state.disabledNewPassword});
-    }
+    } 
+    // Sends the changed data to the server
     handleSave(event){
         event.preventDefault();
         var data = [];
-        if(this.state.password != null){
-            var encryptedPassword = bcrypt.hashSync(this.state.password,10);
+        if(this.state.newPassword != null && this.state.email != null){
             data = {
-                    Password: encryptedPassword,
-                    Mail: this.state.email
+                    oldPassword: this.state.oldPassword,
+                    newPassword: this.state.newPassword,
+                    Mail: this.state.email,
+                    Username: JSON.parse(sessionStorage.getItem("userData")).Username
             }
         }
-        else {
+        else if (this.state.email != null){
             data = {
-                    Mail: this.state.email
+                    Mail: this.state.email,
+                    Username: JSON.parse(sessionStorage.getItem("userData")).Username
             }
         }
+        else if (this.state.newPassword != null) {
+            data = {
+                oldPassword: this.state.oldPassword,
+                newPassword: this.state.newPassword,
+                Username: JSON.parse(sessionStorage.getItem("userData")).Username
+            }
+        }
+
+
         //Requests adding of user
         fetchData("/editProfile", data);
         document.getElementById("saveform").reset();
@@ -60,21 +75,15 @@ export default class EditProfile extends Component{
     //Updates userData whenever you login to ManageProfilePage
     componentDidMount(){
         var fetchedData = JSON.parse(sessionStorage.getItem("userData"));
-        this.setState({ email: fetchedData.Mail});
+        this.setState({ username: fetchedData.Username, email: fetchedData.Mail});
     }
     
 
     //Box of form
         render(){
             return (<div className="rectangleSave">
-            <h3 className="rubrik" >Användarprofil</h3>
+            <h3 className="rubrik" >{this.state.username}</h3>
             <form id="saveform" onSubmit={(e) => this.handleSave(e)}>
-                    <div>
-                        <label className="alignment" type="text" name="userNameLabel">
-                        Användarnamn: 
-                        </label>
-                        <div><label className="username" type="text" name="name"> {this.state.username} </label></div>
-                    </div>
                     <div>
                         <label className="alignment" type="text" name="emailLabel">
                             Email:
@@ -89,7 +98,7 @@ export default class EditProfile extends Component{
                         Lösenord:
                         </label>
                         <div>
-                            <input className="input" placeholder="nuvarande lösenord" type="password" name="password" disabled={this.state.disabledPassword} onChange={this.handleChangePassword}/>
+                            <input className="input" placeholder="nuvarande lösenord" type="password" name="password" disabled={this.state.disabledPassword} onChange={this.handleChangeOldPassword}/>
                             <img className="pen-logo" src={`${process.env.PUBLIC_URL}pen.png`} alt="edit" onClick={() => this.handlePassword()} />
                         </div>
                     </div>
@@ -98,7 +107,7 @@ export default class EditProfile extends Component{
                         Nytt lösenord:
                         </label>
                         <div>
-                            <input className="input" placeholder="nytt lösenord" type="password" name="newPassword" disabled={this.state.disabledNewPassword}/>
+                            <input className="input" placeholder="nytt lösenord" type="password" name="newPassword" disabled={this.state.disabledNewPassword} onChange={this.handleChangeNewPassword}/>
                         </div>   
                     </div>
                     <div className="save-button">
