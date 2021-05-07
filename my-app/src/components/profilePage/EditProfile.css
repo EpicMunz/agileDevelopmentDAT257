@@ -1,0 +1,43 @@
+.rectangleSave{
+    display: block;
+    width: 350px;
+    background: white;
+    border: 1px;
+    border-style: solid;
+    padding-bottom: 50px;
+    padding-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24)
+}
+.rubrik{
+    margin-left: 75px;
+    margin-bottom: 10%;
+    font-size: 300%;
+}
+.pen-logo{
+    width: 7%;
+    border: 1px;
+    border-style: solid;
+    margin-left: 15px;
+}
+.username{
+    font-style: italic;
+    margin-left: 150px;
+}
+.input{
+    width: 200px;
+    margin-left: 80px;
+    text-align: center;
+    padding-bottom: 50px;
+    padding-top: 50px;
+}
+.alignment{
+    margin-left: 20px;
+    text-align: left;
+}
+.save-button{
+    margin-left: 160px;
+    margin-top: 10%;
+}
