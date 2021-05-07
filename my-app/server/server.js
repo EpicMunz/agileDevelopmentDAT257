@@ -109,7 +109,10 @@ router.post('/getMyBookings', (req, res) => {
     console.log("Sending my booking data for " + data[0].Owner+"...");
     res.send(returndata);
 });
+
 //Checks login details and then if successful returns data of user
+//data is whats received from input, jsonData cycles through all users. sentData is the accepted user that is
+//sent back to LogInPage. 
 router.post('/logInUser', (req, res) => {
         var data = req.body;
         var jsonData = JSON.parse(fs.readFileSync('./users/UsersData.json'));
@@ -117,10 +120,10 @@ router.post('/logInUser', (req, res) => {
         
         /*compares the username to the given username and also checks
         the given password to the encrypted password*/
-            if(jsonData[i].Username == data[0].Username && bcrypt.compareSync(data[0].Password,jsonData[i].Password)){
+            if(jsonData[i].Username === data[0].Username && bcrypt.compareSync(data[0].Password,jsonData[i].Password)){
                 console.log("Sending user data for logged in user");
-                var data = jsonData[i];
-                return res.send(data);
+                var sentData = jsonData[i];
+                return res.send(sentData);
             }
         }
         console.log("No such username and password combination");

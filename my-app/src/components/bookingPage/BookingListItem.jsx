@@ -67,15 +67,14 @@ class BookingListItem extends Component {
             </div>
 
             <div className="col">
-              {this.formatDate(
-                bookDate.getHours() +
+              {this.formatDate(bookDate.getHours()) +
                   ":" +
                   this.formatDate(bookDate.getMinutes()) +
                   "-" +
                   this.formatDate(endTime.getHours()) +
                   ":" +
                   this.formatDate(endTime.getMinutes())
-              )}
+              }
             </div>
             <div className="col">
               <Button
@@ -106,15 +105,14 @@ class BookingListItem extends Component {
             </div>
 
             <div className="col">
-              {this.formatDate(
-                bookDate.getHours() +
+              {this.formatDate(bookDate.getHours()) +
                   ":" +
                   this.formatDate(bookDate.getMinutes()) +
                   "-" +
                   this.formatDate(endTime.getHours()) +
                   ":" +
                   this.formatDate(endTime.getMinutes())
-              )}
+              }
             </div>
 
             <div className="col">

@@ -62,7 +62,8 @@ export default class App extends React.Component {
 
   //Is triggered on any action
   onActionBegin(args) {
-    //Adds the excel export button to the toolbar
+    
+    //Adds divider on right side of toolbar
     if (args.requestType === "toolbarItemRendering") {
       let dividerRight = {
         align: "Right",
@@ -71,6 +72,7 @@ export default class App extends React.Component {
       };
       args.items.push(dividerRight);
 
+      //Adds the excel export button to the toolbar
       let exportItem = {
         align: "Right",
         showTextOn: "Both",
@@ -79,12 +81,16 @@ export default class App extends React.Component {
         click: this.onExportClick.bind(this),
       };
       args.items.push(exportItem);
+
+      //Adds divider on left side of toolbar
       let dividerLeft = {
         align: "Left",
         cssClass: "e-toolbar-item e-schedule-seperator e-separator",
         type: "none",
       };
       args.items.push(dividerLeft);
+
+      //Adds location name on left side of toolbar
       let title = {
         align: "Left",
         showTextOn: "false",
@@ -108,13 +114,17 @@ export default class App extends React.Component {
   }
   //Is called when cell with appointment is being rendered
   onEventRendered(args) {
-    args.element.style.backgroundColor = args.data.color;
+    args.element.style.backgroundColor = args.data.Color;
   }
   //Creates a popup when double clicking a cell
   onPopupOpen(args) {
+
+    //jsonData fetches info about current logged in user
     const jsonData = JSON.parse(sessionStorage.getItem("userData"));
     const currentUser = jsonData.Username;
     const userStatus = jsonData.Status;
+    
+    //Only privileged users can enter popup on a cell
     if (
       args.data.Owner !== currentUser &&
       args.data.Owner !== undefined &&
@@ -132,6 +142,7 @@ export default class App extends React.Component {
       if (ownerElement) {
         ownerElement.value = args.data.Owner || ""; //What we receive is saved as value in ownerElement
       }
+
     }
     if(args.target != null){
         let isCell = args.target.classList.contains('e-work-cells') || args.target.classList.contains('e-header-cells');
@@ -160,14 +171,19 @@ export default class App extends React.Component {
       if (locationElement) {
         args.data.Location = this.props.location;
       }
-      let colorElement = args.element.querySelector("#color");
+      let colorElement = args.element.querySelector("#Color");
       if (colorElement) {
         var color = jsonData.Color;
-        args.data.color = color;
+        args.data.Color = color;
+      }
+      let mailElement = args.element.querySelector("#Mail");
+      if (mailElement) {
+        var mail = jsonData.Mail;
+        args.data.Mail = mail;
       }
     }
   }
-  //Changes the header of the quickInfoPopup
+  //Changes the header of the quickInfoPopup (adds X to leave popup)
   header(props) {
           return (<div>
       {props.elementType === "cell" ? (<div className="e-cell-header e-popup-header">
@@ -227,13 +243,25 @@ export default class App extends React.Component {
             </td>
           </tr>
           <tr>
-            <td className="e-textlabel"></td> {/*hidden location entry here*/}
+            <td className="e-textlabel"></td> {/*hidden color entry here*/}
             <td colSpan={4}>
               <input
-                id="color"
+                id="Color"
                 className="e-field e-input"
                 type="hidden"
-                name="color"
+                name="Color"
+                style={{ width: "100%" }}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td className="e-textlabel"></td> {/*hidden mail entry here*/}
+            <td colSpan={4}>
+              <input
+                id="Mail"
+                className="e-field e-input"
+                type="hidden"
+                name="Mail"
                 style={{ width: "100%" }}
               />
             </td>
@@ -271,6 +299,8 @@ export default class App extends React.Component {
   render(props) {
     //Returns the necessary html code to render schedule
     //Return is different if user is on MyBookings page vs regular location schedule
+    
+    //My bookings (display date, location, mail)
     if(this.props.data != null){
         return this.state.dataReceived ? (
             <ScheduleComponent
@@ -291,11 +321,12 @@ export default class App extends React.Component {
                       fields: {
                         Id: "Id",
                         subject: { name: "Subject" },
-                        source: { name: "Owner" },
-                        location: { name: "Location" },
+                        description: { name: "Mail" },
+                        location: { name: "Owner" },
+						source: { name: "Location" },
                         startTime: { name: "StartTime" },
                         endTime: { name: "EndTime" },
-                        color: { name: "color" },
+                        color: { name: "Color" },
                       },
                     }}
                     actionBegin={this.onActionBegin.bind(this)}
@@ -321,6 +352,7 @@ export default class App extends React.Component {
                     <p>Loading Schedule...</p>
                     );
     }
+    //Map (display date, owner, mail)
     else {
         return this.state.dataReceived ? (
               <ScheduleComponent
@@ -342,11 +374,12 @@ export default class App extends React.Component {
                   fields: {
                     id: "Id",
                     subject: { name: "Subject" },
-                    source: { name: "Location" },
+                    description: { name: "Mail" },
                     location: { name: "Owner" },
+                    source: {name: "Location" },
                     startTime: { name: "StartTime" },
                     endTime: { name: "EndTime" },
-                    color: { name: "color" },
+                    color: { name: "Color" }
                   },
                 }}
                 actionBegin={this.onActionBegin.bind(this)}

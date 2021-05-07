@@ -10,7 +10,7 @@ export default class AvailableLocations extends Component {
     this.state = { timeSet: false };
     this.StartTime = null;
     this.EndTime = null;
-	this.EventName = null;
+	  this.EventName = null;
   }
 
   changeStartTime(args) {

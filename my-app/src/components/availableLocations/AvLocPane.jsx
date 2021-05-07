@@ -48,10 +48,13 @@ class AvLocPane extends Component {
         }
         let startInput = new Date(this.props.startTime);
         let endInput = new Date(this.props.endTime);
+        
         if(this.state.dataReceived && this.props.startTime != null && this.props.endTime != null){
 
+            //<> </> can also be written as <React.fragment></React.fragment>, its used when you want to return multiple html elements from a component.
+
             return (
-                       <React.Fragment>
+                       <> 
                            <div className="row" style={{ fontWeight: "bold", fontSize: "25px"  }}> {/* Top row containing three column titles Event, StartTid and SlutTid*/}
                                <div className="col">Lokal</div>
                                <div className="col">Datum</div>
@@ -61,38 +64,39 @@ class AvLocPane extends Component {
 
                            <tbody className="my-bookings-table" > {/* Table containing all appointments for a specified location for the current owner */}
                           {
-                                   this.locations.map(location => {
-                                       this.state.data.forEach(element => {
+                                    //location cycles through each location in the savedata from our db, element cycles through bookings for that particular location
+                                    this.locations.map(location => {
+                                        this.state.data.forEach(element => {
 
-                                          let start = new Date(element.StartTime);
-                                          let end = new Date(element.EndTime);
+                                            let start = new Date(element.StartTime);
+                                            let end = new Date(element.EndTime);
 
-                                          if(location === element.Location){
-                                              if((startInput.getDate() <= end.getDate()) && (start.getDate() <= endInput.getDate())){
-                                                  if(startInput.getHours() <= end.getHours() && (start.getHours() <= endInput.getHours())){
-                                                         location = null;
-                                                  }
-                                             }
-                                          }
-                                      })
+                                            if(location === element.Location){
+                                                if((startInput.getDate() <= end.getDate()) && (start.getDate() <= endInput.getDate())){
+                                                    if(startInput.getHours() <= end.getHours() && (start.getHours() <= endInput.getHours())){
+                                                        location = null;
+                                                    }
+                                                }
+                                            }
+                                        })
                                         if(location != null){
-                                              return <BookingListItem
-                                                      Location={location}
-                                                      startTime={startInput}
-                                                      endTime={endInput}
-                                                      eventName={this.props.eventName}
-                                                      onChange={this.onSuccessfulBooking}
-                                                    />
+                                            return <BookingListItem
+                                                Location={location}
+                                                startTime={startInput}
+                                                endTime={endInput}
+                                                eventName={this.props.eventName}
+                                                onChange={this.onSuccessfulBooking}
+                                            />
                                         }
                                         else {
                                             return null;
                                         }
-                                  })
+                                    })
 
 
                           }
                        </tbody>
-                       </React.Fragment>
+                       </>
                    );
         }
         else {
