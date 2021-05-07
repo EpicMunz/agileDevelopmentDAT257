@@ -1,0 +1,25 @@
+What do I want to learn or understand better?:
+A) I am getting a good grasp on the front-end components of the page. 
+
+B) I want to understand the back-end a bit better, since I worked exlusively on the front-end. 
+
+C) To achieve this, I will take time to read, understand and ask my teammates about the code that they have written.
+
+How can I help someone else, or the entire team, to learn something new?
+A) I have taken time to simplify some of my teammates code, and I believe I have knowledge on how to write simpler code. Specifically it involves arrow functions and our usage
+of old practices in our code due to inexperience.
+
+B) I want to always be able to communicate my knowledge to my teammates so that they may learn something new.
+
+C) I will try my best to enlighten my teammates something I found useful.
+
+What is my contribution towards the team's use of Scrum?
+A) This week planning went smoothly, and we are prioritizing the things PO wants the most.
+B) We cold further work on making our meetings more efficient.
+C) Continously raise the question on how we could make more use of our time.
+
+What is my contribution towards the team deliveries?
+A) I worked on restricting functionality of the booking system depending on privilege.
+B) I want to keep implementing functionality which makes the website more user-friendly.
+C) Improving existing features and always think about how to implement PO's request in a user-friendly way.
+
