@@ -1,6 +1,8 @@
 import {Component} from "react";
 import locationInfo from './locationInfo.json';
 import "./PdfReader.css";
+import PdfrItem from './PdfrItem.jsx';
+import { Divider, Button } from "antd";
 
 export default class PdfReader extends Component{
 
@@ -26,8 +28,9 @@ export default class PdfReader extends Component{
             <div>
                 <div class="title">
                     <h1>{this.state.displayPDF}</h1>
-                    <button onClick={() => this.togglePDF(0)} > CS-bastun </button>
-                    <button onClick={() => this.togglePDF(1)} > Bifilm </button>
+                    <Button type="primary" onClick={() => this.togglePDF(0)} > CS-bastun </Button>
+                    <Button type="primary" onClick={() => this.togglePDF(1)} > Bifilm </Button>
+                    <PdfrItem/>
                 </div>
                 <div class="pdfReader">
                     <iframe title="PDF-Content" src={this.state.displayPDF} width="900" height="800"/>
