@@ -13,28 +13,30 @@ export default class AvailableLocations extends Component {
 	  this.EventName = null;
   }
 
-  changeStartTime(args) {
-    this.StartTime = args;
-    if (this.EndTime !== "") {
-      this.setState((state) => ({
-        timeSet: !this.state.timeSet,
-      }));
-    }
-  }
-  changeEndTime(args) {
-    this.EndTime = args;
-    if (this.StartTime !== "") {
-      this.setState((state) => ({
-        timeSet: !this.state.timeSet,
-      }));
-    }
-  }
+	changeStartTime(args) {
+		this.StartTime = args;
+		if (this.EndTime !== "") {
+		this.setState((state) => ({
+			timeSet: !this.state.timeSet,
+		}));
+   		}
+  	}
+  	
+	changeEndTime(args) {
+		this.EndTime = args;
+		if (this.StartTime !== "") {
+		this.setState((state) => ({
+			timeSet: !this.state.timeSet,
+		}));
+		}
+  	}
 
-  //reacts to changes of the eventname textfield
-  onChange = (e) => {
-	this.setState({EventName: e.target.value});
-	this.EventName = e.target.value;
-  }
+	//reacts to changes of the eventname textfield
+	onChange = (e) => {
+	  	this.setState({EventName: e.target.value});
+	  	this.EventName = e.target.value;
+  	}
+
   //returns a schedule component with linked props
   render() {
     return (

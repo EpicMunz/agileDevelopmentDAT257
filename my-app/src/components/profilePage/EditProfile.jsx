@@ -1,11 +1,7 @@
-import { message } from "antd";
 import {Component} from "react";
 import {fetchData} from "../clientFetch/ClientFetch";
 import "./ManageProfilePage.jsx";
 import "./EditProfile.css";
-//import pen from "./pen.png";
-
-var bcrypt = require('bcryptjs');
 
 export default class EditProfile extends Component{
 

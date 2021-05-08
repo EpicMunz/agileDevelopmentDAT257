@@ -146,9 +146,9 @@ router.post('/editProfile', (req, res) => {
                         }
                 }
         } else {
-                for (var i = 0 ; i < jsonData.length ; i++) {
-                        if (jsonData[i].Username === data.Username) {
-                                jsonData[i].Mail = data.Mail;
+                for (var j = 0 ; j < jsonData.length ; j++) {
+                        if (jsonData[j].Username === data.Username) {
+                                jsonData[j].Mail = data.Mail;
                                 fs.writeFileSync('./users/UsersData.json', JSON.stringify(jsonData));
                         }
                 }

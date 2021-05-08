@@ -1,0 +1,10 @@
+.title {
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.pdfReader {
+    height: 800px;
+    margin: 0;
+    position: relative;
+}
