@@ -1,0 +1,6 @@
+.itemArea{
+    margin: 10px;
+    border: solid black;
+    border-width: 2px 2px 0 2px;
+    width: fit-content;
+}

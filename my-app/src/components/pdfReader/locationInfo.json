@@ -1,13 +1,15 @@
 [
     {
+      "name": "CS-Bastun_Hyresinformation",
       "location": "CS-Bastun",
-      "doc_type": "Hyresinformation",
+      "doctype": "Hyresinformation",
       "path": "/media/locationInfo/CS-Bastun_Hyresinformation.pdf"
 
     },
     {
+        "name":"Bifilm",
         "location": "Bi",
-        "doc_type": "Manus",
+        "doctype": "Manus",
         "path": "/media/locationInfo/Bifilm.pdf"
   
       }
