@@ -1,5 +1,4 @@
-.title {
-    margin-bottom: 10px;
+.readerTitle{
     position: relative;
 }
 
@@ -7,4 +6,9 @@
     height: 800px;
     margin: 0;
     position: relative;
+}
+
+.readerBody{
+    margin: 10px;
+
 }
