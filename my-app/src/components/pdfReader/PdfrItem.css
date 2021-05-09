@@ -1,40 +1,6 @@
-.flex-container{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.row{
+    width: 400px;
     border: solid black;
-    border-width: 0 0 2px 0;
-    flex: 0 0 auto;
-    width: 840px;
-    height: 60px;
-    padding: 0 10px;
-
-}
-
-.flex-item{
-    white-space: nowrap;
-    overflow: hidden !important;
-    text-overflow: ellipsis;
-}
-
-.docname{
-    width: 300px;
-}
-
-.location{
-    width: 200px;
-}
-
-.doctype{
-    width: 250px;
-}
-
-.open{
-    width: 70px;
-}
-
-.referenceItem{
-    background-color: #CCC;
-    font-size: 20px;
+    border-width: 1px;
 
 }

@@ -7,7 +7,7 @@ import LogInPage from "../logInPage/LogInPage.jsx";
 import AvailableLocations from "../availableLocations/AvailableLocations.jsx";
 import AddAccountPage from "../adminAccountPage/AccountPage.jsx";
 import ManageProfilePage from "../profilePage/ManageProfilePage.jsx";
-import PdfrPage from "../pdfReader/PdfrPage.jsx";
+import PdfReader from "../pdfReader/PdfReader.jsx";
 
 const { Header } = Layout;
 const { SubMenu } = Menu;
@@ -39,8 +39,8 @@ export default class MenuHeader extends Component {
         else if(page === "LogOut"){
 			this.props.onDisplayChange(LogInPage);
         }
-		else if(page === "PdfrPage"){
-			this.props.onDisplayChange(PdfrPage);
+		else if(page === "PdfReader"){
+			this.props.onDisplayChange(PdfReader);
 		}
     }
     //If status of user is admin add AddAccountPage to header
@@ -101,9 +101,9 @@ export default class MenuHeader extends Component {
               	</a>
             </Menu.Item>
 
-            <Menu.Item key = "PdfrPage">
-				<a href="/#" onClick={() => this.handleClick("PdfrPage")}>
-                	PdfrPage
+            <Menu.Item key = "PdfReader">
+				<a href="/#" onClick={() => this.handleClick("PdfReader")}>
+                	PdfReader
               	</a>
             </Menu.Item>
 

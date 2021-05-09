@@ -1,63 +1,66 @@
 import React, { Component } from "react";
-import { Button } from "antd";
+import { Divider, Button } from "antd";
 import './PdfrItem.css';
 
 class PdfrItem extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
-    
-        this.openDocument = this.openDocument.bind(this);
-    }
-
-    //Sends path of clicked item to pdfrContainer
-    openDocument = (docpath) => {
-        //alert("docpath in openDocument: " + docpath);
-        this.props.updateContainer(docpath);
-    }
+        this.state = { timeSet: false };
+      }
 
     render() {
+        return (
 
-        if(this.props.isDocument){
+            <>
+                <div className="row" style={{ fontSize: "20px" }}>
+                    <div className="col">a</div>
+                    <div className="col">b</div>
+                    <div className="col">c</div>
+                    <div className="col">d</div>
+                </div>
+            </>
+            
+        );
 
-            return(
+    }
 
-                <>
-                    <div className="flex-container" style={{ fontSize: "20px" }}>
-                        <div className="flex-item docname">{this.props.docname}</div>
-                        <div className="flex-item location">{this.props.location}</div>
-                        <div className="flex-item doctype">{this.props.doctype}</div>
-                        <div className="flex-item open">
-                            <Button type="primary" onClick={() => this.openDocument(this.props.path)}>Open</Button>
-                        </div>
-                    </div>
-                </>
-                
-            );
+    /*<React.Fragment // A really simple listitem that displays the events name, date and time as a row...
+            >
+            <div className="row" style={{ fontSize: "20px" }}>
+                <div className="col">{this.props.Location}</div>
+                <div className="col">
+                {bookDate.getFullYear() +
+                    "-" +
+                    this.formatDate(bookDate.getMonth()) +
+                    "-" +
+                    this.formatDate(bookDate.getDate())}
+                </div>
 
-        }else{
+                <div className="col">
+                {this.formatDate(bookDate.getHours()) +
+                    ":" +
+                    this.formatDate(bookDate.getMinutes()) +
+                    "-" +
+                    this.formatDate(endTime.getHours()) +
+                    ":" +
+                    this.formatDate(endTime.getMinutes())
+                }
+                </div>
 
-            return(
-
-                <>
-                    <div className="flex-container referenceItem">
-                        <div className="flex-item docname">{this.props.docname}</div>
-                        <div className="flex-item location">{this.props.location}</div>
-                        <div className="flex-item doctype">{this.props.doctype}</div>
-                        <div className="flex-item open">
-                        
-                        </div>
-                    </div>
-                </>
-                
-            );
-    
-        }
-
-        }
-
-
-        
+                <div className="col">
+                <Button
+                    type="primary"
+                    size="large"
+                    onClick={() => this.bookPremise()}
+                >
+                    Boka Platsen
+                </Button>
+                </div>
+            </div>
+            <Divider //... and adds a thin line below it
+            />
+            </React.Fragment>
+            */
 
 }
 
