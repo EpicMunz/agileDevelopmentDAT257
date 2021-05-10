@@ -25,20 +25,6 @@ var transporter = nodemailer.createTransport({
   }
 });
 
-/*
-var mailOptions = {
-  from: 'fhemfhem55@gmail.com',
-  to: 'fhemfhem55@gmail.com',
-  subject: 'Sötis skaru ha en stor en eller?',
-  text: 'Köpa fhem sex?',
-  attachments: [{
-          filename: 'Billy.png',
-          path: __dirname + '/Billy.png',
-          cid: 'Billy'
-      }]
-};
-*/
-
 var mailOptions = {
   from: 'fhemfhem55@gmail.com',
   to: 'fhemfhem55@gmail.com',
@@ -56,9 +42,6 @@ function formatDate(number) {
 //Saves sent schedule data for specified location
 router.post('/save',(req, res) => {
     var jsonData = req.body;
-    if(jsonData != null){
-
-    }
     var empty = [];
     var data = JSON.stringify(empty);
     var location = jsonData[0].Location;
@@ -67,6 +50,19 @@ router.post('/save',(req, res) => {
     }
     fs.writeFileSync('./data/'+location+'.json', data);
     console.log("Saving data for " + location);
+    res.send("Data has been saved");
+});
+router.post('/delete',(req, res) => {
+    var data = req.body;
+    var location = data[0].Location;
+    var jsonData = JSON.parse(fs.readFileSync('./data/'+location+'.json'));
+    jsonData.forEach((element) => {
+        if(element.Id === data[0].Id){
+            jsonData.splice(jsonData.indexOf(element), 1);
+        }
+    })
+    fs.writeFileSync('./data/'+location+'.json', JSON.stringify(jsonData));
+    console.log("Deleting for " + location);
     res.send("Data has been saved");
 });
 //Sends saved schedule data for specified location to client
@@ -249,26 +245,6 @@ router.post('/getUsersMail', (req, res) => {
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'))
 })
-
-/*
-var myVar = setInterval(myTimer, 1000);
-var numberOfTimes = 0;
-
-
-function myTimer() {
-for (var i=0; i < 2; i++){
-    transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-        console.log(error);
-    } else {
-        console.log('Email sent: ' + numberOfTimes + " " + info.response);
-    }
-    });
-    numberOfTimes++;
-    }
-}
-*/
-
 
 app.listen(8080)
 

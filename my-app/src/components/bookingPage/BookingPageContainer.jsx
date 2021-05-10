@@ -5,24 +5,15 @@ import Schedule from "../schedule/Schedule.jsx";
 
 //Structure: BookingPageContainer -> BookingPane -> BookingListItem
 export default class BookingPageContainer extends Component {
-  state = { location: null, data: [], locations: [] };
-  constructor(props) {
-    super(props);
-    this.locations = [];
-    this.getData();
-  }
-  //Saves the new location in location state
-  handleClick = (newLocation) => {
-    this.setState((state) => ({
-      location: newLocation,
-    }));
-    this.locations = [];
-  };
+
+  constructor(props){
+  		super(props);
+  		this.state = { data: [], locations: []}
+  		this.getData();
+  	}
   //Adds a location the locations array
-  addLocation(location) {
-    this.locations.push(location);
-  }
-  componentWillReceiveProps(nextProps) {
+
+  componentWillReceiveProps(nextProps){
     this.getData();
   }
   //Requests my bookings data from server
@@ -40,15 +31,13 @@ export default class BookingPageContainer extends Component {
   }
   //returns a schedule component with linked props
   render() {
-    return (
-      <div>
-        <Schedule
-          onDisplayChange={this.displayChangePage}
-          onLocationChange={this.changeLocation}
-          location={this.state.location}
-          data={this.state.data}
-        />
-      </div>
-    );
+    return (<div>
+                   <Schedule
+                     onDisplayChange={this.displayChangePage}
+                     onLocationChange={this.changeLocation}
+                     data = {this.state.data}
+                     updateParent = {this.getData.bind(this)}
+                   />
+                 </div>);
   }
 }

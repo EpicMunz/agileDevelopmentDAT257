@@ -2,7 +2,7 @@ import "antd/dist/antd.css";
 import React, { Component } from "react";
 import { Layout, Menu } from "antd";
 import Map from "../map/InteractiveMap";
-import BookingPane from "../bookingPage/BookingPageContainer.jsx";
+import BookingPageContainer from "../bookingPage/BookingPageContainer.jsx";
 import LogInPage from "../logInPage/LogInPage.jsx";
 import AvailableLocations from "../availableLocations/AvailableLocations.jsx";
 import AddAccountPage from "../adminAccountPage/AccountPage.jsx";
@@ -13,23 +13,27 @@ const { Header } = Layout;
 const { SubMenu } = Menu;
 
 export default class MenuHeader extends Component {
-  state = { page: LogInPage, currentUser: "admin"};
-  
+
+    constructor(props){
+		super(props);
+		var currentPage = JSON.parse(localStorage.getItem("page"));
+		this.state = { page: currentPage, currentUser: "admin"};
+	}
 	//Changes the current page to the selected one in the header
     handleClick = (page) => {
-        if(page === "Profile"){
+        if(page === "ManageProfilePage"){
             this.props.onDisplayChange(ManageProfilePage);
         }
-        else if(page === "Map"){
+        else if(page === "InteractiveMap"){
             this.props.onDisplayChange(Map);
         }
-        else if(page === "MyBookings"){
-            this.props.onDisplayChange(BookingPane)
+        else if(page === "BookingPane"){
+            this.props.onDisplayChange(BookingPageContainer)
         }
-        else if(page === "AvLoc"){
+        else if(page === "AvailableLocations"){
           this.props.onDisplayChange(AvailableLocations)
         }
-        else if(page === "AddAccount"){
+        else if(page === "AddAccountPage"){
             this.props.onDisplayChange(AddAccountPage);
         }
         else if(page === "LogOut"){
@@ -42,8 +46,8 @@ export default class MenuHeader extends Component {
     //If status of user is admin add AddAccountPage to header
     accountPageToHeader(){
     if(JSON.parse(sessionStorage.getItem("userData")).Status === "admin")
-        return (<Menu.Item key = "AddAccount">
-                              <a href="/#" onClick={() => this.handleClick("AddAccount")}>
+        return (<Menu.Item key = "AddAccountPage">
+                              <a href="/#" onClick={() => this.handleClick("AddAccountPage")}>
                                 Hantera användare
                               </a>
                             </Menu.Item>);
@@ -53,7 +57,7 @@ export default class MenuHeader extends Component {
     return (
       <Layout className="layout">
         <Header>
-          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["Map"]} >
+          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={this.state.page || "InteractiveMap"} >
             <img //Leftmost image, should be of the users program
               src={`${process.env.PUBLIC_URL}MKlogga.png`}
               className="imgBorder"
@@ -62,11 +66,11 @@ export default class MenuHeader extends Component {
               alt="MKlogga"
             />
             
-			<SubMenu key="Profile" title="Profil"> 
+			<SubMenu key="ManageProfilePage" title="Profil">
               	<Menu.ItemGroup key="g1" //Dropdown menu under "Profil"
               	>
 					<Menu.Item key="Sub1User">
-						<a href="/#" onClick={() => this.handleClick("Profile")}>
+						<a href="/#" onClick={() => this.handleClick("ManageProfilePage")}>
 							Användare
 						</a>
 					</Menu.Item>
@@ -80,19 +84,19 @@ export default class MenuHeader extends Component {
 				</Menu.ItemGroup>
             </SubMenu>
 
-            <Menu.Item key="MyBookings">
-                <a href="/#" onClick={() => this.handleClick("MyBookings")}>
+            <Menu.Item key="BookingPane">
+                <a href="/#" onClick={() => this.handleClick("BookingPane")}>
                    	Mina Bokningar
                 </a>
 			</Menu.Item>
 
-            <Menu.Item key="Map">
-                <a href="/#" onClick={() => this.handleClick("Map")}>
+            <Menu.Item key="InteractiveMap">
+                <a href="/#" onClick={() => this.handleClick("InteractiveMap")}>
                   	Karta
                 </a></Menu.Item>
 
-            <Menu.Item key = "AvLoc">
-              	<a href="/#" onClick={() => this.handleClick("AvLoc")}>
+            <Menu.Item key = "AvailableLocations">
+              	<a href="/#" onClick={() => this.handleClick("AvailableLocations")}>
                 	Tillgängliga Lokaler
               	</a>
             </Menu.Item>
