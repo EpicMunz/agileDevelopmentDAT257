@@ -4,37 +4,29 @@ import "./ManageProfilePage.jsx";
 import "./EditProfile.css";
 
 export default class EditProfile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isActive: false,
-      disabledEmail: true,
-      disabledPassword: true,
-      disabledNewPassword: true,
-    }; //byt till disabled istället för show, username: "", email: "", password: "",
-    this.handleChangeOldPassword = this.handleChangeOldPassword.bind(this);
-    this.handleChangeNewPassword = this.handleChangeNewPassword.bind(this);
-    this.handleChangeEmail = this.handleChangeEmail.bind(this);
-    this.handleEmail = this.handleEmail.bind(this);
-    this.handlePassword = this.handlePassword.bind(this);
-  }
+  state = {
+    isActive: false,
+    disabledEmail: true,
+    disabledPassword: true,
+    disabledNewPassword: true,
+  };
   //Changes state values when textfield changes
-  handleChangeOldPassword(e) {
+  handleChangeOldPassword = (e) => {
     this.setState({ oldPassword: e.target.value });
-  }
-  handleChangeNewPassword(e) {
+  };
+  handleChangeNewPassword = (e) => {
     this.setState({ newPassword: e.target.value });
-  }
-  handleChangeEmail(e) {
+  };
+  handleChangeEmail = (e) => {
     this.setState({ email: e.target.value });
-  }
-  handleEmail() {
+  };
+  handleEmail = () => {
     this.setState({ disabledEmail: !this.state.disabledEmail });
-  }
-  handlePassword() {
+  };
+  handlePassword = () => {
     this.setState({ disabledPassword: !this.state.disabledPassword });
     this.setState({ disabledNewPassword: !this.state.disabledNewPassword });
-  }
+  };
   // Sends the changed data to the server
   handleSave(event) {
     event.preventDefault();
