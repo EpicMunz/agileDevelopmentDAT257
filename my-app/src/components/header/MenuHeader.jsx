@@ -13,14 +13,10 @@ const { Header } = Layout;
 const { SubMenu } = Menu;
 
 export default class MenuHeader extends Component {
-
-    constructor(props){
-		super(props);
-		this.state = { page: LogInPage, currentUser: "admin"};
-		this.handleClick = this.handleClick.bind(this);
-	}
+  state = { page: LogInPage, currentUser: "admin"};
+  
 	//Changes the current page to the selected one in the header
-    handleClick(page){
+    handleClick = (page) => {
         if(page === "Profile"){
             this.props.onDisplayChange(ManageProfilePage);
         }
