@@ -5,54 +5,54 @@ import TimePicker from "./TimePicker.jsx";
 const { Content } = Layout;
 
 export default class AvailableLocations extends Component {
+  state = { timeSet: false };
   constructor(props) {
     super(props);
-    this.state = { timeSet: false };
     this.StartTime = null;
     this.EndTime = null;
-	  this.EventName = null;
+    this.EventName = null;
   }
 
-	changeStartTime(args) {
-		this.StartTime = args;
-		if (this.EndTime !== "") {
-		this.setState((state) => ({
-			timeSet: !this.state.timeSet,
-		}));
-   		}
-  	}
-  	
-	changeEndTime(args) {
-		this.EndTime = args;
-		if (this.StartTime !== "") {
-		this.setState((state) => ({
-			timeSet: !this.state.timeSet,
-		}));
-		}
-  	}
+  changeStartTime(args) {
+    this.StartTime = args;
+    if (this.EndTime !== "") {
+      this.setState((state) => ({
+        timeSet: !this.state.timeSet,
+      }));
+    }
+  }
 
-	//reacts to changes of the eventname textfield
-	onChange = (e) => {
-	  	this.setState({EventName: e.target.value});
-	  	this.EventName = e.target.value;
-  	}
+  changeEndTime(args) {
+    this.EndTime = args;
+    if (this.StartTime !== "") {
+      this.setState((state) => ({
+        timeSet: !this.state.timeSet,
+      }));
+    }
+  }
+
+  //reacts to changes of the eventname textfield
+  onChange = (e) => {
+    this.setState({ EventName: e.target.value });
+    this.EventName = e.target.value;
+  };
 
   //returns a schedule component with linked props
   render() {
     return (
       <React.Fragment>
         <h1 className="display-1">Tillgängliga lokaler</h1>
-        
-          <TimePicker
-            onStartTimeChange={this.changeStartTime.bind(this)}
-            onEndTimeChange={this.changeEndTime.bind(this)}
-          />
-		<h1>Ange titeln på ditt event</h1>
-          <Input 
-		  	placeholder="T.ex 'Bollkalas'" 
-			value={this.state.EventName}
-		  	onChange = {this.onChange}
-		  />
+
+        <TimePicker
+          onStartTimeChange={this.changeStartTime.bind(this)}
+          onEndTimeChange={this.changeEndTime.bind(this)}
+        />
+        <h1>Ange titeln på ditt event</h1>
+        <Input
+          placeholder="T.ex 'Bollkalas'"
+          value={this.state.EventName}
+          onChange={this.onChange}
+        />
 
         <Layout>
           <Menu // The menu contains the different locations as items
@@ -65,7 +65,11 @@ export default class AvailableLocations extends Component {
             className="site-layout-background"
             style={{ padding: 24, margin: 0 }}
           >
-            <AvLocPane startTime={this.StartTime} endTime={this.EndTime} eventName={this.EventName}/>
+            <AvLocPane
+              startTime={this.StartTime}
+              endTime={this.EndTime}
+              eventName={this.EventName}
+            />
           </Content>
         </Layout>
       </React.Fragment>
