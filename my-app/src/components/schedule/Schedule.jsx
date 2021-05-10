@@ -45,24 +45,23 @@ export default class App extends React.Component {
     }));
   }
 
-
-  onDataBound(){
-        if(this.props.data == null){
-            if(this.data.length < 1){
-                var data = [{
-                    Location: this.props.location
-                }]
-                fetchData("/save", data);
-            }
-            else {
-                fetchData("/save", this.data);
-            }
-        }
+  onDataBound() {
+    if (this.props.data == null) {
+      if (this.data.length < 1) {
+        var data = [
+          {
+            Location: this.props.location,
+          },
+        ];
+        fetchData("/save", data);
+      } else {
+        fetchData("/save", this.data);
+      }
+    }
   }
 
   //Is triggered on any action
   onActionBegin(args) {
-    
     //Adds divider on right side of toolbar
     if (args.requestType === "toolbarItemRendering") {
       let dividerRight = {
@@ -118,12 +117,11 @@ export default class App extends React.Component {
   }
   //Creates a popup when double clicking a cell
   onPopupOpen(args) {
-
     //jsonData fetches info about current logged in user
     const jsonData = JSON.parse(sessionStorage.getItem("userData"));
     const currentUser = jsonData.Username;
     const userStatus = jsonData.Status;
-    
+
     //Only privileged users can enter popup on a cell
     if (
       args.data.Owner !== currentUser &&
@@ -142,13 +140,14 @@ export default class App extends React.Component {
       if (ownerElement) {
         ownerElement.value = args.data.Owner || ""; //What we receive is saved as value in ownerElement
       }
-
     }
-    if(args.target != null){
-        let isCell = args.target.classList.contains('e-work-cells') || args.target.classList.contains('e-header-cells');
-            if (args.type === "QuickInfo" && isCell) {
-              args.cancel = true;
-            }
+    if (args.target != null) {
+      let isCell =
+        args.target.classList.contains("e-work-cells") ||
+        args.target.classList.contains("e-header-cells");
+      if (args.type === "QuickInfo" && isCell) {
+        args.cancel = true;
+      }
     }
   }
   /*
@@ -185,18 +184,34 @@ export default class App extends React.Component {
   }
   //Changes the header of the quickInfoPopup (adds X to leave popup)
   header(props) {
-          return (<div>
-      {props.elementType === "cell" ? (<div className="e-cell-header e-popup-header">
-          <div className="e-header-icon-wrapper">
-            <button id="close" className="e-close e-close-icon e-icons" title="Close" onClick={() => this.scheduleObj.closeQuickInfoPopup()}/>
-          </div>
-        </div>) : (<div className="e-event-header e-popup-header">
+    return (
+      <div>
+        {props.elementType === "cell" ? (
+          <div className="e-cell-header e-popup-header">
             <div className="e-header-icon-wrapper">
-              <button id="close" className="e-close e-close-icon e-icons" title="CLOSE" onClick={() => this.scheduleObj.closeQuickInfoPopup()}/>
+              <button
+                id="close"
+                className="e-close e-close-icon e-icons"
+                title="Close"
+                onClick={() => this.scheduleObj.closeQuickInfoPopup()}
+              />
             </div>
-          </div>)}
-    </div>);
-      }
+          </div>
+        ) : (
+          <div className="e-event-header e-popup-header">
+            <div className="e-header-icon-wrapper">
+              <button
+                id="close"
+                className="e-close e-close-icon e-icons"
+                title="CLOSE"
+                onClick={() => this.scheduleObj.closeQuickInfoPopup()}
+              />
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
   //returns the custom made popup appointment editor
   editorTemplate(props) {
     return props !== undefined ? (
@@ -299,113 +314,105 @@ export default class App extends React.Component {
   render(props) {
     //Returns the necessary html code to render schedule
     //Return is different if user is on MyBookings page vs regular location schedule
-    
+
     //My bookings (display date, location, mail)
-    if(this.props.data != null){
-        return this.state.dataReceived ? (
-            <ScheduleComponent
-                    cssClass="excel-export"
-                    ref={(t) => (this.scheduleObj = t)}
-                    width="100%"
-                    height="700px"
-                    currentView="Week"
-                    selectedDate={new Date()} //'new Date()' will fetch the current date
-                    timeScale={{ enable: true, interval: 60, slotCount: 1 }}
-                    editorTemplate={this.editorTemplate.bind(this)}
-                    showQuickInfo={true}
-                    popupOpen={this.onPopupOpen.bind(this)}
-                    popupClose={this.onPopupClose.bind(this)}
-                    eventRendered={this.onEventRendered.bind(this)}
-                    eventSettings={{
-                      dataSource: this.data,
-                      fields: {
-                        Id: "Id",
-                        subject: { name: "Subject" },
-                        description: { name: "Mail" },
-                        location: { name: "Owner" },
-						source: { name: "Location" },
-                        startTime: { name: "StartTime" },
-                        endTime: { name: "EndTime" },
-                        color: { name: "Color" },
-                      },
-                    }}
-                    actionBegin={this.onActionBegin.bind(this)}
-                    quickInfoTemplates={{ header: this.header.bind(this)}}
-                    dataBound={this.onDataBound.bind(this)}
-                  >
-                    <ViewsDirective>
-                      <ViewDirective option="Day" startHour="00:00" endHour="00:00" />
-                      <ViewDirective option="Week" startHour="00:00" endHour="00:00" />
-                      <ViewDirective option="Month" />
-                    </ViewsDirective>
-                    <Inject
-                      services={[
-                        Day,
-                        Week,
-                        Month,
-                        TimelineViews,
-                        ExcelExport,
-                      ]}
-                    />
-                  </ScheduleComponent>)
-                  : (
-                    <p>Loading Schedule...</p>
-                    );
+    if (this.props.data != null) {
+      return this.state.dataReceived ? (
+        <ScheduleComponent
+          cssClass="excel-export"
+          ref={(t) => (this.scheduleObj = t)}
+          width="100%"
+          height="700px"
+          currentView="Week"
+          selectedDate={new Date()} //'new Date()' will fetch the current date
+          timeScale={{ enable: true, interval: 60, slotCount: 1 }}
+          editorTemplate={this.editorTemplate.bind(this)}
+          showQuickInfo={true}
+          popupOpen={this.onPopupOpen.bind(this)}
+          popupClose={this.onPopupClose.bind(this)}
+          eventRendered={this.onEventRendered.bind(this)}
+          eventSettings={{
+            dataSource: this.data,
+            fields: {
+              Id: "Id",
+              subject: { name: "Subject" },
+              description: { name: "Mail" },
+              location: { name: "Owner" },
+              source: { name: "Location" },
+              startTime: { name: "StartTime" },
+              endTime: { name: "EndTime" },
+              color: { name: "Color" },
+            },
+          }}
+          actionBegin={this.onActionBegin.bind(this)}
+          quickInfoTemplates={{ header: this.header.bind(this) }}
+          dataBound={this.onDataBound.bind(this)}
+        >
+          <ViewsDirective>
+            <ViewDirective option="Day" startHour="00:00" endHour="00:00" />
+            <ViewDirective option="Week" startHour="00:00" endHour="00:00" />
+            <ViewDirective option="Month" />
+          </ViewsDirective>
+          <Inject services={[Day, Week, Month, TimelineViews, ExcelExport]} />
+        </ScheduleComponent>
+      ) : (
+        <p>Loading Schedule...</p>
+      );
     }
     //Map (display date, owner, mail)
     else {
-        return this.state.dataReceived ? (
-              <ScheduleComponent
-                id = "schedule"
-                cssClass="excel-export"
-                ref={(schedule) => (this.scheduleObj = schedule)}
-                width="100%"
-                height="700px"
-                currentView="Week"
-                selectedDate={new Date()} //'new Date()' will fetch the current date
-                timeScale={{ enable: true, interval: 60, slotCount: 1 }}
-                editorTemplate={this.editorTemplate.bind(this)}
-                showQuickInfo={true}
-                popupOpen={this.onPopupOpen.bind(this)}
-                popupClose={this.onPopupClose.bind(this)}
-                eventRendered={this.onEventRendered.bind(this)}
-                eventSettings={{
-                  dataSource: this.data,
-                  fields: {
-                    id: "Id",
-                    subject: { name: "Subject" },
-                    description: { name: "Mail" },
-                    location: { name: "Owner" },
-                    source: {name: "Location" },
-                    startTime: { name: "StartTime" },
-                    endTime: { name: "EndTime" },
-                    color: { name: "Color" }
-                  },
-                }}
-                actionBegin={this.onActionBegin.bind(this)}
-                quickInfoTemplates={{ header: this.header.bind(this)}}
-                dataBound={this.onDataBound.bind(this)}
-              >
-                <ViewsDirective>
-                  <ViewDirective option="Day" startHour="00:00" endHour="00:00" />
-                  <ViewDirective option="Week" startHour="00:00" endHour="00:00" />
-                  <ViewDirective option="Month" />
-                </ViewsDirective>
-                <Inject
-                  services={[
-                    Day,
-                    Week,
-                    Month,
-                    TimelineViews,
-                    Resize,
-                    DragAndDrop,
-                    ExcelExport,
-                  ]}
-                />
-              </ScheduleComponent>
-            ) : (
-              <p>Loading Schedule...</p>
-            );
+      return this.state.dataReceived ? (
+        <ScheduleComponent
+          id="schedule"
+          cssClass="excel-export"
+          ref={(schedule) => (this.scheduleObj = schedule)}
+          width="100%"
+          height="700px"
+          currentView="Week"
+          selectedDate={new Date()} //'new Date()' will fetch the current date
+          timeScale={{ enable: true, interval: 60, slotCount: 1 }}
+          editorTemplate={this.editorTemplate.bind(this)}
+          showQuickInfo={true}
+          popupOpen={this.onPopupOpen.bind(this)}
+          popupClose={this.onPopupClose.bind(this)}
+          eventRendered={this.onEventRendered.bind(this)}
+          eventSettings={{
+            dataSource: this.data,
+            fields: {
+              id: "Id",
+              subject: { name: "Subject" },
+              description: { name: "Mail" },
+              location: { name: "Owner" },
+              source: { name: "Location" },
+              startTime: { name: "StartTime" },
+              endTime: { name: "EndTime" },
+              color: { name: "Color" },
+            },
+          }}
+          actionBegin={this.onActionBegin.bind(this)}
+          quickInfoTemplates={{ header: this.header.bind(this) }}
+          dataBound={this.onDataBound.bind(this)}
+        >
+          <ViewsDirective>
+            <ViewDirective option="Day" startHour="00:00" endHour="00:00" />
+            <ViewDirective option="Week" startHour="00:00" endHour="00:00" />
+            <ViewDirective option="Month" />
+          </ViewsDirective>
+          <Inject
+            services={[
+              Day,
+              Week,
+              Month,
+              TimelineViews,
+              Resize,
+              DragAndDrop,
+              ExcelExport,
+            ]}
+          />
+        </ScheduleComponent>
+      ) : (
+        <p>Loading Schedule...</p>
+      );
     }
   }
 }
