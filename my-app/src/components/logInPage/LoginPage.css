@@ -15,11 +15,39 @@
 }
 
 .backgroundColor{
-        background-color: #053549;
-        width: 100%;
-        height: 100%;
+    background-color: #053549;
+    width: 100%;
+    height: 100%;
 }
 
 .imgBorder{
-        border-radius: 30px;
+    border-radius: 30px;
 }
+
+.spacing{
+    margin-top: 2%;
+    width: 87.5%;
+    margin-left: 6.5%;
+}
+
+.box{
+    width: 30%;
+    text-align: center;
+    margin-top: 6%;
+    margin-left: 33%;
+}
+
+#container{
+    position: relative;
+}
+
+#img2{
+    position: absolute;
+    left: 50px;
+    top: 5px;
+}
+
+
+
+
+

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Layout, Menu, Input } from "antd";
 import AvLocPane from "./AvLocPane.jsx";
 import TimePicker from "./TimePicker.jsx";
+import "./AvailableLocations.css"
 const { Content } = Layout;
 
 export default class AvailableLocations extends Component {
@@ -41,18 +42,28 @@ export default class AvailableLocations extends Component {
   render() {
     return (
       <React.Fragment>
-        <h1 className="display-1">Tillgängliga lokaler</h1>
+      <div id="container">
+<h1 className="centerText" id="component1"> Ange tid för ditt event &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ange titeln på ditt event</h1>
+      <div className="timePicker" id="container">
 
-        <TimePicker
+        <TimePicker id="component1"
           onStartTimeChange={this.changeStartTime.bind(this)}
           onEndTimeChange={this.changeEndTime.bind(this)}
         />
-        <h1>Ange titeln på ditt event</h1>
-        <Input
+
+
+
+        <Input className="center"
           placeholder="T.ex 'Bollkalas'"
           value={this.state.EventName}
           onChange={this.onChange}
+          width= "100"
+          id= "component2"
         />
+
+
+        </div>
+
 
         <Layout>
           <Menu // The menu contains the different locations as items
@@ -72,6 +83,7 @@ export default class AvailableLocations extends Component {
             />
           </Content>
         </Layout>
+        </div>
       </React.Fragment>
     );
   }
