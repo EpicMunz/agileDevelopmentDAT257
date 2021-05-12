@@ -3,9 +3,12 @@
 ... a plan for getting from where you are to where you want to be or "feedback designed to reduce the gap" (A -> B).
 
 
+design med axel profilepage
+
+
 what do I want to learn or understand better?
 A. 
-I'm still not that good at programming, which is what I want to improve, especially in a larger project. 
+front end
 
 B.
 

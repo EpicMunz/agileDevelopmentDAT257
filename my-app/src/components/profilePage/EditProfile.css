@@ -38,7 +38,43 @@
     margin-left: 20px;
     text-align: left;
 }
-.save-button{
-    margin-left: 160px;
-    margin-top: 10%;
+
+#container{
+    position: relative;
+}
+
+#position1{
+    position: absolute;
+    left: 200px;
+    top: 150px;
+    width: 800px; 
+}
+
+.font-size{
+    font-size: 9px;
+}
+
+.font-size2{
+    font-size: 20px;
+}
+
+#position2{
+    position: absolute;
+    left: 1000px;
+    top: 150px;
+    width: 450px;
+}
+
+#text{
+    position: absolute;
+    left: 1000px;
+    top: 100px;
+}
+
+.input-username{
+    left:auto;
+}
+
+.button-position{
+    left: 250px;
 }

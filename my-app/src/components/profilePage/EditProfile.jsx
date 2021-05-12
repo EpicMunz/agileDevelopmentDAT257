@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { fetchData } from "../clientFetch/ClientFetch";
+import { Form, Button, Image, Input } from "antd";
 import "./ManageProfilePage.jsx";
 import "./EditProfile.css";
 
@@ -51,6 +52,9 @@ export default class EditProfile extends Component {
       };
     }
 
+
+  
+
     //Requests adding of user
     fetchData("/editProfile", data);
     document.getElementById("saveform").reset();
@@ -66,8 +70,95 @@ export default class EditProfile extends Component {
 
   //Box of form
   render() {
+    const layout = {
+      labelCol: {
+        span: 8,
+      },
+      wrapperCol: {
+        span: 16,
+      },
+    };
+
+    //Funktionerna funkar inte än
+
     return (
-      <div className="rectangleSave">
+      <div 
+      id="container">
+        <h1
+        id="text"
+        className="font-size2">
+          Om du vill byta E-mail eller lösenord kan du fylla i fälten nedan.
+        </h1>
+        <div 
+        id="position1"
+        className="font-size"
+        >
+          <h1 className="rubrik" >
+            Användarnamn: &nbsp;&nbsp;&nbsp; {this.state.username}
+          </h1>
+          <h2 className="rubrik">
+            Nuvarande e-mail: &nbsp;&nbsp;&nbsp; {this.state.email}
+          </h2>
+        </div>
+          
+            
+        <Form 
+          {...layout}
+        initialValues={{
+            remember: true,}} 
+            id="position2">
+
+            <Form.Item 
+            label="Nuvarande lösenord"
+            name="old-password"
+            rule={[
+              {required: true,
+                message: "Skriv in ditt nuvarande lösenord!"
+              },
+            ]}
+            >
+              <Input/>
+            </Form.Item>
+
+            <Form.Item 
+            label="Ny e-mail"
+            name="email"
+            rule={[
+              {required: false,
+                message: "Skriv in ditt lösenord!"
+              },
+            ]}
+            >
+              <Input/>
+            </Form.Item>
+            
+            <Form.Item 
+            label="Nytt lösenord"
+            name="new-password"
+            rule={[
+              {required: false,
+                message: "Skriv in ditt nya lösenord!"
+              },
+            ]}
+            >
+              <Input/>
+            </Form.Item>
+
+            <Form.Item>
+            <Button
+            onSubmit={(e) => this.handleSave(e)}
+            type="primary" htmlType="submit" 
+            className="button-position"
+            >
+              Spara
+            </Button>
+            </Form.Item>
+
+        </Form>
+      </div>
+
+
+      /*<div className="rectangleSave">
         <h3 className="rubrik">{this.state.username}</h3>
         <form id="saveform" onSubmit={(e) => this.handleSave(e)}>
           <div>
@@ -135,7 +226,7 @@ export default class EditProfile extends Component {
             <input type="submit" value="Spara" />
           </div>
         </form>
-      </div>
+      </div>*/
     );
   }
 }
