@@ -130,27 +130,18 @@ router.post('/logInUser', (req, res) => {
 router.post('/editProfile', (req, res) => {
         var data = req.body;
         var jsonData = JSON.parse(fs.readFileSync('./users/UsersData.json'));
-        console.log("Changed email");
-        if (data.newPassword !== undefined) {
-                console.log(data.newPassword);
-                console.log(data.oldPassword);
-                for (var i = 0 ; i < jsonData.length ; i++) {
-                        if (jsonData[i].Username === data.Username && bcrypt.compareSync(data.oldPassword,jsonData[i].Password)) {
+            for (var i = 0 ; i < jsonData.length ; i++) {
+                    if (jsonData[i].Username === data.Username && bcrypt.compareSync(data.oldPassword,jsonData[i].Password)) {
+                            if(data.newPassword !== undefined){
                                 jsonData[i].Password = bcrypt.hashSync(data.newPassword, 10);
+                            }
+                            if(data.Mail !== null){
                                 jsonData[i].Mail = data.Mail;
-                                fs.writeFileSync('./users/UsersData.json', JSON.stringify(jsonData));
-                                return res.send({response: "Password Changed"});
-                        }
-                }
-        } else {
-                for (var j = 0 ; j < jsonData.length ; j++) {
-                        if (jsonData[j].Username === data.Username) {
-                                jsonData[j].Mail = data.Mail;
-                                fs.writeFileSync('./users/UsersData.json', JSON.stringify(jsonData));
-                                return res.send({response: "Email Changed"});
-                        }
-                }
-        }
+                            }
+                            fs.writeFileSync('./users/UsersData.json', JSON.stringify(jsonData));
+                            return res.send({response: "User details changed"});
+                    }
+            }
         return res.send({response: "Wrong Password"});
 });
 
