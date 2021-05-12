@@ -31,23 +31,23 @@ export default class App extends Component {
   //when component mounts set stage page from localStorage
   componentDidMount() {
       if(localStorage.getItem("page") != null){
-              this.setState({page: components[JSON.parse(localStorage.getItem("page"))]});
+              this.setState({page: components[JSON.parse(sessionStorage.getItem("page"))]});
 
       }
       if(localStorage.getItem("location") != null){
-            this.setState({location: JSON.parse(localStorage.getItem("location"))});
+            this.setState({location: JSON.parse(sessionStorage.getItem("location"))});
       }
   }
   //updates the current page state
   displayChangePage = (nextPage) => {
     if(nextPage.name === "App"){
-        localStorage.setItem("page", JSON.stringify("Schedule"));
+        sessionStorage.setItem("page", JSON.stringify("Schedule"));
     }
     else if(nextPage.name === "LogInPage"){
-        localStorage.removeItem("page");
+        sessionStorage.removeItem("page");
     }
     else {
-            localStorage.setItem("page", JSON.stringify(nextPage.name));
+            sessionStorage.setItem("page", JSON.stringify(nextPage.name));
         }
     this.setState({
       page: nextPage,
@@ -58,7 +58,7 @@ export default class App extends Component {
     this.setState({
       location: newLocation,
     });
-    localStorage.setItem("location", JSON.stringify(newLocation));
+    sessionStorage.setItem("location", JSON.stringify(newLocation));
     this.displayChangePage(Schedule);
   };
 

@@ -139,6 +139,7 @@ router.post('/editProfile', (req, res) => {
                                 jsonData[i].Password = bcrypt.hashSync(data.newPassword, 10);
                                 jsonData[i].Mail = data.Mail;
                                 fs.writeFileSync('./users/UsersData.json', JSON.stringify(jsonData));
+                                return res.send({response: "Password Changed"});
                         }
                 }
         } else {
@@ -146,9 +147,11 @@ router.post('/editProfile', (req, res) => {
                         if (jsonData[j].Username === data.Username) {
                                 jsonData[j].Mail = data.Mail;
                                 fs.writeFileSync('./users/UsersData.json', JSON.stringify(jsonData));
+                                return res.send({response: "Email Changed"});
                         }
                 }
         }
+        return res.send({response: "Wrong Password"});
 });
 
 router.post('/addUser', (req, res) => {

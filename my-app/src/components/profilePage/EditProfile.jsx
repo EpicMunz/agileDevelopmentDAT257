@@ -28,7 +28,7 @@ export default class EditProfile extends Component {
     this.setState({ disabledNewPassword: !this.state.disabledNewPassword });
   };
   // Sends the changed data to the server
-  handleSave(event) {
+  async handleSave(event) {
     event.preventDefault();
     var data = [];
     if (this.state.newPassword != null && this.state.email != null) {
@@ -50,11 +50,11 @@ export default class EditProfile extends Component {
         Username: JSON.parse(sessionStorage.getItem("userData")).Username,
       };
     }
-
     //Requests adding of user
-    fetchData("/editProfile", data);
+    var jsonData = await fetchData("/editProfile", data);
+    var response = await jsonData.json();
     document.getElementById("saveform").reset();
-    alert("Nya detaljer är sparade");
+    alert(response.response);
     this.props.onSubmit();
   }
 
