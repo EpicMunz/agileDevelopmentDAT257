@@ -313,6 +313,33 @@ export default class App extends React.Component {
         return "Owner";
     }
   }
+  specificScheduleFunctions(){
+    if(this.props.data!= null){
+            return <Inject
+                     services={[
+                       Day,
+                       Week,
+                       Month,
+                       TimelineViews,
+                       ExcelExport,
+
+                     ]}
+            />
+        }
+        else {
+            return <Inject
+                     services={[
+                       Day,
+                       Week,
+                       Month,
+                       TimelineViews,
+                       ExcelExport,
+                       Resize,
+                       DragAndDrop,
+                     ]}
+            />
+        }
+  }
   render(props) {
     //Returns the necessary html code to render schedule
     return this.state.dataReceived ? (
@@ -351,15 +378,7 @@ export default class App extends React.Component {
                   <ViewDirective option="Week" startHour="00:00" endHour="00:00" />
                   <ViewDirective option="Month" />
                 </ViewsDirective>
-                <Inject
-                  services={[
-                    Day,
-                    Week,
-                    Month,
-                    TimelineViews,
-                    ExcelExport,
-                  ]}
-                />
+              {this.specificScheduleFunctions()}
               </ScheduleComponent>)
               : (
                 <p>Loading Schedule...</p>
