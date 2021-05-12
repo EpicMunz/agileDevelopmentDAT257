@@ -3,7 +3,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import ReactMapGl, { Marker, Popup } from "react-map-gl";
 import NewLocation from "./NewMapLocation.jsx";
 import { fetchData } from "../clientFetch/ClientFetch.jsx";
-import {RemoveScroll} from 'react-remove-scroll';
 
 export default class InteractiveMap extends Component {
   constructor(props) {
@@ -57,7 +56,6 @@ export default class InteractiveMap extends Component {
   render() {
     return this.state.data != null ? (
       <div>
-        <RemoveScroll/>
         <ReactMapGl
           {...this.state.viewport}
           //Restyles the map, this one is called satellite but there are many styles to chose from
