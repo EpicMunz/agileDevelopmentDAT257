@@ -20,6 +20,9 @@ import { fetchData } from "../clientFetch/ClientFetch";
 export default class App extends React.Component {
   state = { dataReceived: false };
 
+  scheduleVariable1 = "Location";
+  scheduleVariable2 = "Owner";
+
   //When component is run for the first time
   async componentDidMount() {
     if (this.props.data == null) {
@@ -42,8 +45,7 @@ export default class App extends React.Component {
     this.data = nextProps.data;
     this.setState({dataReceived: true});
   }
-
-
+  //When appointment data has been changed in the scheduleComponent
   onDataBound(){
         if(this.data.length < 1 && this.props.location != null){
             var data = [{
@@ -167,10 +169,6 @@ export default class App extends React.Component {
   onPopupClose(args) {
     if (args.type === "Editor" && !isNullOrUndefined(args.data)) {
       var jsonData = JSON.parse(sessionStorage.getItem("userData"));
-      let subjectElement = args.element.querySelector("#Summary");
-      if (subjectElement) {
-        args.data.Subject = subjectElement.value; //Appends " - " + owner after printing summary value
-      }
       let ownerElement = args.element.querySelector("#Owner");
       if (ownerElement) {
         var owner = jsonData.Username;
@@ -306,116 +304,86 @@ export default class App extends React.Component {
       <div></div>
     );
   }
-  render(props) {
-    //Returns the necessary html code to render schedule
-    //Return is different if user is on MyBookings page vs regular location schedule
-
-    //My bookings (display date, location, mail)
-    if(this.props.data != null){
-        return this.state.dataReceived ? (
-            <ScheduleComponent
-                    cssClass="excel-export"
-                    ref={(t) => (this.scheduleObj = t)}
-                    width="100%"
-                    height="700px"
-                    currentView="Week"
-                    selectedDate={new Date()} //'new Date()' will fetch the current date
-                    timeScale={{ enable: true, interval: 60, slotCount: 1 }}
-                    editorTemplate={this.editorTemplate.bind(this)}
-                    showQuickInfo={true}
-                    popupOpen={this.onPopupOpen.bind(this)}
-                    popupClose={this.onPopupClose.bind(this)}
-                    eventRendered={this.onEventRendered.bind(this)}
-                    eventSettings={{
-                      dataSource: this.data,
-                      fields: {
-                        Id: "Id",
-                        subject: { name: "Subject" },
-                        description: { name: "Mail" },
-                        location: { name: "Location" },
-						source: { name: "Owner" },
-                        startTime: { name: "StartTime" },
-                        endTime: { name: "EndTime" },
-                        color: { name: "Color" },
-                      },
-                    }}
-                    actionBegin={this.onActionBegin.bind(this)}
-                    quickInfoTemplates={{ header: this.header.bind(this)}}
-                    dataBound={this.onDataBound.bind(this)}
-                  >
-                    <ViewsDirective>
-                      <ViewDirective option="Day" startHour="00:00" endHour="00:00" />
-                      <ViewDirective option="Week" startHour="00:00" endHour="00:00" />
-                      <ViewDirective option="Month" />
-                    </ViewsDirective>
-                    <Inject
-                      services={[
-                        Day,
-                        Week,
-                        Month,
-                        TimelineViews,
-                        ExcelExport,
-                      ]}
-                    />
-                  </ScheduleComponent>)
-                  : (
-                    <p>Loading Schedule...</p>
-                    );
+  //Return is different if user is on MyBookings page vs regular location schedule
+  specificSchedule(){
+    if(this.props.data!= null){
+        return "Location";
     }
-    //Map (display date, owner, mail)
     else {
-      return this.state.dataReceived ? (
-        <ScheduleComponent
-          id="schedule"
-          cssClass="excel-export"
-          ref={(schedule) => (this.scheduleObj = schedule)}
-          width="100%"
-          height="700px"
-          currentView="Week"
-          selectedDate={new Date()} //'new Date()' will fetch the current date
-          timeScale={{ enable: true, interval: 60, slotCount: 1 }}
-          editorTemplate={this.editorTemplate.bind(this)}
-          showQuickInfo={true}
-          popupOpen={this.onPopupOpen.bind(this)}
-          popupClose={this.onPopupClose.bind(this)}
-          eventRendered={this.onEventRendered.bind(this)}
-          eventSettings={{
-            dataSource: this.data,
-            fields: {
-              id: "Id",
-              subject: { name: "Subject" },
-              description: { name: "Mail" },
-              location: { name: "Owner" },
-              source: { name: "Location" },
-              startTime: { name: "StartTime" },
-              endTime: { name: "EndTime" },
-              color: { name: "Color" },
-            },
-          }}
-          actionBegin={this.onActionBegin.bind(this)}
-          quickInfoTemplates={{ header: this.header.bind(this) }}
-          dataBound={this.onDataBound.bind(this)}
-        >
-          <ViewsDirective>
-            <ViewDirective option="Day" startHour="00:00" endHour="00:00" />
-            <ViewDirective option="Week" startHour="00:00" endHour="00:00" />
-            <ViewDirective option="Month" />
-          </ViewsDirective>
-          <Inject
-            services={[
-              Day,
-              Week,
-              Month,
-              TimelineViews,
-              Resize,
-              DragAndDrop,
-              ExcelExport,
-            ]}
-          />
-        </ScheduleComponent>
-      ) : (
-        <p>Loading Schedule...</p>
-      );
+        return "Owner";
     }
   }
+  //Return is different if user is on MyBookings page vs regular location schedule
+  specificScheduleFunctions(){
+    if(this.props.data != null){
+            return <Inject
+                     services={[
+                       Day,
+                       Week,
+                       Month,
+                       TimelineViews,
+                       ExcelExport,
+
+                     ]}
+            />
+        }
+        else {
+            return <Inject
+                     services={[
+                       Day,
+                       Week,
+                       Month,
+                       TimelineViews,
+                       ExcelExport,
+                       Resize,
+                       DragAndDrop,
+                     ]}
+            />
+        }
+  }
+  render(props) {
+    //Returns the necessary html code to render schedule
+    return this.state.dataReceived ? (
+        <ScheduleComponent
+                cssClass="excel-export"
+                ref={(t) => (this.scheduleObj = t)}
+                width="100%"
+                height="700px"
+                currentView="Week"
+                selectedDate={new Date()} //'new Date()' will fetch the current date
+                timeScale={{ enable: true, interval: 60, slotCount: 1 }}
+                editorTemplate={this.editorTemplate.bind(this)}
+                showQuickInfo={true}
+                popupOpen={this.onPopupOpen.bind(this)}
+                popupClose={this.onPopupClose.bind(this)}
+                eventRendered={this.onEventRendered.bind(this)}
+                eventSettings={{
+                  dataSource: this.data,
+                  fields: {
+                    Id: "Id",
+                    subject: { name: "Subject" },
+                    description: { name: "Mail" },
+                    location: { name: this.specificSchedule() },
+                    source: { name: "Owner" },
+                    startTime: { name: "StartTime" },
+                    endTime: { name: "EndTime" },
+                    color: { name: "Color" },
+                  },
+                }}
+                actionBegin={this.onActionBegin.bind(this)}
+                quickInfoTemplates={{ header: this.header.bind(this)}}
+                dataBound={this.onDataBound.bind(this)}
+              >
+                <ViewsDirective>
+                  <ViewDirective option="Day" startHour="00:00" endHour="00:00" />
+                  <ViewDirective option="Week" startHour="00:00" endHour="00:00" />
+                  <ViewDirective option="Month" />
+                </ViewsDirective>
+              {this.specificScheduleFunctions()}
+              </ScheduleComponent>)
+              : (
+                <p>Loading Schedule...</p>
+                );
+    }
 }
+
