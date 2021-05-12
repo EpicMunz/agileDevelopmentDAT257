@@ -29,38 +29,41 @@ export default class EditProfile extends Component {
     this.setState({ disabledNewPassword: !this.state.disabledNewPassword });
   };
   // Sends the changed data to the server
-  async handleSave(event) {
+  handleSave = async (event) =>{
     event.preventDefault();
     var data = [];
-    if (this.state.newPassword != null && this.state.email != null) {
-      data = {
-        oldPassword: this.state.oldPassword,
-        newPassword: this.state.newPassword,
-        Mail: this.state.email,
-        Username: JSON.parse(sessionStorage.getItem("userData")).Username,
-      };
-    } else if (this.state.email != null) {
-      data = {
-        Mail: this.state.email,
-        Username: JSON.parse(sessionStorage.getItem("userData")).Username,
-      };
-    } else if (this.state.newPassword != null) {
-      data = {
-        oldPassword: this.state.oldPassword,
-        newPassword: this.state.newPassword,
-        Username: JSON.parse(sessionStorage.getItem("userData")).Username,
-      };
+    if(this.state.oldPassword != null){
+        if (this.state.newPassword != null && this.state.email != null) {
+              data = {
+                oldPassword: this.state.oldPassword,
+                newPassword: this.state.newPassword,
+                Mail: this.state.email,
+                Username: JSON.parse(sessionStorage.getItem("userData")).Username,
+              };
+            } else if (this.state.email != null) {
+              data = {
+                Mail: this.state.email,
+                oldPassword: this.state.oldPassword,
+                Username: JSON.parse(sessionStorage.getItem("userData")).Username,
+              };
+            } else if (this.state.newPassword != null) {
+              data = {
+                oldPassword: this.state.oldPassword,
+                newPassword: this.state.newPassword,
+                Username: JSON.parse(sessionStorage.getItem("userData")).Username,
+              };
+            }
+            //Requests adding of user
+            var jsonData = await fetchData("/editProfile", data);
+            var response = await jsonData.json();
+            document.getElementById("position2").reset();
+            alert(response.response);
+            this.props.onSubmit();
+    }
+    else {
+        alert("Ange gammalt lösenord");
     }
 
-
-  
-
-    //Requests adding of user
-    var jsonData = await fetchData("/editProfile", data);
-    var response = await jsonData.json();
-    document.getElementById("saveform").reset();
-    alert(response.response);
-    this.props.onSubmit();
   }
 
   //Updates userData whenever you login to ManageProfilePage
@@ -80,7 +83,6 @@ export default class EditProfile extends Component {
       },
     };
 
-    //Funktionerna funkar inte än
 
     return (
       <div 
@@ -105,6 +107,7 @@ export default class EditProfile extends Component {
             
         <Form 
           {...layout}
+          onSubmit={this.handleSave}
         initialValues={{
             remember: true,}} 
             id="position2">
@@ -118,7 +121,11 @@ export default class EditProfile extends Component {
               },
             ]}
             >
-              <Input/>
+              <Input
+                     placeholder="nuvarande lösenord"
+                     type="password"
+                     name="password"
+                     onChange={(e) => this.handleChangeOldPassword(e)}/>
             </Form.Item>
 
             <Form.Item 
@@ -130,7 +137,12 @@ export default class EditProfile extends Component {
               },
             ]}
             >
-              <Input/>
+              <Input
+                placeholder={this.state.email}
+                type="text"
+                name="email"
+                onChange={(e) => this.handleChangeEmail(e)}
+              />
             </Form.Item>
             
             <Form.Item 
@@ -142,92 +154,27 @@ export default class EditProfile extends Component {
               },
             ]}
             >
-              <Input/>
+              <Input
+                  placeholder="nytt lösenord"
+                  type="password"
+                  name="newPassword"
+                  onChange={(e) => this.handleChangeNewPassword(e)}
+              />
             </Form.Item>
 
             <Form.Item>
             <Button
-            onSubmit={(e) => this.handleSave(e)}
-            type="primary" htmlType="submit" 
+            type="primary"
+            htmlType="submit"
+            onClick={this.handleSave}
             className="button-position"
             >
-              Spara
-            </Button>
+                          Submit
+                        </Button>
             </Form.Item>
 
         </Form>
       </div>
-
-
-      /*<div className="rectangleSave">
-        <h3 className="rubrik">{this.state.username}</h3>
-        <form id="saveform" onSubmit={(e) => this.handleSave(e)}>
-          <div>
-            <label className="alignment" type="text" name="emailLabel">
-              Email:
-            </label>
-            <div>
-              <input
-                className="input"
-                placeholder={this.state.email}
-                type="text"
-                name="email"
-                disabled={this.state.disabledEmail}
-                onChange={this.handleChangeEmail}
-              />
-              <img
-                className="pen-logo"
-                src={`${process.env.PUBLIC_URL}pen.png`}
-                alt="edit"
-                onClick={() => this.handleEmail()}
-              />
-            </div>
-          </div>
-          <div>
-            <label className="alignment" type="password" name="passwordLabel">
-              Lösenord:
-            </label>
-            <div>
-              <input
-                className="input"
-                placeholder="nuvarande lösenord"
-                type="password"
-                name="password"
-                disabled={this.state.disabledPassword}
-                onChange={this.handleChangeOldPassword}
-              />
-              <img
-                className="pen-logo"
-                src={`${process.env.PUBLIC_URL}pen.png`}
-                alt="edit"
-                onClick={() => this.handlePassword()}
-              />
-            </div>
-          </div>
-          <div>
-            <label
-              className="alignment"
-              type="password"
-              name="newPasswordLabel"
-            >
-              Nytt lösenord:
-            </label>
-            <div>
-              <input
-                className="input"
-                placeholder="nytt lösenord"
-                type="password"
-                name="newPassword"
-                disabled={this.state.disabledNewPassword}
-                onChange={this.handleChangeNewPassword}
-              />
-            </div>
-          </div>
-          <div className="save-button">
-            <input type="submit" value="Spara" />
-          </div>
-        </form>
-      </div>*/
     );
   }
 }
