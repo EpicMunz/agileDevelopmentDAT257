@@ -8,37 +8,38 @@ A.
 I'm still not that good at programming, which is what I want to improve, especially in a larger project. 
 
 B.
-
+The best would of course be to be able to independently find solutions.
 
 C.
-
+I think pairing up with someone who's better at it in the group would help a lot.
 
 how can I help someone else, or the entire team, to learn something new?
 A.
-
+As of this week everyone has gotten into a pretty good work flow and I can't seem to figure about what to help
+others learning something new. 
 
 B.
-
+I would love for the others to feel like I can be of help in learning something new.
 
 C.
-
+As I've mentioned before I would try to research with them and try to find materials.
 
 what is my contribution towards the team’s use of Scrum?
 A.
-
+I'm still not sure what to contribute to as we go through everything together and work with user stories.
 
 B.
-
+I guess be more open spoken about which user stories to work with.
 
 C.
-
+Think through after the meeting with PO about what kind of user stories would work best.
 
 what is my contribution towards the team’s deliveries?
 A.
-
+This week I contributed to the login page, though not very pretty but it works as it should. 
 
 B.
-
+I did get some help with it so try to follow how it helped me and try it out myself.
 
 C.
-
+Same there with trying to following how the helper did to remind myself of what to do.  
