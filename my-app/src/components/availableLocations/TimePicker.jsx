@@ -2,14 +2,32 @@ import React, { Component } from "react";
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
 
 export default class TimePicker extends Component {
-  state={};
+  state={startTime: null, endTime: null, nextValidTime: null};
   //Handles the selected StartTime for the event
-  handleStartTime(props) {
+  handleStartTime = (props) => {
+    var start = new Date(props);
+    var end = new Date(this.state.endTime);
+    if(start.getDate() < end.getDate()){
+        this.setState({endTime: null});
+    }
+    var validTime = start;
+    validTime.setHours(validTime.getHours() + 1);
+    this.setState({startTime: props, nextValidTime: validTime});
+    this.handleEndTime(this.state.endTime);
     this.props.onStartTimeChange(props);
   }
   //Handles the selected EndTime for the event
-  handleEndTime(props) {
-    this.props.onEndTimeChange(props);
+  handleEndTime = (props) => {
+    if(new Date(this.state.startTime).getHours() === new Date(props).getHours()){
+        var time = new Date(props);
+        time.setHours(time.getHours() + 1);
+        this.setState({endTime: time});
+        this.props.onEndTimeChange(time);
+    }
+    else {
+        this.setState({endTime: props});
+        this.props.onEndTimeChange(props);
+    }
   }
 
   //returns a schedule component with linked props
@@ -28,6 +46,7 @@ export default class TimePicker extends Component {
                 id="StartTime"
                 data-name="StartTime"
                 className="e-field"
+                value={this.state.startTime}
                 onChange={(e) => this.handleStartTime(e.target.value)}
               ></DateTimePickerComponent>
             </td>
@@ -41,6 +60,9 @@ export default class TimePicker extends Component {
                 data-name="EndTime"
                 onChange={(e) => this.handleEndTime(e.target.value)}
                 className="e-field"
+                value={this.state.endTime}
+                strictMode={true}
+                min={this.state.nextValidTime}
               ></DateTimePickerComponent>
             </td>
           </tr>
