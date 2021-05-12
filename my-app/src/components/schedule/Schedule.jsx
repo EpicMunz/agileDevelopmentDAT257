@@ -313,8 +313,9 @@ export default class App extends React.Component {
         return "Owner";
     }
   }
+  //Return is different if user is on MyBookings page vs regular location schedule
   specificScheduleFunctions(){
-    if(this.props.data!= null){
+    if(this.props.data != null){
             return <Inject
                      services={[
                        Day,
