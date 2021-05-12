@@ -57,19 +57,19 @@ export default class AddAccountPage extends Component{
                   <h3>Add User</h3>
                   <label>
                     Username:
-                    <input type="text" name="name" onChange= {this.handleNameChange}/>
+                    <input type="text" name="name" onChange= {this.handleNameChange} required/>
                   </label>
                   <label>
                     Password:
-                   <input type="password" name="password" onChange= {this.handlePasswordChange}/>
+                   <input type="password" name="password" onChange= {this.handlePasswordChange} required/>
                   </label>
                   <label>
                     Email:
-                    <input type="text" name="email" onChange= {this.handleEmailChange}/>
+                    <input type="text" name="email" onChange= {this.handleEmailChange} required/>
                   </label>
                   <label>
                     ColorCode:
-                    <input type="text" name="color" onChange= {this.handleColorChange}/>
+                    <input type="text" name="color" onChange= {this.handleColorChange} required/>
                   </label>
                   <input type="submit" value="Submit" />
                 </form></div>);

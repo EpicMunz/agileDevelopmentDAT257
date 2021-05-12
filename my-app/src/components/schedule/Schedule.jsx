@@ -137,7 +137,7 @@ export default class App extends React.Component {
       args.cancel = true;
     }
     else {
-        if(this.props.data != null && args.type != "QuickInfo"){
+        if(this.props.data != null && args.type !== "QuickInfo"){
             args.cancel = true;
         }
     }

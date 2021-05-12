@@ -41,6 +41,7 @@ sends an email to the mail address given, if it exists in the database
               id="img1"
               width="1980"
               height="65"
+              alt=""
         />
 
         <img
@@ -49,6 +50,7 @@ sends an email to the mail address given, if it exists in the database
               className= "imgBorder"
               width="55"
               height="55"
+              alt=""
         />
         </div>
 
@@ -70,7 +72,7 @@ sends an email to the mail address given, if it exists in the database
             },
           ]}
         >
-          <Input value={this.state.adress} onChange={this.onChange} />
+          <Input value={this.state.adress} onChange={this.onChange}/>
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" onClick={this.onSubmit}>

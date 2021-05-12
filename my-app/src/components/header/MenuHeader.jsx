@@ -16,7 +16,7 @@ export default class MenuHeader extends Component {
 
     constructor(props){
 		super(props);
-		var currentPage = JSON.parse(localStorage.getItem("page"));
+		var currentPage = JSON.parse(sessionStorage.getItem("page"));
 		this.state = { page: currentPage, currentUser: "admin"};
 	}
 	//Changes the current page to the selected one in the header
