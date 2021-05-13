@@ -32,7 +32,7 @@ export default class AddAccountPage extends Component{
     }
 
     //Is called when submitting form
-    handleSubmit(event) {
+    async handleSubmit(event) {
         event.preventDefault();
         var encryptedPassword = bcrypt.hashSync(this.state.password,10);
 
@@ -44,9 +44,10 @@ export default class AddAccountPage extends Component{
             Color: this.state.color
         }
         //Requests adding of user
-        fetchData("/addUser", data);
+        var jsonData = await fetchData("/addUser", data);
+        var response = await jsonData.json();
         document.getElementById("formdata").reset();
-        alert("New User added");
+        alert(response.response);
         this.props.onSubmit();
 
     }

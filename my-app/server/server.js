@@ -148,10 +148,22 @@ router.post('/editProfile', (req, res) => {
 router.post('/addUser', (req, res) => {
         var data = req.body;
         var jsonData = JSON.parse(fs.readFileSync('./users/UsersData.json'));
-        jsonData.push(data);
-        fs.writeFileSync('./users/UsersData.json', JSON.stringify(jsonData));
-        console.log("Added user " + data.Username);
-        return res.send("Added user Successfully");
+        var check = true;
+        jsonData.forEach((user) => {
+            if(data.Username === user.Username){
+                check = false;
+                var response = { response: "Username already taken"};
+                return res.send(JSON.stringify(response));
+            }
+        });
+        if(check == true){
+            jsonData.push(data);
+                    fs.writeFileSync('./users/UsersData.json', JSON.stringify(jsonData));
+                    console.log("Added user " + data.Username);
+                    var response = { response: "User added successfully"};
+                    return res.send(JSON.stringify(response));
+        }
+
 });
 router.post('/removeUser', (req, res) => {
         var data = req.body;

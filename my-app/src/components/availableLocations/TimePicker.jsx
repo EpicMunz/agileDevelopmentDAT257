@@ -13,21 +13,23 @@ export default class TimePicker extends Component {
     var validTime = start;
     validTime.setHours(validTime.getHours() + 1);
     this.setState({startTime: props, nextValidTime: validTime});
-    this.handleEndTime(this.state.endTime);
+    this.handleEndTime(this.state.endTime || this.state.startTime);
     this.props.onStartTimeChange(props);
   }
   //Handles the selected EndTime for the event
   handleEndTime = (props) => {
-    if(new Date(this.state.startTime).getHours() === new Date(props).getHours()){
-        var time = new Date(props);
-        time.setHours(time.getHours() + 1);
-        this.setState({endTime: time});
-        this.props.onEndTimeChange(time);
-    }
-    else {
-        this.setState({endTime: props});
-        this.props.onEndTimeChange(props);
-    }
+      if(props != null){
+        if(new Date(this.state.startTime).getHours() >= new Date(props).getHours() || new Date(this.state.startTime).getDate() > new Date(props).getDate()) {
+                var time = new Date(this.state.startTime);
+                time.setHours(new Date(this.state.startTime).getHours() + 1);
+                this.setState({endTime: time});
+                this.props.onEndTimeChange(time);
+            }
+            else {
+                this.setState({endTime: props});
+                this.props.onEndTimeChange(props);
+            }
+      }
   }
 
   //returns a schedule component with linked props
