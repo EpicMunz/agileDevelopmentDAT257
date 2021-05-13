@@ -98,8 +98,7 @@ export default class InteractiveMap extends Component {
             <Popup
               latitude={this.state.selectedPremise.geometry.coordinates[0]}
               longitude={this.state.selectedPremise.geometry.coordinates[1]}
-              closeButton = {true}
-              closeOnClick = {false}
+              onClose = {()=>this.setState({selectedPremise:null})}
             >
               <div>
                 <h2>{this.state.selectedPremise.properties.NAME}</h2>
@@ -133,7 +132,7 @@ export default class InteractiveMap extends Component {
             <Popup
               latitude={this.state.newLocation.lngLat[1]}
               longitude={this.state.newLocation.lngLat[0]}
-              closeOnClick = {true}
+              onClose = {()=>this.setState({newLocation:null})}
             >
               <NewLocation
                 coordinates={this.state.newLocation}
