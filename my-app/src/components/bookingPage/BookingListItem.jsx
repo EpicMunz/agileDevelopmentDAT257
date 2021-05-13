@@ -21,7 +21,7 @@ class BookingListItem extends Component {
       Subject: this.state.eventTitle,
       Owner: JSON.parse(sessionStorage.getItem("userData")).Username,
       Location: this.props.Location,
-      color: JSON.parse(sessionStorage.getItem("userData")).Color,
+      Color: JSON.parse(sessionStorage.getItem("userData")).Color,
       StartTime: this.props.startTime,
       EndTime: this.props.endTime,
       Id: response.length + 1,

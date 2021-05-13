@@ -1,1 +1,23 @@
-[{"Username":"NollKIT","Password":"$2a$10$B3lApo57QVZgvbE.ZWGvpedPd6L04Ubpt24Hsbh3q76geCjlxuZWi","Status":"User","Color":"#09cdda","Mail":"test0@gmail.com"},{"Username":"DNollK","Password":"$2a$10$EzNKXSSN1rJFfEPP39vyKeRTw68/jeLvEvtdqhrKFrbgqX5fget.q","Status":"User","Color":"#fa6607","Mail":"test1@gmail.com"},{"Username":"admin","Password":"$2a$10$c1U2i8Jvhuy5770asuRw/.njauYRPP6W02VVK7AlW9r73CJ6luL2K","Status":"admin","Color":"black","Mail":"fhemofund@gmail.com"},{"Username":"admin","Password":"$2a$10$9zbN8Fu2XViKiERxe7Ft8.TWM5ZEiwqaaLgPuf3xfWwgBvnAbde4a","Status":"User"},{"Username":"admin","Password":"$2a$10$pf0AJJwSfjTicxHkBL0hx.h9ntiB0fjXVET4Hon744V4N9ViS9bPO","Status":"User"},{"Username":"admin","Password":"$2a$10$Vttk8yJqs1WRObvh0MBMdOFF6FsFFgTIF7Ay9vPE8nbLrRve.GVjG","Status":"User"},{"Username":"admin","Password":"$2a$10$ogtQGIJXn/H4DEpzE1vdtuMBYR56VmEDu5t25x7tGtRFLss/6MABC","Status":"User"},{"Username":"admin","Password":"$2a$10$UsbIEv59zwlGHJWGKD8b0eXlAaivJJgKBR81leo7/VBeSM/AxC1Ky","Status":"User"},{"Username":"","Password":"$2a$10$tEEOsc.cOvFNvHWglaXzQu0UTf/nxieugPPYuSHXsP7sRW0Q.Swn.","Status":"User"}]
+[
+  {
+    "Username": "NollKIT",
+    "Password": "$2a$10$B3lApo57QVZgvbE.ZWGvpedPd6L04Ubpt24Hsbh3q76geCjlxuZWi",
+    "Status": "User",
+    "Color": "#09cdda",
+    "Mail": "test0@gmail.com"
+  },
+  {
+    "Username": "DNollK",
+    "Password": "$2a$10$EzNKXSSN1rJFfEPP39vyKeRTw68/jeLvEvtdqhrKFrbgqX5fget.q",
+    "Status": "User",
+    "Color": "#fa6607",
+    "Mail": "test1@gmail.com"
+  },
+  {
+    "Username": "admin",
+    "Password": "$2a$10$c1U2i8Jvhuy5770asuRw/.njauYRPP6W02VVK7AlW9r73CJ6luL2K",
+    "Status": "admin",
+    "Color": "black",
+    "Mail": "fhemofund@gmail.com"
+  }
+]

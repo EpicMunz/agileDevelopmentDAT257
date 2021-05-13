@@ -87,8 +87,7 @@ class AvLocPane extends Component {
                     ) {
                       if (
                         startInput.getHours() <= end.getHours() &&
-                        start.getHours() <= endInput.getHours() &&
-                        start.getHours() >= end.getHours()
+                        start.getHours() <= endInput.getHours()
                       ) {
                         //alert(location);
                         location = null;
