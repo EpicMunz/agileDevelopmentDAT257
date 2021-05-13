@@ -79,7 +79,7 @@ class AvLocPane extends Component {
                 this.state.data.forEach((element) => {
                   let start = new Date(element.StartTime);
                   let end = new Date(element.EndTime);
-
+                  
                   if (location === element.Location) {
                     if (
                       startInput.getDate() <= end.getDate() &&
@@ -90,21 +90,23 @@ class AvLocPane extends Component {
                         start.getHours() <= endInput.getHours() &&
                         start.getHours() >= end.getHours()
                       ) {
+                        //alert(location);
                         location = null;
                       }
                     }
                   }
                   if(start.getHours() >= end.getHours()){
+                    //alert(location);
                     location = null;
                   }
                 });
                 if (location != null) {
+                  
                   return (
                     <BookingListItem
                       Location={location}
                       startTime={startInput}
                       endTime={endInput}
-                      eventName={this.props.eventName}
                       onChange={this.onSuccessfulBooking}
                     />
                   );

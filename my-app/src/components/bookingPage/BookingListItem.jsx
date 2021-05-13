@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Divider, Button } from "antd";
+import { Divider, Button, Modal, Input, message, Form } from "antd";
 import { fetchData } from "../clientFetch/ClientFetch";
 import uuid from "react-uuid";
 
 class BookingListItem extends Component {
-  state = {};
+  state = { modalIsVisible: false, eventTitle: "default" }; //maybe eventtitle should have a different initial value
 
   /*
   starts by fetching schedule data, then adds a schedule entry and sends it to the server.
@@ -18,7 +18,7 @@ class BookingListItem extends Component {
     const api_call = await fetchData("/getSavedData", data);
     const response = await api_call.json();
     var json = {
-      Subject: this.props.eventName,
+      Subject: this.state.eventTitle,
       Owner: JSON.parse(sessionStorage.getItem("userData")).Username,
       Location: this.props.Location,
       color: JSON.parse(sessionStorage.getItem("userData")).Color,
@@ -30,7 +30,7 @@ class BookingListItem extends Component {
 
     response.push(json);
     fetchData("/save", response);
-    alert("Booking has been saved");
+    message.success("Booking has been saved");
     this.props.onChange();
   }
 
@@ -41,6 +41,7 @@ class BookingListItem extends Component {
 
     return number;
   }
+
   divFormatterForDate = (bookDate, endTime) => {
     if(bookDate.getDate() !== endTime.getDate()){
         return <div className="col">
@@ -68,6 +69,18 @@ class BookingListItem extends Component {
     }
   }
 
+  onBook = () => { //is called when the user clicks "Boka Platsen"
+    this.setState({ modalIsVisible: true });
+  };
+  onCancel = () => {//is called when the user cancels the modal window, either by "back" or X
+    this.setState({ modalIsVisible: false });
+  };
+  onTitleChange = (e) => {//is called when the input in the modal is changed
+    this.setState({ eventTitle: e.target.value });
+  };
+  onOk = () => {};
+
+
   render() {
     var bookDate = new Date(this.props.startTime);
     var endTime = new Date(this.props.endTime);
@@ -89,13 +102,21 @@ class BookingListItem extends Component {
                 this.formatDate(endTime.getMinutes())}
             </div>
             <div className="col">
-              <Button
-                type="primary"
-                size="large"
-                onClick={() => this.bookPremise()}
-              >
+              <Button type="primary" size="large" onClick={this.onBook}>
                 Boka Platsen
               </Button>
+              <Modal
+                title="Välj en titel på ditt event"
+                visible={this.state.modalIsVisible}
+                mask={false}
+                onCancel={this.onCancel}
+                onOk={() => this.bookPremise()}
+              >
+                <Input
+                  placeholder="T.ex 'bollkalas'"
+                  onChange={this.onTitleChange}
+                />
+              </Modal>
             </div>
           </div>
           <Divider //... and adds a thin line below it

@@ -11,7 +11,6 @@ export default class AvailableLocations extends Component {
     super(props);
     this.StartTime = null;
     this.EndTime = null;
-    this.EventName = null;
   }
 
   changeStartTime(args) {
@@ -32,31 +31,22 @@ export default class AvailableLocations extends Component {
     }
   }
 
-  //reacts to changes of the eventname textfield
-  onChange = (e) => {
-    this.setState({ EventName: e.target.value });
-    this.EventName = e.target.value;
-  };
-
   //returns a schedule component with linked props
   render() {
     return (
       <React.Fragment>
       <div id="container">
-          <h1 className="centerText" id="component1"> Ange tid för ditt event &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ange titeln på ditt event</h1>
-          <div className="timePicker" id="container">
-          <TimePicker id="component1"
-            onStartTimeChange={this.changeStartTime.bind(this)}
-            onEndTimeChange={this.changeEndTime.bind(this)}
-          />
-          <Input className="center"
-            placeholder="T.ex 'Bollkalas'"
-            value={this.state.EventName}
-            onChange={this.onChange}
-            width= "100"
-            id= "component2"
-          />
-      </div>
+
+<h1 className="centerText" id="component1"> Ange tid för ditt event </h1>
+      <div className="timePicker" id="container">
+
+        <TimePicker id="component1"
+          onStartTimeChange={this.changeStartTime.bind(this)}
+          onEndTimeChange={this.changeEndTime.bind(this)}
+        />
+
+        </div>
+
         <Layout>
           <Menu // The menu contains the different locations as items
             style={{ height: "100%", borderRight: 0 }}
@@ -68,11 +58,12 @@ export default class AvailableLocations extends Component {
             className="site-layout-background"
             style={{ padding: 24, margin: 0 }}
           >
-           <AvLocPane
-               startTime={this.StartTime}
-               endTime={this.EndTime}
-               eventName={this.EventName}
-           />
+
+            <AvLocPane
+              startTime={this.StartTime}
+              endTime={this.EndTime}
+            />
+
           </Content>
         </Layout>
         </div>
