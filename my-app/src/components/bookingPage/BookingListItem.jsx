@@ -4,34 +4,42 @@ import { fetchData } from "../clientFetch/ClientFetch";
 import uuid from "react-uuid";
 
 class BookingListItem extends Component {
-  state = { modalIsVisible: false, eventTitle: "default" }; //maybe eventtitle should have a different initial value
+  state = { modalIsVisible: false, eventTitle: null }; //maybe eventtitle should have a different initial value
 
   /*
   starts by fetching schedule data, then adds a schedule entry and sends it to the server.
   */
   async bookPremise() {
-    var data = [
-      {
-        Location: this.props.Location,
-      },
-    ];
-    const api_call = await fetchData("/getSavedData", data);
-    const response = await api_call.json();
-    var json = {
-      Subject: this.state.eventTitle,
-      Owner: JSON.parse(sessionStorage.getItem("userData")).Username,
-      Location: this.props.Location,
-      Color: JSON.parse(sessionStorage.getItem("userData")).Color,
-      StartTime: this.props.startTime,
-      EndTime: this.props.endTime,
-      Id: response.length + 1,
-      Guid: uuid(),
-    };
+    if(this.state.eventTitle != null){
+        var data = [
+              {
+                Location: this.props.Location,
+              },
+            ];
+            const api_call = await fetchData("/getSavedData", data);
+            const response = await api_call.json();
+            var json = {
+              Subject: this.state.eventTitle,
+              Owner: JSON.parse(sessionStorage.getItem("userData")).Username,
+              Location: this.props.Location,
+              Color: JSON.parse(sessionStorage.getItem("userData")).Color,
+              StartTime: this.props.startTime,
+              EndTime: this.props.endTime,
+              Id: response.length + 1,
+              Guid: uuid(),
+            };
 
-    response.push(json);
-    fetchData("/save", response);
-    message.success("Booking has been saved");
-    this.props.onChange();
+            response.push(json);
+            fetchData("/save", response);
+            message.success("Booking has been saved");
+            this.props.onChange();
+    }
+    else {
+        var config = {
+                         title: 'Insert EventName!',
+                       };
+        Modal.error(config);
+    }
   }
 
   formatDate(number) {
@@ -111,10 +119,17 @@ class BookingListItem extends Component {
                 mask={false}
                 onCancel={this.onCancel}
                 onOk={() => this.bookPremise()}
+
               >
                 <Input
                   placeholder="T.ex 'bollkalas'"
                   onChange={this.onTitleChange}
+                  rules={[
+                                        {
+                                          required: true,
+                                          message: 'Please input an EventName!',
+                                        },
+                                  ]}
                 />
               </Modal>
             </div>
