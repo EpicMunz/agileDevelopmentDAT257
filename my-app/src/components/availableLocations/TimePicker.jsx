@@ -1,5 +1,23 @@
 import React, { Component } from "react";
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
+import { loadCldr,L10n } from '@syncfusion/ej2-base';
+import * as gregorian from 'cldr-data/main/sv/ca-gregorian.json';
+import * as numbers from 'cldr-data/main/sv/numbers.json';
+import * as timeZoneNames from 'cldr-data/main/sv/timeZoneNames.json';
+import * as numberingSystems from 'cldr-data/supplemental/numberingSystems.json';
+import * as weekData from 'cldr-data/supplemental/weekData.json';
+
+loadCldr(numberingSystems, gregorian, numbers, timeZoneNames, weekData);
+
+L10n.load({
+  'sv': {
+  'datetimepicker': {
+    today:'idag'
+}
+  }
+});
+
+
 
 export default class TimePicker extends Component {
   state={startTime: null, endTime: null, nextValidTime: null};
@@ -41,22 +59,26 @@ export default class TimePicker extends Component {
       >
         <tbody>
           <tr>
-            <td className="e-textlabel">From</td> {/*"from" entry here*/}
+            <td className="e-textlabel">Från</td> {/*"from" entry here*/}
             <td colSpan={4}>
               <DateTimePickerComponent
+                placeholder="Välj startdatum och starttid"
+               // locale='sv'
                 format="dd/MM/yy hh:mm a"
                 id="StartTime"
                 data-name="StartTime"
                 className="e-field"
                 value={this.state.startTime}
                 onChange={(e) => this.handleStartTime(e.target.value)}
-              ></DateTimePickerComponent>
+              ></DateTimePickerComponent> 
             </td>
           </tr>
           <tr>
-            <td className="e-textlabel">To</td> {/*"to" entry here*/}
+            <td className="e-textlabel">Till</td> {/*"to" entry here*/}
             <td colSpan={4}>
               <DateTimePickerComponent
+               // locale='sv'
+                placeholder="Välj slutdatum och sluttid"
                 format="dd/MM/yy hh:mm a"
                 id="EndTime"
                 data-name="EndTime"
@@ -69,7 +91,7 @@ export default class TimePicker extends Component {
             </td>
           </tr>
         </tbody>
-      </table>
+       </table>
     );
   }
 }
