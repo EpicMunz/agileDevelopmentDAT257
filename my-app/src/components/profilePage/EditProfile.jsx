@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { fetchData } from "../clientFetch/ClientFetch";
-import { Form, Button, Input } from "antd";
+import { Form, Button, Input, message } from "antd";
 import "./ManageProfilePage.jsx";
 import "./EditProfile.css";
 
@@ -10,6 +10,7 @@ export default class EditProfile extends Component {
     disabledEmail: true,
     disabledPassword: true,
     disabledNewPassword: true,
+    displayMail: "",
   };
   //Changes state values when textfield changes
   handleChangeOldPassword = (e) => {
@@ -32,6 +33,7 @@ export default class EditProfile extends Component {
   handleSave = async (event) =>{
     event.preventDefault();
     var data = [];
+
     if(this.state.oldPassword != null){
         if (this.state.newPassword != null && this.state.email != null) {
               data = {
@@ -41,6 +43,8 @@ export default class EditProfile extends Component {
                 Username: JSON.parse(sessionStorage.getItem("userData")).Username,
               };
             } else if (this.state.email != null) {
+              this.setState({ displayMail: this.state.email });
+
               data = {
                 Mail: this.state.email,
                 oldPassword: this.state.oldPassword,
@@ -57,7 +61,7 @@ export default class EditProfile extends Component {
             var jsonData = await fetchData("/editProfile", data);
             var response = await jsonData.json();
             document.getElementById("position2").reset();
-            alert(response.response);
+            message.success("User details changed");
             this.props.onSubmit();
     }
     else {
@@ -100,7 +104,7 @@ export default class EditProfile extends Component {
             Användarnamn: &nbsp;&nbsp;&nbsp; {this.state.username}
           </h1>
           <h2 className="rubrik">
-            Nuvarande e-mail: &nbsp;&nbsp;&nbsp; {this.state.email}
+            Nuvarande e-mail: &nbsp;&nbsp;&nbsp; {this.state.displayMail}
           </h2>
         </div>
           
