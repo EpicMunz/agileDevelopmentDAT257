@@ -14,3 +14,17 @@
 select{
     width: 100%;
 }
+
+#position1{
+  position: absolute;
+  left: 200px;
+  top: 150px;
+  width: 800px; 
+}
+
+#position2{
+  position: absolute;
+  left: 500px;
+  top: 400px;
+  width: 450px;
+}

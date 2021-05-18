@@ -169,7 +169,7 @@ export default class EditProfile extends Component {
             onClick={this.handleSave}
             className="button-position"
             >
-                          Submit
+                          Spara
                         </Button>
             </Form.Item>
 
