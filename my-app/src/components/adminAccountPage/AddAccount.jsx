@@ -55,13 +55,13 @@ export default class AddAccountPage extends Component{
 
     render(){
         return (<div className="rectangleAddAccount"><form id="formdata" onSubmit={(e) => this.handleSubmit(e)}>
-                  <h3>Add User</h3>
+                  <h3>Lägg till användare</h3>
                   <label>
-                    Username:
+                    Avnändarnamn:
                     <input type="text" name="name" onChange= {this.handleNameChange} required/>
                   </label>
                   <label>
-                    Password:
+                    Lösenord:
                    <input type="password" name="password" onChange= {this.handlePasswordChange} required/>
                   </label>
                   <label>
@@ -69,7 +69,7 @@ export default class AddAccountPage extends Component{
                     <input type="text" name="email" onChange= {this.handleEmailChange} required/>
                   </label>
                   <label>
-                    ColorCode:
+                    Färgkod:
                     <input type="text" name="color" onChange= {this.handleColorChange} required/>
                   </label>
                   <input type="submit" value="Submit" />

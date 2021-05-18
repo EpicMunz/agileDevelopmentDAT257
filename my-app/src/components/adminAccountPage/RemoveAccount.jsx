@@ -44,10 +44,10 @@ export default class RemoveAccountPage extends Component{
 
     render(){
         return this.state.data !== null ? (<div className="rectangleAddAccount">
-        <h3>Remove User</h3>
+        <h3>Radera användare</h3>
         <form id="formdata" onSubmit={(e) => this.handleSubmit(e)}>
                   <label>
-                    User:
+                    Användare:
                     <select onChange={(e) => this.handleSelect(e)}>
                       { this.state.data.map((element) => (
                         element.Status !== "admin" ? (
@@ -55,7 +55,7 @@ export default class RemoveAccountPage extends Component{
                       ))}
                     </select>
                   </label>
-                  <input type="submit" value="Remove User" />
+                  <input type="submit" value="Ta bort" />
 
                 </form></div>) : (null);
 

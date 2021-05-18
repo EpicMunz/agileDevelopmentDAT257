@@ -40,7 +40,7 @@ export default class NewMapLocation extends Component {
         <h2>Lägg till Plats</h2>
         <form id="formdata" onSubmit={(e) => this.handleSubmit(e)}>
           <label>
-            Name of location:
+            Platsnamn:
             <input
               type="text"
               name="name"
@@ -49,7 +49,7 @@ export default class NewMapLocation extends Component {
             />
           </label>
           <label>
-            Description:
+            Beskrivning:
             <textarea
               name="description"
               value={this.state.description}

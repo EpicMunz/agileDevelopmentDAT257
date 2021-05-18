@@ -76,11 +76,11 @@ sends an email to the mail address given, if it exists in the database
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" onClick={this.onSubmit}>
-            Submit
+            Skicka
           </Button>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <Button type="primary" htmlType="submit" onClick={this.onBack}>
-            Back
+            Tillbaka
           </Button>
         </Form.Item>
       </Form>

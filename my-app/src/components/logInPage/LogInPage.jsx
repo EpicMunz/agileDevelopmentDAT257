@@ -21,7 +21,7 @@ export default class LogInPage extends Component {
 			this.props.onDisplayChange(InteractiveMap);
 		}
 		else{
-			alert("Wrong Username or Password!");
+			alert("Fel Användarnamn eller Lösenord!");
 		}
 	}
 	//Asks server for userdata related to the username and password combination
@@ -59,35 +59,35 @@ export default class LogInPage extends Component {
           }}
         >
           <Form.Item onChange={e=>this.setState({username:e.target.value})}
-            label="Username"
+            label="Användarnamn"
             name="username"
             rules={[
               {
                 required: true,
-                message: 'Please input your username!',
+                message: 'Var god och skriv in ditt användarnamn!',
               },
             ]}
           >
             <Input />
           </Form.Item>
           <Form.Item onChange={e=>this.setState({password:e.target.value})}
-            label="Password"
+            label="Lösenord" 
             name="password"
             rules={[
               {
                 required: true,
-                message: 'Please input your password!',
+                message: 'Var god och skriv in ditt lösenord!',
               },
             ]}
           >
             <Input.Password />
           </Form.Item>
           <Form.Item name="remember" valuePropName="checked">
-            <Checkbox>Remember me</Checkbox>
+            <Checkbox>Kom ihåg mig</Checkbox>
           </Form.Item>
           <Form.Item >
             <Button type="primary" htmlType="submit" onClick={this.handleLogin}>
-              Submit
+              Logga in
             </Button>
             	<Button
                         size= "small"
