@@ -52,7 +52,7 @@ export default class LogInPage extends Component {
               width="500"
               height="400"
         />
-        <Form className="item"
+        <Form className="items"
           name="basic"
           initialValues={{
             remember: true,

@@ -103,7 +103,7 @@ export default class MenuHeader extends Component {
 
             <Menu.Item key = "PdfrPage">
 				<a href="/#" onClick={() => this.handleClick("PdfrPage")}>
-                	PdfrPage
+                	PDF-filer 
               	</a>
             </Menu.Item>
 
