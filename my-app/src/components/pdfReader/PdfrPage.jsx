@@ -32,7 +32,7 @@ export default class PdfrPage extends Component {
   render() {
     return (
       <>
-        <div className="titleText">Infosida</div>
+        <div className="titleText">PDF-filer</div>
         <Button
           className="loadDataButton"
           type="primary"

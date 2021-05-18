@@ -65,14 +65,14 @@ export default class AddAccountPage extends Component{
                    <input type="password" name="password" onChange= {this.handlePasswordChange} required/>
                   </label>
                   <label>
-                    Email:
+                    E-mail:
                     <input type="text" name="email" onChange= {this.handleEmailChange} required/>
                   </label>
                   <label>
                     Färgkod:
                     <input type="text" name="color" onChange= {this.handleColorChange} required/>
                   </label>
-                  <input type="submit" value="Submit" />
+                  <input type="submit" value="Lägg till" />
                 </form></div>);
 
     }
