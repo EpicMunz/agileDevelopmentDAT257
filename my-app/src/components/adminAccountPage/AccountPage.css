@@ -28,3 +28,33 @@ select{
   top: 400px;
   width: 450px;
 }
+
+.formPosition{
+        width: 30%;
+        margin-left: 31%;
+        margin-top: 1%;
+}
+
+.formPosition2{
+        width: 24%;
+        margin-left: 34.4%;
+        margin-top: 1%;
+}
+
+.buttonPosition{
+        margin-left: 82%;
+}
+
+.buttonPosition2{
+        margin-left: 55%;
+}
+
+.textPosition{
+        margin-left: 44%;
+        margin-bottom: 3%;
+}
+
+.selectPosition{
+        width: 30%;
+        margin-left: 15%;
+}

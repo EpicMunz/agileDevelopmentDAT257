@@ -1,6 +1,6 @@
 .item{
     width: 80%;
-    margin-left: 0%;
+    margin-left: %;
 }
 
 .center{
@@ -9,7 +9,7 @@
 }
 
 .centerText{
-    margin-left: 30%;
+    margin-left: 42%;
 }
 
 #container{
@@ -24,6 +24,6 @@
 
 .timePicker{
     width: 80%;
-    margin-left: 30%;
+    margin-left: 40%;
 }
 

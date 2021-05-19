@@ -44,8 +44,6 @@ export default class LogInPage extends Component {
 	}
 
 	render(){
-
-
 		return(
         <div>
         <img className="imgCenter" src={`${process.env.PUBLIC_URL}MKloginlogga.png`} alt="Avatar"
