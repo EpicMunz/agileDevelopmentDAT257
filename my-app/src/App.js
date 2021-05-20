@@ -9,7 +9,8 @@ import BookingPageContainer from "./components/bookingPage/BookingPageContainer.
 import AvailableLocations from "./components/availableLocations/AvailableLocations.jsx";
 import AddAccountPage from "./components/adminAccountPage/AccountPage.jsx";
 import ManageProfilePage from "./components/profilePage/ManageProfilePage.jsx";
-import PdfrPage from "./components/pdfReader/PdfrPage.jsx";
+
+
 
 //Constant for checking string against component
 export const components = {
@@ -19,7 +20,6 @@ export const components = {
       AvailableLocations: AvailableLocations,
       AddAccountPage: AddAccountPage,
       ManageProfilePage: ManageProfilePage,
-      PdfrPage: PdfrPage,
 
   };
 //This is the file for App Component. App Component is the main component in React which acts as a container for all other components.
@@ -28,13 +28,13 @@ export default class App extends Component {
 
   state = { page: null, location: null };
 
-  //when component mounts set stage page from localStorage
+  //when component mounts set stage page from sessionStorage
   componentDidMount() {
-      if(localStorage.getItem("page") != null){
+      if(sessionStorage.getItem("page") != null){
               this.setState({page: components[JSON.parse(sessionStorage.getItem("page"))]});
 
       }
-      if(localStorage.getItem("location") != null){
+      if(sessionStorage.getItem("location") != null){
             this.setState({location: JSON.parse(sessionStorage.getItem("location"))});
       }
   }

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Layout, Menu, Input } from "antd";
+import { Layout, Menu} from "antd";
 import AvLocPane from "./AvLocPane.jsx";
 import TimePicker from "./TimePicker.jsx";
 import "./AvailableLocations.css"

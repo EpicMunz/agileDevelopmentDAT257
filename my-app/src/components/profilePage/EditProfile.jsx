@@ -57,11 +57,17 @@ export default class EditProfile extends Component {
                 Username: JSON.parse(sessionStorage.getItem("userData")).Username,
               };
             }
+            if(this.state.email != null){
+                var datan = JSON.parse(sessionStorage.getItem("userData"));
+                datan.Mail = this.state.email;
+                sessionStorage.setItem("userData", JSON.stringify(datan));
+                this.setState({displayMail: this.state.email});
+            }
             //Requests adding of user
             var jsonData = await fetchData("/editProfile", data);
             var response = await jsonData.json();
             document.getElementById("position2").reset();
-            message.success("User details changed");
+            message.success(response.response);
             this.props.onSubmit();
     }
     else {
@@ -73,7 +79,7 @@ export default class EditProfile extends Component {
   //Updates userData whenever you login to ManageProfilePage
   componentDidMount() {
     var fetchedData = JSON.parse(sessionStorage.getItem("userData"));
-    this.setState({ username: fetchedData.Username, email: fetchedData.Mail });
+    this.setState({ username: fetchedData.Username, email: fetchedData.Mail, displayMail: fetchedData.Mail });
   }
 
   //Box of form

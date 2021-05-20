@@ -1,7 +1,6 @@
 import {Component} from "react";
 import {fetchData} from "../clientFetch/ClientFetch";
-import {Form, Input, Button, Item, Dropdown, Menu, Select} from "antd";
-import { DownOutlined } from '@ant-design/icons';
+import {Button, Select, Form} from "antd";
 import "./AccountPage.css";
 
 

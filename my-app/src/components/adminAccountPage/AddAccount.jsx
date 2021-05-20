@@ -1,6 +1,6 @@
 import {Component} from "react";
 import {fetchData} from "../clientFetch/ClientFetch";
-import {Item, Form, Input, Button} from "antd";
+import { Form, Input, Button} from "antd";
 import "./AccountPage.css";
 
 var bcrypt = require('bcryptjs');

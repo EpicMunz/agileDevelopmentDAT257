@@ -3,6 +3,11 @@ import "bootstrap/dist/css/bootstrap.css";
 import ReactMapGl, { Marker, Popup } from "react-map-gl";
 import NewLocation from "./NewMapLocation.jsx";
 import { fetchData } from "../clientFetch/ClientFetch.jsx";
+import mapboxgl from "mapbox-gl";
+
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax
+mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
 
 export default class InteractiveMap extends Component {
   constructor(props) {
