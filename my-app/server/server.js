@@ -50,7 +50,7 @@ router.post('/save',(req, res) => {
     }
     fs.writeFileSync('./data/'+location+'.json', data);
     console.log("Saving data for " + location);
-    res.send("Data has been saved");
+    res.send("Datan har sparats");
 });
 router.post('/delete',(req, res) => {
     var data = req.body;
@@ -63,7 +63,7 @@ router.post('/delete',(req, res) => {
     })
     fs.writeFileSync('./data/'+location+'.json', JSON.stringify(jsonData));
     console.log("Deleting for " + location);
-    res.send("Data has been saved");
+    res.send("Datan har sparats");
 });
 //Sends saved schedule data for specified location to client
 router.post('/getSavedData',(req, res) => {
@@ -139,10 +139,10 @@ router.post('/editProfile', (req, res) => {
                                 jsonData[i].Mail = data.Mail;
                             }
                             fs.writeFileSync('./users/UsersData.json', JSON.stringify(jsonData));
-                            return res.send({response: "User details changed"});
+                            return res.send({response: "Användardetaljer är ändrade"});
                     }
             }
-        return res.send({response: "Wrong Password"});
+        return res.send({response: "Fel lösenord"});
 });
 
 router.post('/addUser', (req, res) => {
@@ -152,7 +152,7 @@ router.post('/addUser', (req, res) => {
         jsonData.forEach((user) => {
             if(data.Username === user.Username){
                 check = false;
-                var response = { response: "Username already taken"};
+                var response = { response: "Användarnamnet är redan taget"};
                 return res.send(JSON.stringify(response));
             }
         });
@@ -160,7 +160,7 @@ router.post('/addUser', (req, res) => {
             jsonData.push(data);
                     fs.writeFileSync('./users/UsersData.json', JSON.stringify(jsonData));
                     console.log("Added user " + data.Username);
-                    var response = { response: "User added successfully"};
+                    var response = { response: "Användare tillagd"};
                     return res.send(JSON.stringify(response));
         }
 
@@ -174,7 +174,7 @@ router.post('/removeUser', (req, res) => {
         }
         fs.writeFileSync('./users/UsersData.json', JSON.stringify(jsonData));
         console.log("Removed user " + data.Username);
-        return res.send("Added user Successfully");
+        return res.send("Användare tillagd");
 });
 router.post('/getAllUsers', (req, res) => {
         var jsonData = JSON.parse(fs.readFileSync('./users/UsersData.json'));
@@ -192,7 +192,7 @@ router.post('/addLocation', (req, res) => {
         jsonData.features.push(newLocation);
         fs.writeFileSync('./locations/locations.json', JSON.stringify(jsonData));
         console.log("Saved new location to map");
-        return res.send("Location has been saved");
+        return res.send("Plats är sparad");
 });
 router.post('/removeLocation', (req, res) => {
         var locationData = req.body;
@@ -203,7 +203,7 @@ router.post('/removeLocation', (req, res) => {
         }
         fs.writeFileSync('./locations/locations.json', JSON.stringify(jsonData));
         console.log("Removed location of map");
-        return res.send("Location has been removed");
+        return res.send("Plats har raderats");
 });
 
 /*

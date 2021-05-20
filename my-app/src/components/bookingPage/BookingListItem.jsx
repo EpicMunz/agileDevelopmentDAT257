@@ -31,7 +31,7 @@ class BookingListItem extends Component {
 
             response.push(json);
             fetchData("/save", response);
-            message.success("Booking has been saved");
+            message.success("Bokningen har sparats");
             this.props.onChange();
     }
     else {

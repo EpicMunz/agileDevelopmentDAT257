@@ -11,11 +11,15 @@ loadCldr(numberingSystems, gregorian, numbers, timeZoneNames, weekData);
 
 L10n.load({
   'sv': {
-  'datetimepicker': {
-    today:'idag'
-}
+    'StartTime': {
+      today:'idag'
+    },
+    'EndTime': {
+      today:'idag'
+    }
   }
 });
+
 
 
 

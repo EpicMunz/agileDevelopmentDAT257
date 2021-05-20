@@ -35,7 +35,7 @@ export default class RemoveAccountPage extends Component{
         }
         //Requests removing of user by username
         fetchData("/removeUser", data);
-        alert("Removed user " + data.Username);
+        alert("Användaren " + data.Username + " är borttagen");
         this.setState({name: null});
         this.props.onSubmit();
     }
