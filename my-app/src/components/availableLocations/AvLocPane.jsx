@@ -71,7 +71,7 @@ class AvLocPane extends Component {
           </div>
 
           <tbody className="my-bookings-table">
-            {" "}
+
             {/* Table containing all appointments for a specified location for the current owner */}
             {
               //location cycles through each location in the savedata from our db, element cycles through bookings for that particular location
@@ -89,14 +89,9 @@ class AvLocPane extends Component {
                         startInput.getHours() <= end.getHours() &&
                         start.getHours() <= endInput.getHours()
                       ) {
-                        //alert(location);
                         location = null;
                       }
                     }
-                  }
-                  if(start.getHours() >= end.getHours()){
-                    //alert(location);
-                    location = null;
                   }
                 });
                 if (location != null) {
