@@ -1,44 +1,56 @@
 ... the current situation or "what is" (A),
 ... what you want the situation to be or "what might or should be" (B), and
-... a plan for getting from where you are to where you want to be or "feedback designed to reduce the gap" (A -> B).
+... a plan for getting from where you are to where you want to be or "feedback 
+designed to reduce the gap" (A -> B).
 
 
 what do I want to learn or understand better?
 A. 
-I'm still not that good at programming, which is what I want to improve, especially in a larger project. 
+Right now I mostly only know the things that I've done but not the actual
+code parts of the others work
 
 B.
-
+I want to fully know how the whole application works and it's function
 
 C.
+Looking through the files and make notes of what is connected to what and
+how it functions
 
 
 how can I help someone else, or the entire team, to learn something new?
 A.
-
+As I had big problems changing the language on the API components thinking
+about how to do with that is the first situation
 
 B.
-
+Being able to change the languages should be easy
 
 C.
+I could voice out that we should've looked at which API's work best with
+Swedish
 
 
 what is my contribution towards the team’s use of Scrum?
 A.
-
+As stated before, we haven't really had much problems with using scrum, or 
+if to be as brazen as to say any.
 
 B.
-
+I think we nailed it in the beginning and are on the "where we want to be"
 
 C.
+The way is already reached
 
 
 what is my contribution towards the team’s deliveries?
 A.
-
+This week I made the language consistent on the site, as we have mixed both 
+swedish and english. Ran in to problems that couldn't be solved
 
 B.
-
+Being able to change everything would've been a nice thing
 
 C.
-
+Things that could've avoided this problem would be to deciding which language
+to use in the beginning and see if the API's we're going to use support the 
+intended language

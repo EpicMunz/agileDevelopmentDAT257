@@ -1,47 +1,53 @@
 ... the current situation or "what is" (A),
 ... what you want the situation to be or "what might or should be" (B), and
-... a plan for getting from where you are to where you want to be or "feedback designed to reduce the gap" (A -> B).
-
-
-design med axel profilepage
+... a plan for getting from where you are to where you want to be or "feedback 
+designed to reduce the gap" (A -> B).
 
 
 what do I want to learn or understand better?
 A. 
-front end
+Until now I've been doing smaller tasks that wasn't that much programming. 
+This week was a bit more to do, programming wise.
 
 B.
-
+I want to be able to do front end better. 
 
 C.
+Keep asking how to and read documentation. Try on my own and maybe not only
+on the project
 
 
 how can I help someone else, or the entire team, to learn something new?
 A.
-
+I still think the others are ahead of me in programming, I'm good with
+details though
 
 B.
-
+Helping with things that might be overlooked 
 
 C.
+Try to work more with the team instead of individual works
 
 
 what is my contribution towards the team’s use of Scrum?
 A.
-
+I think we're quite correct on the estimation but still need to work on it
 
 B.
-
+Being able to have a more accurate evaluation of the US and the time it will
+take doing them
 
 C.
+Throw questions that will get a good discussion and try to acutally
+break the US up to evaluate each part 
 
 
 what is my contribution towards the team’s deliveries?
 A.
-
+This week I helped making the profile page with another team member
 
 B.
-
+We needed a bit of help with stuff that we maybe should've been able to do
 
 C.
-
+Try to pre-study the task and figure a way to solve it

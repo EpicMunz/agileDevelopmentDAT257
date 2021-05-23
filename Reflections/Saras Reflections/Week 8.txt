@@ -1,44 +1,53 @@
 ... the current situation or "what is" (A),
 ... what you want the situation to be or "what might or should be" (B), and
-... a plan for getting from where you are to where you want to be or "feedback designed to reduce the gap" (A -> B).
+... a plan for getting from where you are to where you want to be or "feedback 
+designed to reduce the gap" (A -> B).
 
 
 what do I want to learn or understand better?
 A. 
-I'm still not that good at programming, which is what I want to improve, especially in a larger project. 
+I think that the server and how it works is hard for me to understand right now
 
 B.
-
+Understanding how it works and how to access it in the other files
 
 C.
+Having a "lecture"-like thing with the one in the team who wrote it
 
 
 how can I help someone else, or the entire team, to learn something new?
 A.
-
+I'm still slower at learning than most of the rest, however I'm quite good at
+noticing details
 
 B.
-
+Give starting directions on the tasks and not just guess all the time
 
 C.
+As before, I still think practicing by myself a lot would help or just 
+looking through videos with similar problems
 
 
 what is my contribution towards the team’s use of Scrum?
 A.
-
+I still think we are very good at using Scrum right now
 
 B.
-
+We have to curb ourself to do tasks that could be considered goldplating
 
 C.
+It might be hard to not wanting to do the goldplating as most is design and
+other fun functions but to try to stay on track of what the PO is saying
 
 
 what is my contribution towards the team’s deliveries?
 A.
-
+I did a lot of designing with antd, as we weren't consistent with it 
+in the beginning and therefore have to change it now
 
 B.
-
+Instead of doing this designing fixing more of us could've focused on 
+the report
 
 C.
-
+As this a learning course, til' next time we'll know to make those decisions
