@@ -313,34 +313,6 @@ export default class App extends React.Component {
         return "Owner";
     }
   }
-  //Return is different if user is on MyBookings page vs regular location schedule
-  specificScheduleFunctions(){
-    if(this.props.data != null){
-            return <Inject
-                     services={[
-                       Day,
-                       Week,
-                       Month,
-                       TimelineViews,
-                       ExcelExport,
-
-                     ]}
-            />
-        }
-        else {
-            return <Inject
-                     services={[
-                       Day,
-                       Week,
-                       Month,
-                       TimelineViews,
-                       ExcelExport,
-                       Resize,
-                       DragAndDrop,
-                     ]}
-            />
-        }
-  }
   render(props) {
     //Returns the necessary html code to render schedule
     return this.state.dataReceived ? (
@@ -379,7 +351,15 @@ export default class App extends React.Component {
                   <ViewDirective option="Week" startHour="00:00" endHour="00:00" />
                   <ViewDirective option="Month" />
                 </ViewsDirective>
-              {this.specificScheduleFunctions()}
+              <Inject
+                   services={[
+                     Day,
+                     Week,
+                     Month,
+                     TimelineViews,
+                     ExcelExport,
+                   ]}
+              />
               </ScheduleComponent>)
               : (
                 <p>Loading Schedule...</p>
