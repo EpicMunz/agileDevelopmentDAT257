@@ -1,0 +1,21 @@
+What do I want to learn or understand better?:
+A) The product is done and I feel like a have decent grasp about it.
+
+B) I want to learn LaTeX better for the final reflection.
+
+C) Ask my teammates who have experience.
+
+How can I help someone else, or the entire team, to learn something new?
+A) I am doing the tasks assigned to me.
+B) I want to always be able to communicate my knowledge to my teammates so that they may learn something new.
+C) I will try my best to enlighten my teammates something I found useful.
+
+What is my contribution towards the team's use of Scrum?
+A) Making sure the code is well documented
+B) Making sure the code is efficiently written.
+C) Continously raise the question on how we could make the code more efficient.
+
+What is my contribution towards the team deliveries?
+A) Doing my assigned tasks.
+B) I want to help others grow.
+C) Taking even more responsibility in the group.
