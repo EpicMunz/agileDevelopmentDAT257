@@ -1,0 +1,7 @@
+Behöver alltid göras minst 1 gång vid hämtning av github project
+
+1. Gå in i node modules/react-scripts-webpack.config.js filen
+2. Gå till rad 274 och 275 där det bör stå "keep_classnames" och "keep_fnames" 
+3. Ändra båda dessa till "true".
+4. Spara
+
