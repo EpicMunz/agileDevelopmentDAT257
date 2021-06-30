@@ -22,10 +22,13 @@ export default class App extends React.Component {
 
   scheduleVariable1 = "Location";
   scheduleVariable2 = "Owner";
+  check = false;
 
   //When component is run for the first time
   async componentDidMount() {
+
     if (this.props.data == null) {
+      this.check = false;
       var data = [
         {
           Id: 1,
@@ -37,6 +40,7 @@ export default class App extends React.Component {
       this.data = response;
       this.setState({ dataReceived: true });
     } else {
+      this.check = false;
       this.componentWillReceiveProps(this.props);
     }
   }
@@ -46,16 +50,32 @@ export default class App extends React.Component {
     this.setState({dataReceived: true});
   }
   //When appointment data has been changed in the scheduleComponent
-  onDataBound(){
-        if(this.data.length < 1 && this.props.location != null){
-            var data = [{
-                Location: this.props.location
-            }]
-            fetchData("/save", data);
+  async onDataBound(){
+    if(this.check === false){
+      this.check = true;
+    }
+    else {
+      if(this.data.length < 1 && this.props.location != null){
+        var data = [{
+          Location: this.props.location
+        }]
+        var response = await fetchData("/save", data);
+        var json = await response.json();
+        if(json[0].response === "Failure"){
+          //window.location.reload();
         }
-        else if(this.props.location != null){
-            fetchData("/save", this.data);
+        window.location.reload();
+
+      }
+      else if(this.props.location != null){
+        var responseData = await fetchData("/save", this.data);
+        var json = await responseData.json();
+        if(json[0].response === "Failure"){
+          //window.location.reload();
         }
+        window.location.reload();
+      }
+    }
   }
   //Deleting appointment when pressing trashcan icon on quickInfoPopup
   onDelete(event){

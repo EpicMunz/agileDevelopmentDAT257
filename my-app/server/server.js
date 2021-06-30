@@ -3,14 +3,16 @@ const bodyParser = require("body-parser");
 const path = require('path')
 const app = express()
 const router = express.Router();
-const cors = require('cors');
+
+var lock = false;
+
 
 app.use(express.static(path.join(__dirname, 'build')))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use("/", router);
-app.use(cors())
+
 
 const fs = require('fs');
 
@@ -44,13 +46,19 @@ router.post('/save',(req, res) => {
     var jsonData = req.body;
     var empty = [];
     var data = JSON.stringify(empty);
-    var location = jsonData[0].Location;
-    if(jsonData[0].Subject != null){
+    var location = jsonData[1].Location;
+    if(jsonData[0].iterations !== JSON.parse(fs.readFileSync('./data/' + location + '.json'))[0].iterations){
+        var response = [{response: "Failure"}];
+        return res.send(JSON.stringify(response));
+    }
+    if (jsonData[1].Subject != null) {
+        jsonData[0].iterations += 1;
         data = JSON.stringify(jsonData);
     }
-    fs.writeFileSync('./data/'+location+'.json', data);
+    fs.writeFileSync('./data/' + location + '.json', data);
     console.log("Saving data for " + location);
-    res.send("Datan har sparats");
+    var response = [{response: "Datan har sparats"}];
+    return res.send(JSON.stringify(response));
 });
 router.post('/delete',(req, res) => {
     var data = req.body;
@@ -72,7 +80,7 @@ router.post('/getSavedData',(req, res) => {
     var location = data[0].Location;
     var path = './data/'+location+'.json';
     if(!fs.existsSync(path)){
-        fs.writeFileSync(path, "[]");
+        fs.writeFileSync(path, "[{\"interations\":1}]");
     }
     var jsonData = fs.readFileSync(path);
     console.log("Sending scheduledata for "+location+"...");
@@ -252,5 +260,5 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'))
 })
 
-app.listen(8080)
+app.listen(process.env.PORT || 8080);
 
