@@ -141,6 +141,13 @@ export default class App extends React.Component {
   //Is called when cell with appointment is being rendered
   onEventRendered(args) {
     args.element.style.backgroundColor = args.data.Color;
+    // checks might need to be appropriated to newer colors
+    if(args.data.Color === "yellow" || 
+       args.data.Color === "white" ||
+       args.data.Color === "grey"){
+      args.element.style.color = "#000000";
+    }
+    
   }
   //Creates a popup when double clicking a cell
   onPopupOpen(args) {
