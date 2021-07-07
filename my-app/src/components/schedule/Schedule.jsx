@@ -142,8 +142,9 @@ export default class App extends React.Component {
   onEventRendered(args) {
     args.element.style.backgroundColor = args.data.Color;
     
-    if(args.data.Color === "white" ||
-      args.data.Color === "yellow"){
+    if(args.data.Color === "#ffff00" // elektro
+     || args.data.Color === "a2ff00" // ae
+     ){
       args.element.style.color = "#000000";
     }
     else{
