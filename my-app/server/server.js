@@ -19,6 +19,7 @@ const fs = require('fs');
 var nodemailer = require('nodemailer');
 var bcrypt = require('bcryptjs');
 
+
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -47,11 +48,19 @@ router.post('/save',(req, res) => {
     var empty = [];
     var data = JSON.stringify(empty);
     var location = jsonData[1].Location;
-    if(jsonData[0].iterations !== JSON.parse(fs.readFileSync('./data/' + location + '.json'))[0].iterations){
-        var response = [{response: "Failure"}];
-        return res.send(JSON.stringify(response));
+    var currentFile = JSON.parse(fs.readFileSync('./data/' + location + '.json'));
+    if(jsonData[0].iterations !== currentFile[0].iterations){
+        if(jsonData[jsonData.length - 1].StartTime !== currentFile[currentFile.length - 1].StartTime){
+            currentFile.push(jsonData[jsonData.length - 1]);
+            jsonData = currentFile;
+            data = JSON.stringify((jsonData));
+        }
+        else {
+            var response = [{response: "Failure"}];
+            return res.send(JSON.stringify(response));
+        }
     }
-    if (jsonData[1].Subject != null) {
+    else if (jsonData[1].Subject != null) {
         jsonData[0].iterations += 1;
         data = JSON.stringify(jsonData);
     }
@@ -64,9 +73,29 @@ router.post('/delete',(req, res) => {
     var data = req.body;
     var location = data[0].Location;
     var jsonData = JSON.parse(fs.readFileSync('./data/'+location+'.json'));
+    console.log(data[0].Id);
+    if(jsonData[0].iterations !== currentFile[0].iterations){
+        if(jsonData[jsonData.length - 1].StartTime !== currentFile[currentFile.length - 1].StartTime){
+            currentFile.push(jsonData[jsonData.length - 1]);
+            jsonData = currentFile;
+            data = JSON.stringify((jsonData));
+        }
+        else {
+            var response = [{response: "Failure"}];
+            return res.send(JSON.stringify(response));
+        }
+    }
+    else if (jsonData[1].Subject != null) {
+        jsonData[0].iterations += 1;
+        data = JSON.stringify(jsonData);
+    }
     jsonData.forEach((element) => {
         if(element.Id === data[0].Id){
+            var index = jsonData.indexOf(element);
             jsonData.splice(jsonData.indexOf(element), 1);
+            for(var i = index; i < jsonData.length; i++){
+                jsonData[i].Id--;
+            }
         }
     })
     fs.writeFileSync('./data/'+location+'.json', JSON.stringify(jsonData));
@@ -80,7 +109,7 @@ router.post('/getSavedData',(req, res) => {
     var location = data[0].Location;
     var path = './data/'+location+'.json';
     if(!fs.existsSync(path)){
-        fs.writeFileSync(path, "[{\"interations\":1}]");
+        fs.writeFileSync(path, "[{\"iterations\":1}]");
     }
     var jsonData = fs.readFileSync(path);
     console.log("Sending scheduledata for "+location+"...");

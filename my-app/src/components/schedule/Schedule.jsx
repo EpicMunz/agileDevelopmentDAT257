@@ -16,6 +16,7 @@ import {
 import { isNullOrUndefined } from "@syncfusion/ej2-base";
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
 import { fetchData } from "../clientFetch/ClientFetch";
+import {message} from "antd";
 
 export default class App extends React.Component {
   state = { dataReceived: false };
@@ -26,9 +27,7 @@ export default class App extends React.Component {
 
   //When component is run for the first time
   async componentDidMount() {
-
     if (this.props.data == null) {
-      this.check = false;
       var data = [
         {
           Id: 1,
@@ -40,9 +39,9 @@ export default class App extends React.Component {
       this.data = response;
       this.setState({ dataReceived: true });
     } else {
-      this.check = false;
       this.componentWillReceiveProps(this.props);
     }
+    this.check = false;
   }
   //When component has already been created but has received new props
   componentWillReceiveProps(nextProps) {
@@ -62,19 +61,17 @@ export default class App extends React.Component {
         var response = await fetchData("/save", data);
         var json = await response.json();
         if(json[0].response === "Failure"){
-          //window.location.reload();
+            message.error("Tiden är tyvärr upptagen, vänligen ta en annan tid.");
         }
-        window.location.reload();
-
       }
       else if(this.props.location != null){
         var responseData = await fetchData("/save", this.data);
         var json = await responseData.json();
         if(json[0].response === "Failure"){
-          //window.location.reload();
+            message.error("Tiden är tyvärr upptagen, vänligen ta en annan tid.");
         }
-        window.location.reload();
       }
+      this.componentDidMount();
     }
   }
   //Deleting appointment when pressing trashcan icon on quickInfoPopup
@@ -84,7 +81,10 @@ export default class App extends React.Component {
                 Id: event.Id
         }]
         fetchData("/delete", data);
-        this.props.updateParent();
+        try {
+          this.props.updateParent();
+        }
+        catch(e){this.componentDidMount();}
   }
 
   //Is triggered on any action
@@ -133,6 +133,13 @@ export default class App extends React.Component {
 
       args.cancel = !this.scheduleObj.isSlotAvailable(startDate, endDate);
     }
+    if(args.requestType !== "eventCreate" && args.reqestType !== "eventChange"){
+      this.check = false;
+
+    }
+    if(args.requestType === "eventRemove"){
+        this.buttonClickActions(args);
+    }
   }
   //Exports current schedule data to excel document
   onExportClick() {
@@ -143,7 +150,7 @@ export default class App extends React.Component {
     args.element.style.backgroundColor = args.data.Color;
     
     if(args.data.Color === "#ffff00" // elektro
-     || args.data.Color === "a2ff00" // ae
+     || args.data.Color === "#a2ff00" // ae
      ){
       args.element.style.color = "#000000";
     }
@@ -348,11 +355,10 @@ export default class App extends React.Component {
     return this.state.dataReceived ? (
         <ScheduleComponent
                 cssClass="excel-export"
-                ref={(t) => (this.scheduleObj = t)}
+                ref={(t) => this.scheduleObj = t}
                 width="100%"
                 height="700px"
-                currentView="Week"
-                selectedDate={new Date()} //'new Date()' will fetch the current date
+                currentView="Week"//'new Date()' will fetch the current date
                 timeScale={{ enable: true, interval: 60, slotCount: 1 }}
                 editorTemplate={this.editorTemplate.bind(this)}
                 showQuickInfo={true}
@@ -362,7 +368,7 @@ export default class App extends React.Component {
                 eventSettings={{
                   dataSource: this.data,
                   fields: {
-                    Id: "Id",
+                    id: "Id",
                     subject: { name: "Subject" },
                     description: { name: "Mail" },
                     location: { name: this.specificSchedule() },
