@@ -1,6 +1,7 @@
 
 //Standard ip for server
 const path = "https://bokningar.mk.chs.chalmers.se";
+//const path = "http://localhost:3000";
 
 //Standard post request to server
 const options = {

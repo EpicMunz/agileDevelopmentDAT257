@@ -50,15 +50,15 @@ router.post('/save',(req, res) => {
     var location = jsonData[1].Location;
     var currentFile = JSON.parse(fs.readFileSync('./data/' + location + '.json'));
     if(jsonData[0].iterations !== currentFile[0].iterations){
-        if(jsonData[jsonData.length - 1].StartTime !== currentFile[currentFile.length - 1].StartTime){
-            currentFile.push(jsonData[jsonData.length - 1]);
-            jsonData = currentFile;
-            data = JSON.stringify((jsonData));
+        for(var i = 0; i < currentFile.length; i++){
+            if(jsonData[jsonData.length - 1].StartTime === currentFile[i].StartTime){
+                var response = [{response: "Failure"}];
+                return res.send(JSON.stringify(response));
+            }
         }
-        else {
-            var response = [{response: "Failure"}];
-            return res.send(JSON.stringify(response));
-        }
+        currentFile.push(jsonData[jsonData.length - 1]);
+        jsonData = currentFile;
+        data = JSON.stringify((jsonData));
     }
     else if (jsonData[1].Subject != null) {
         jsonData[0].iterations += 1;
@@ -73,31 +73,13 @@ router.post('/delete',(req, res) => {
     var data = req.body;
     var location = data[0].Location;
     var jsonData = JSON.parse(fs.readFileSync('./data/'+location+'.json'));
-    console.log(data[0].Id);
-    if(jsonData[0].iterations !== currentFile[0].iterations){
-        if(jsonData[jsonData.length - 1].StartTime !== currentFile[currentFile.length - 1].StartTime){
-            currentFile.push(jsonData[jsonData.length - 1]);
-            jsonData = currentFile;
-            data = JSON.stringify((jsonData));
-        }
-        else {
-            var response = [{response: "Failure"}];
-            return res.send(JSON.stringify(response));
-        }
-    }
-    else if (jsonData[1].Subject != null) {
-        jsonData[0].iterations += 1;
-        data = JSON.stringify(jsonData);
-    }
     jsonData.forEach((element) => {
-        if(element.Id === data[0].Id){
-            var index = jsonData.indexOf(element);
-            jsonData.splice(jsonData.indexOf(element), 1);
-            for(var i = index; i < jsonData.length; i++){
-                jsonData[i].Id--;
-            }
+        if(element.StartTime === data[0].StartTime){
+            jsonData.splice(jsonData.indexOf(element),1);
         }
     })
+
+    jsonData[0].iterations++;
     fs.writeFileSync('./data/'+location+'.json', JSON.stringify(jsonData));
     console.log("Deleting for " + location);
     res.send("Datan har sparats");

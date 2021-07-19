@@ -78,7 +78,8 @@ export default class App extends React.Component {
   onDelete(event){
         var data = [{
                 Location: event.Location,
-                Id: event.Id
+                Id: event.Id,
+                StartTime: event.StartTime
         }]
         fetchData("/delete", data);
         try {

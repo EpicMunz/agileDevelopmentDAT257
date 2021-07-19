@@ -28,10 +28,16 @@ class BookingListItem extends Component {
               Id: response.length + 1,
               Guid: uuid(),
             };
-
+            response[0].iterations--;
             response.push(json);
-            fetchData("/save", response);
-            message.success("Bokningen har sparats");
+            const api_call2 = await fetchData("/save", response);
+            const response2 = await api_call2.json();
+            if(response2[0].response === "Failure"){
+                message.error("Tiden är tyvärr upptagen, vänligen ta en annan tid.");
+            }
+            else {
+                message.success("Bokningen har sparats");
+            }
             this.props.onChange();
     }
     else {
