@@ -60,7 +60,10 @@ export default class App extends React.Component {
         }]
         var response = await fetchData("/save", data);
         var json = await response.json();
-        if(json[0].response === "Failure"){
+        if(json[0].response === "Blocked"){
+          await this.onDataBound();
+        }
+        if(json[0].response === "Failure" ){
             message.error("Tiden är tyvärr upptagen, vänligen ta en annan tid.");
         }
       }

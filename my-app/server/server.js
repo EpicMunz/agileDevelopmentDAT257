@@ -3,16 +3,17 @@ const bodyParser = require("body-parser");
 const path = require('path')
 const app = express()
 const router = express.Router();
+var queue = require('queue');
 
-var lock = false;
-
+var q = queue({ results: [] })
+q.autostart = true;
+q.concurrency = 1;
 
 app.use(express.static(path.join(__dirname, 'build')))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use("/", router);
-
 
 const fs = require('fs');
 
@@ -43,15 +44,15 @@ function formatDate(number) {
 }
 
 //Saves sent schedule data for specified location
-router.post('/save',(req, res) => {
+router.post('/save', async (req, res) => {
     var jsonData = req.body;
     var empty = [];
     var data = JSON.stringify(empty);
     var location = jsonData[1].Location;
     var currentFile = JSON.parse(fs.readFileSync('./data/' + location + '.json'));
-    if(jsonData[0].iterations !== currentFile[0].iterations){
-        for(var i = 0; i < currentFile.length; i++){
-            if(jsonData[jsonData.length - 1].StartTime === currentFile[i].StartTime){
+    if (jsonData[0].iterations !== currentFile[0].iterations) {
+        for (var i = 0; i < currentFile.length; i++) {
+            if (jsonData[jsonData.length - 1].StartTime === currentFile[i].StartTime) {
                 var response = [{response: "Failure"}];
                 return res.send(JSON.stringify(response));
             }
@@ -60,15 +61,21 @@ router.post('/save',(req, res) => {
         jsonData = currentFile;
         data = JSON.stringify((jsonData));
     }
-    else if (jsonData[1].Subject != null) {
-        jsonData[0].iterations += 1;
-        data = JSON.stringify(jsonData);
-    }
-    fs.writeFileSync('./data/' + location + '.json', data);
-    console.log("Saving data for " + location);
-    var response = [{response: "Datan har sparats"}];
-    return res.send(JSON.stringify(response));
+    jsonData[0].iterations += 1;
+    data = JSON.stringify(jsonData);
+    q.push(async function () {
+        await fs.writeFileSync('./data/' + location + '.json', data);
+        var response = [{response: "Datan har sparats"}];
+        console.log("Saving data for " + location);
+        return res.send(JSON.stringify(response));
+    });
 });
+
+function sleep(ms) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
+}
 router.post('/delete',(req, res) => {
     var data = req.body;
     var location = data[0].Location;
